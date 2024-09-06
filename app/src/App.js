@@ -1,4 +1,4 @@
-import Quiz from 'react-quiz-component';
+import Quiz from './lib/Quiz';
 import { quiz } from './quiz.js';
 import { categories } from './categories';
 

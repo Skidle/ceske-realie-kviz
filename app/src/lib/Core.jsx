@@ -99,7 +99,7 @@ function Core({
       if (userInput.length !== questions.length) {
         alert('Quiz is incomplete');
       } else if (allowNavigation) {
-        const submitQuiz = confirm('You have finished all the questions. Submit Quiz now?');
+        const submitQuiz = window.confirm('You have finished all the questions. Submit Quiz now?');
         if (submitQuiz) {
           setEndQuiz(true);
         }

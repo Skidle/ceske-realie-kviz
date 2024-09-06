@@ -300,7 +300,7 @@ function Quiz({
 
           <br />
 
-          <div>
+          <div className="simple-checkbox-container">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>Zamíchat otázky</label>
             <input type="checkbox" checked={shuffle} onChange={handleShuffleChange} />
@@ -315,22 +315,32 @@ function Quiz({
       )}
 
       {start && (
-        <Core
-          questions={questions}
-          showDefaultResult={showDefaultResult}
-          onComplete={onComplete}
-          customResultPage={customResultPage}
-          showInstantFeedback={showInstantFeedback}
-          continueTillCorrect={continueTillCorrect}
-          revealAnswerOnSubmit={revealAnswerOnSubmit}
-          allowNavigation={allowNavigation}
-          appLocale={appLocale}
-          onQuestionSubmit={onQuestionSubmit}
-          timer={timer}
-          allowPauseTimer={allowPauseTimer}
-          enableProgressBar={enableProgressBar}
-          progressBarColor={quiz.progressBarColor}
-        />
+        <>
+          <button type="button" onClick={() => setStart(false)} id="icon-back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 className="feather feather-arrow-left">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <Core
+            questions={questions}
+            showDefaultResult={showDefaultResult}
+            onComplete={onComplete}
+            customResultPage={customResultPage}
+            showInstantFeedback={showInstantFeedback}
+            continueTillCorrect={continueTillCorrect}
+            revealAnswerOnSubmit={revealAnswerOnSubmit}
+            allowNavigation={allowNavigation}
+            appLocale={appLocale}
+            onQuestionSubmit={onQuestionSubmit}
+            timer={timer}
+            allowPauseTimer={allowPauseTimer}
+            enableProgressBar={enableProgressBar}
+            progressBarColor={quiz.progressBarColor}
+          />
+        </>
       )}
     </div>
   );

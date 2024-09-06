@@ -234,11 +234,11 @@ function Core({
           {question.questionPic && (
             <img src={question.questionPic} alt="question" />
           )}
-          {renderTags(
-            answerSelectionType,
-            question.correctAnswer.length,
-            question.segment,
-          )}
+          {/*{renderTags(*/}
+          {/*  answerSelectionType,*/}
+          {/*  question.correctAnswer.length,*/}
+          {/*  question.segment,*/}
+          {/*)}*/}
           <div className="result-answer">
             {renderAnswerInResult(question, userInputIndex)}
           </div>
@@ -451,12 +451,12 @@ function Core({
               {activeQuestion && activeQuestion.questionPic && (
                 <img src={activeQuestion.questionPic} alt="question" />
               )}
-              {activeQuestion
-                && renderTags(
-                  answerSelectionTypeState,
-                  activeQuestion.correctAnswer.length,
-                  activeQuestion.segment,
-                )}
+              {/*{activeQuestion*/}
+              {/*  && renderTags(*/}
+              {/*    answerSelectionTypeState,*/}
+              {/*    activeQuestion.correctAnswer.length,*/}
+              {/*    activeQuestion.segment,*/}
+              {/*  )}*/}
               <div className="questionModal">
                 <InstantFeedback
                   question={activeQuestion}

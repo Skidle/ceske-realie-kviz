@@ -5,7 +5,7 @@ import { categories } from './categories';
 function App() {
   return (
     <div className="App">
-        <div style={{ margin: 'auto', width: '500px' }}>
+        <div id="main-container">
             <Quiz quiz={quiz} showInstantFeedback={true} categories={categories.categories} />
         </div>
     </div>

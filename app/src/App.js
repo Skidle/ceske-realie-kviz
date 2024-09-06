@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
         <div style={{ margin: 'auto', width: '500px' }}>
-            <Quiz quiz={quiz} />
+            <Quiz quiz={quiz} showInstantFeedback={true} />
         </div>
     </div>
   );

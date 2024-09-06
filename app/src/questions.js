@@ -8,7 +8,7 @@ export const questions = [
             "D) Mezinárodní den dětí."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -24,7 +24,7 @@ export const questions = [
             "D) Houskové knedlíky."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -40,7 +40,7 @@ export const questions = [
             "D) Na Velikonoce."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -56,7 +56,7 @@ export const questions = [
             "D) Den vítězství."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -72,7 +72,7 @@ export const questions = [
             "D) K adventu."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -88,7 +88,7 @@ export const questions = [
             "D) V zimě."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -104,7 +104,7 @@ export const questions = [
             "D) V květnu."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -120,7 +120,7 @@ export const questions = [
             "D) 26. prosince."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -136,7 +136,7 @@ export const questions = [
             "D) Santa Klaus."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -152,7 +152,7 @@ export const questions = [
             "D) Svátek sv. Valentýna."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -168,7 +168,7 @@ export const questions = [
             "D) Musí mít na sobě reflexní vesty."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -184,7 +184,7 @@ export const questions = [
             "D) Jede na kole a dává rukou znamení o změně směru jízdy."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -200,7 +200,7 @@ export const questions = [
             "D) Řidičský průkaz skupiny D."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -216,7 +216,7 @@ export const questions = [
             "D) Žádné."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -232,7 +232,7 @@ export const questions = [
             "D) Motocykl."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -248,7 +248,7 @@ export const questions = [
             "D) Havarijní pojištění."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -264,7 +264,7 @@ export const questions = [
             "D) Osoba, která jde ve dne mimo obec po silnici."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -280,7 +280,7 @@ export const questions = [
             "D) Dítě musí sedět připoutané v dětské autosedačce."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -296,7 +296,7 @@ export const questions = [
             "D) Od 18 let."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -312,7 +312,7 @@ export const questions = [
             "D) Nádoba na benzin."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -328,7 +328,7 @@ export const questions = [
             "D) 158."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -344,7 +344,7 @@ export const questions = [
             "D) 158."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -360,7 +360,7 @@ export const questions = [
             "D) Jednou za 12 měsíců."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -376,7 +376,7 @@ export const questions = [
             "D) Občanský průkaz."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -392,7 +392,7 @@ export const questions = [
             "D) Zdravotnická záchranná služba."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -408,7 +408,7 @@ export const questions = [
             "D) 999."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -424,7 +424,7 @@ export const questions = [
             "D) Okresní správě sociálního zabezpečení."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -440,7 +440,7 @@ export const questions = [
             "D) 158."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -456,7 +456,7 @@ export const questions = [
             "D) Jeho poslední zaměstnavatel."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -472,7 +472,7 @@ export const questions = [
             "D) Do šedesáti dnů."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -488,7 +488,7 @@ export const questions = [
             "D) Z českého jazyka a anglického jazyka."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -504,7 +504,7 @@ export const questions = [
             "D) Základní umělecká škola."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -520,7 +520,7 @@ export const questions = [
             "D) 15 let."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -536,7 +536,7 @@ export const questions = [
             "D) V červenci a v srpnu."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -552,7 +552,7 @@ export const questions = [
             "D) Střední průmyslovou školu."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -568,7 +568,7 @@ export const questions = [
             "D) Tereza."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -584,7 +584,7 @@ export const questions = [
             "D) MUDr."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -600,7 +600,7 @@ export const questions = [
             "D) Na vysoké škole."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -616,7 +616,7 @@ export const questions = [
             "D) Střední průmyslové školy."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -632,7 +632,7 @@ export const questions = [
             "D) Na vyšší odborné škole."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -648,7 +648,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/1alt4.jpg?1702374778"
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -664,7 +664,7 @@ export const questions = [
             "D) Listina základních práv a svobod."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -680,7 +680,7 @@ export const questions = [
             "D) Česká republika je demokratický stát."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -696,7 +696,7 @@ export const questions = [
             "D) Nejvyšší kontrolní úřad."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -712,7 +712,7 @@ export const questions = [
             "D) Nejvyšší správní soud vydá rozhodnutí."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -728,7 +728,7 @@ export const questions = [
             "D) Svatý Václave, vévodo české země."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -744,7 +744,7 @@ export const questions = [
             "D) Část o územní samosprávě."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -760,7 +760,7 @@ export const questions = [
             "D) Červená, modrá, zelená."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -776,7 +776,7 @@ export const questions = [
             "D) Vlajka prezidenta republiky."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -792,7 +792,7 @@ export const questions = [
             "D) Vlajka prezidenta."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -808,7 +808,7 @@ export const questions = [
             "D) Každý občan."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -824,7 +824,7 @@ export const questions = [
             "D) 8 roků."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -840,7 +840,7 @@ export const questions = [
             "D) Občan České republiky, který má právo volit a který dosáhl věku 40 let."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -856,7 +856,7 @@ export const questions = [
             "D) Předseda Ústavního soudu."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -872,7 +872,7 @@ export const questions = [
             "D) Poslanecká sněmovna a Senát."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -888,7 +888,7 @@ export const questions = [
             "D) Předseda Poslanecké sněmovny."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -904,7 +904,7 @@ export const questions = [
             "D) 281."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -920,7 +920,7 @@ export const questions = [
             "D) Poslanecká sněmovna projednává a schvaluje zákony."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -936,7 +936,7 @@ export const questions = [
             "D) Poslanecká sněmovna."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -952,7 +952,7 @@ export const questions = [
             "D) Prezident republiky."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -968,7 +968,7 @@ export const questions = [
             "D) Funkci prezidenta."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -984,7 +984,7 @@ export const questions = [
             "D) Občanský soudní řád."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1000,7 +1000,7 @@ export const questions = [
             "D) Nejvyšší soud."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1016,7 +1016,7 @@ export const questions = [
             "D) Ústavní soud České republiky."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1032,7 +1032,7 @@ export const questions = [
             "D) Zahajovat trestní stíhání."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1048,7 +1048,7 @@ export const questions = [
             "D) Na obecním nebo městském úřadě."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1064,7 +1064,7 @@ export const questions = [
             "D) Podávat obžalobu proti obviněnému."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1080,7 +1080,7 @@ export const questions = [
             "D) Zastupovat obžalovanou osobu v soudním řízení."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1096,7 +1096,7 @@ export const questions = [
             "D) Státní zastupitelství."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1112,7 +1112,7 @@ export const questions = [
             "D) Oznámením."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1128,7 +1128,7 @@ export const questions = [
             "D) Do Evropského soudu pro lidská práva."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1144,7 +1144,7 @@ export const questions = [
             "D) Jednou za pět let."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1160,7 +1160,7 @@ export const questions = [
             "D) Od 40 let."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1176,7 +1176,7 @@ export const questions = [
             "D) Primátor."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1192,7 +1192,7 @@ export const questions = [
             "D) Primátor."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1208,7 +1208,7 @@ export const questions = [
             "D) Člena bankovní rady České národní banky."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1224,7 +1224,7 @@ export const questions = [
             "D) Předvolební průzkum."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1240,7 +1240,7 @@ export const questions = [
             "D) 53 procent."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1256,7 +1256,7 @@ export const questions = [
             "D) Za osm let."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1272,7 +1272,7 @@ export const questions = [
             "D) Od 21 let."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 7,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1288,7 +1288,7 @@ export const questions = [
             "D) O udělení státního občanství se musí rozhodnout do 30 dnů od podání žádosti."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1304,7 +1304,7 @@ export const questions = [
             "D) Obecní úřad nebo úřad městské části."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1320,7 +1320,7 @@ export const questions = [
             "D) Uhradit škodu, kterou pes způsobil."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1336,7 +1336,7 @@ export const questions = [
             "D) Po ukončení platnosti občanského průkazu."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1352,7 +1352,7 @@ export const questions = [
             "D) Výpis z bodového hodnocení řidiče."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1368,7 +1368,7 @@ export const questions = [
             "D) Na ministerstvu zahraničních věcí."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1384,7 +1384,7 @@ export const questions = [
             "D) Krajský soud."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1400,7 +1400,7 @@ export const questions = [
             "D) 35 let."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1416,7 +1416,7 @@ export const questions = [
             "D) Na každé pobočce České spořitelny."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1432,7 +1432,7 @@ export const questions = [
             "D) Zdeněk, kterému je 23 let."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 8,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1448,7 +1448,7 @@ export const questions = [
             "D) Do 60 dnů."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1464,7 +1464,7 @@ export const questions = [
             "D) Maximálně ve výši 12 měsíčních nájmů."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1480,7 +1480,7 @@ export const questions = [
             "D) Do 90 dnů."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1496,7 +1496,7 @@ export const questions = [
             "D) Motocykl."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1512,7 +1512,7 @@ export const questions = [
             "D) Opatrovník."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1528,7 +1528,7 @@ export const questions = [
             "D) U exekutora."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1544,7 +1544,7 @@ export const questions = [
             "D) Exekutor."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1560,7 +1560,7 @@ export const questions = [
             "D) Živnostenský úřad."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1576,7 +1576,7 @@ export const questions = [
             "D) Nájemní smlouvu na vybavení."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1592,7 +1592,7 @@ export const questions = [
             "D) Finanční úřad."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 9,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1608,7 +1608,7 @@ export const questions = [
             "D) Svobodná žena a rozvedený muž."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1624,7 +1624,7 @@ export const questions = [
             "D) Ministerstvo vnitra."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1640,7 +1640,7 @@ export const questions = [
             "D) Ministerstvo vnitra."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1656,7 +1656,7 @@ export const questions = [
             "D) Rodičovský příspěvek."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1672,7 +1672,7 @@ export const questions = [
             "D) Pamětní list."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1688,7 +1688,7 @@ export const questions = [
             "D) Na správě sociálního zabezpečení."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1704,7 +1704,7 @@ export const questions = [
             "D) Na Českém statistickém úřadě."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1720,7 +1720,7 @@ export const questions = [
             "D) Doklad o registrovaném partnerství."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1736,7 +1736,7 @@ export const questions = [
             "D) Občanský průkaz."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1752,7 +1752,7 @@ export const questions = [
             "D) Rozsudek soudu."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 10,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1768,7 +1768,7 @@ export const questions = [
             "D) Ministerstvo financí."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1784,7 +1784,7 @@ export const questions = [
             "D) Anežka Přemyslovna."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1800,7 +1800,7 @@ export const questions = [
             "D) Československá koruna."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1816,7 +1816,7 @@ export const questions = [
             "D) Přemysl Otakar II."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1832,7 +1832,7 @@ export const questions = [
             "D) 5 000 korun českých."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1848,7 +1848,7 @@ export const questions = [
             "D) 500 korun českých."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1864,7 +1864,7 @@ export const questions = [
             "D) 470 000 Kč."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1880,7 +1880,7 @@ export const questions = [
             "D) Ředitel."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1896,7 +1896,7 @@ export const questions = [
             "D) 2 450 Kč + 15 % DPH."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1912,7 +1912,7 @@ export const questions = [
             "D) 100 korun českých."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 11,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1928,7 +1928,7 @@ export const questions = [
             "D) Živnostenský úřad."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1944,7 +1944,7 @@ export const questions = [
             "D) Ministerstvo pro místní rozvoj."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1960,7 +1960,7 @@ export const questions = [
             "D) Daň z příjmů právnických osob."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1976,7 +1976,7 @@ export const questions = [
             "D) Daň z příjmů."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -1992,7 +1992,7 @@ export const questions = [
             "D) Na finančním ředitelství."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2008,7 +2008,7 @@ export const questions = [
             "D) Z podpory v nezaměstnanosti."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2024,7 +2024,7 @@ export const questions = [
             "D) Daň z přidané hodnoty."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2040,7 +2040,7 @@ export const questions = [
             "D) Dohodu o provedení práce."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2056,7 +2056,7 @@ export const questions = [
             "D) Elektronická zařízení."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2072,7 +2072,7 @@ export const questions = [
             "D) Českému statistickému úřadu."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 12,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2088,7 +2088,7 @@ export const questions = [
             "D) Úřad práce."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2104,7 +2104,7 @@ export const questions = [
             "D) Česká správa sociálního zabezpečení."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2120,7 +2120,7 @@ export const questions = [
             "D) Podporu v nezaměstnanosti."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2136,7 +2136,7 @@ export const questions = [
             "D) Podpora v nezaměstnanosti."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2152,7 +2152,7 @@ export const questions = [
             "D) Doklad o výkonu vojenské služby."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2168,7 +2168,7 @@ export const questions = [
             "D) Česká správa sociálního zabezpečení."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2184,7 +2184,7 @@ export const questions = [
             "D) 24 měsíců."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2200,7 +2200,7 @@ export const questions = [
             "D) Rodičovskou."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2216,7 +2216,7 @@ export const questions = [
             "D) Na 60 dní."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2232,7 +2232,7 @@ export const questions = [
             "D) Oznámí vyřazení z evidence novému zaměstnavateli."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 13,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2248,7 +2248,7 @@ export const questions = [
             "D) Nejméně 2 měsíce."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2264,7 +2264,7 @@ export const questions = [
             "D) 90 dní."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2280,7 +2280,7 @@ export const questions = [
             "D) Termín výplaty mzdy."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2296,7 +2296,7 @@ export const questions = [
             "D) Maximálně 300 hodin."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2312,7 +2312,7 @@ export const questions = [
             "D) 50 hodin."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2328,7 +2328,7 @@ export const questions = [
             "D) Zákoník práce."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2344,7 +2344,7 @@ export const questions = [
             "D) Čtyři roky."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2360,7 +2360,7 @@ export const questions = [
             "D) 12 měsíců."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2376,7 +2376,7 @@ export const questions = [
             "D) 56 hodin."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2392,7 +2392,7 @@ export const questions = [
             "D) Nejméně 8 týdnů za kalendářní rok."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 14,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2408,7 +2408,7 @@ export const questions = [
             "D) Příjmy z pronájmu bytu."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2424,7 +2424,7 @@ export const questions = [
             "D) Služby soukromého detektiva."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2440,7 +2440,7 @@ export const questions = [
             "D) K dani z přidané hodnoty."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2456,7 +2456,7 @@ export const questions = [
             "D) Důchodové připojištění."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2472,7 +2472,7 @@ export const questions = [
             "D) Ministerstvo práce a sociálních věcí."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2488,7 +2488,7 @@ export const questions = [
             "D) 15 000 korun."
         ],
         "correctAnswer": "1",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2504,7 +2504,7 @@ export const questions = [
             "D) Ministerstvo průmyslu a obchodu ČR."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2520,7 +2520,7 @@ export const questions = [
             "D) Vydávat výpisy z živnostenského rejstříku."
         ],
         "correctAnswer": "3",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2536,7 +2536,7 @@ export const questions = [
             "D) Pojištění odpovědnosti podnikatelů."
         ],
         "correctAnswer": "2",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2552,7 +2552,7 @@ export const questions = [
             "D) Výpis ze živnostenského rejstříku."
         ],
         "correctAnswer": "4",
-        "category": 1,
+        "category": 0,
         "subCategory": 15,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2568,7 +2568,7 @@ export const questions = [
             "D) Je nezávislou republikou a je členem Evropské unie."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2584,7 +2584,7 @@ export const questions = [
             "D) Do Jaderského moře."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2600,7 +2600,7 @@ export const questions = [
             "D) Na Šumavě."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2616,7 +2616,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2632,7 +2632,7 @@ export const questions = [
             "D) 159 000 km2."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2648,7 +2648,7 @@ export const questions = [
             "D) Královéhradecký kraj a Pardubický kraj."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2664,7 +2664,7 @@ export const questions = [
             "D) V subtropickém."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2680,7 +2680,7 @@ export const questions = [
             "D) Klínovec."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2696,7 +2696,7 @@ export const questions = [
             "D) Německo, Polsko, Ukrajina, Slovensko."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2712,7 +2712,7 @@ export const questions = [
             "D) 3 200 metrů nad mořem."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2728,7 +2728,7 @@ export const questions = [
             "D) Termálními prameny."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2744,7 +2744,7 @@ export const questions = [
             "D) Národní park České Švýcarsko."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2760,7 +2760,7 @@ export const questions = [
             "D) Špindlerův Mlýn."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2776,7 +2776,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2792,7 +2792,7 @@ export const questions = [
             "D) Morava."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2808,7 +2808,7 @@ export const questions = [
             "D) Říp."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2824,7 +2824,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2840,7 +2840,7 @@ export const questions = [
             "D) Český Krumlov."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2856,7 +2856,7 @@ export const questions = [
             "D) Šumava."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2872,7 +2872,7 @@ export const questions = [
             "D) Mariánské Lázně."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2888,7 +2888,7 @@ export const questions = [
             "D) V Českých Budějovicích."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2904,7 +2904,7 @@ export const questions = [
             "D) Letiště Václava Havla Praha."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2920,7 +2920,7 @@ export const questions = [
             "D) V Pardubicích."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2936,7 +2936,7 @@ export const questions = [
             "D) V Jihomoravském kraji."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2952,7 +2952,7 @@ export const questions = [
             "D) Pardubice."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2968,7 +2968,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -2984,7 +2984,7 @@ export const questions = [
             "D) Mariánské Lázně."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3000,7 +3000,7 @@ export const questions = [
             "D) V Pardubicích."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3016,7 +3016,7 @@ export const questions = [
             "D) V Moravskoslezském kraji."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3032,7 +3032,7 @@ export const questions = [
             "D) Kolem Českých Budějovic."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3048,7 +3048,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3064,7 +3064,7 @@ export const questions = [
             "D) Národní park České Švýcarsko."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3080,7 +3080,7 @@ export const questions = [
             "D) Zelenou."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3096,7 +3096,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3112,7 +3112,7 @@ export const questions = [
             "D) Skleněné láhve od nápojů."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3128,7 +3128,7 @@ export const questions = [
             "D) Bioodpad."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3144,7 +3144,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3160,7 +3160,7 @@ export const questions = [
             "D) Národní park České Švýcarsko."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3176,7 +3176,7 @@ export const questions = [
             "D) Použité elektrické přístroje."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3192,7 +3192,7 @@ export const questions = [
             "D) Ochranná pásma vodního zdroje."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3208,7 +3208,7 @@ export const questions = [
             "D) 20,9 milionu."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3224,7 +3224,7 @@ export const questions = [
             "D) Vietnamci."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3240,7 +3240,7 @@ export const questions = [
             "D) České Budějovice."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3256,7 +3256,7 @@ export const questions = [
             "D) Televize Barrandov."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3272,7 +3272,7 @@ export const questions = [
             "D) Přibližně  10 900 000."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3288,7 +3288,7 @@ export const questions = [
             "D) Kroměříž."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3304,7 +3304,7 @@ export const questions = [
             "D) Buddhismus."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3320,7 +3320,7 @@ export const questions = [
             "D) 4."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3336,7 +3336,7 @@ export const questions = [
             "D) Ženy mají omezené volební právo."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3352,7 +3352,7 @@ export const questions = [
             "D) 1 360 000."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3368,7 +3368,7 @@ export const questions = [
             "D) V Moravskoslezském kraji."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3384,7 +3384,7 @@ export const questions = [
             "D) Prahu a Brno."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3400,7 +3400,7 @@ export const questions = [
             "D) Koh-i-noor."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3416,7 +3416,7 @@ export const questions = [
             "D) Karosa."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3432,7 +3432,7 @@ export const questions = [
             "D) Budějovický Budvar."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3448,7 +3448,7 @@ export const questions = [
             "D) Nealkoholické nápoje."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3464,7 +3464,7 @@ export const questions = [
             "D) Olomouc."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3480,7 +3480,7 @@ export const questions = [
             "D) Solární."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3496,7 +3496,7 @@ export const questions = [
             "D) Tatra."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3512,7 +3512,7 @@ export const questions = [
             "D) V Českých Budějovicích."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3528,7 +3528,7 @@ export const questions = [
             "D) Varšavská smlouva."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3544,7 +3544,7 @@ export const questions = [
             "D) Londýn."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3560,7 +3560,7 @@ export const questions = [
             "D) Česko, Slovensko, Maďarsko, Rakousko."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3576,7 +3576,7 @@ export const questions = [
             "D) Lucemburk."
         ],
         "correctAnswer": "3",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3592,7 +3592,7 @@ export const questions = [
             "D) Do Spojených států amerických."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3608,7 +3608,7 @@ export const questions = [
             "D) Velká Británie."
         ],
         "correctAnswer": "4",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3624,7 +3624,7 @@ export const questions = [
             "D) Právo hlasovat o přijímání nových států do Evropské unie."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3640,7 +3640,7 @@ export const questions = [
             "D) 200."
         ],
         "correctAnswer": "1",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3656,7 +3656,7 @@ export const questions = [
             "D) Štrasburk."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3672,7 +3672,7 @@ export const questions = [
             "D) 44."
         ],
         "correctAnswer": "2",
-        "category": 2,
+        "category": 1,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3688,7 +3688,7 @@ export const questions = [
             "D) Vladyka Horymír."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3704,7 +3704,7 @@ export const questions = [
             "D) Bitva na Moravském poli."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3720,7 +3720,7 @@ export const questions = [
             "D) Renesanční umělec."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3736,7 +3736,7 @@ export const questions = [
             "D) Ludmila."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3752,7 +3752,7 @@ export const questions = [
             "D) Spytihněv a Vratislav."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3768,7 +3768,7 @@ export const questions = [
             "D) Lucemburkové."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3784,7 +3784,7 @@ export const questions = [
             "D) Český reformátor církve."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3800,7 +3800,7 @@ export const questions = [
             "D) Z rodu Přemyslovců."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3816,7 +3816,7 @@ export const questions = [
             "D) Vladislav Jagellonský."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3832,7 +3832,7 @@ export const questions = [
             "D) Markéta."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 0,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3848,7 +3848,7 @@ export const questions = [
             "D) Ferdinand II."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3864,7 +3864,7 @@ export const questions = [
             "D) Lucemburkové."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3880,7 +3880,7 @@ export const questions = [
             "D) Válka o rakouské dědictví."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3896,7 +3896,7 @@ export const questions = [
             "D) V Ostravě."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3912,7 +3912,7 @@ export const questions = [
             "D) Františka Ladislava Čelakovského."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3928,7 +3928,7 @@ export const questions = [
             "D) Eliška Přemyslovna."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3944,7 +3944,7 @@ export const questions = [
             "D) V roce 1948."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3960,7 +3960,7 @@ export const questions = [
             "D) Sametová revoluce."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3976,7 +3976,7 @@ export const questions = [
             "D) Na Moravském poli."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -3992,7 +3992,7 @@ export const questions = [
             "D) František Josef I."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 1,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4008,7 +4008,7 @@ export const questions = [
             "D) Ztrátu Slovenska."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4024,7 +4024,7 @@ export const questions = [
             "D) Věstonice."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4040,7 +4040,7 @@ export const questions = [
             "D) Tomáš Garrigue Masaryk."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4056,7 +4056,7 @@ export const questions = [
             "D) Americká a francouzská."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4072,7 +4072,7 @@ export const questions = [
             "D) Americká a sovětská armáda osvobodily území Československa."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4088,7 +4088,7 @@ export const questions = [
             "D) Alois Rašín."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4104,7 +4104,7 @@ export const questions = [
             "D) Reinhard Heydrich."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4120,7 +4120,7 @@ export const questions = [
             "D) 28. září."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4136,7 +4136,7 @@ export const questions = [
             "D) Světová hospodářská krize."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4152,7 +4152,7 @@ export const questions = [
             "D) 8. května 1945."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 2,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4168,7 +4168,7 @@ export const questions = [
             "D) Tomáš Garrigue Masaryk."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4184,7 +4184,7 @@ export const questions = [
             "D) Václav Sedláček."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4200,7 +4200,7 @@ export const questions = [
             "D) Přibližně 40 let."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4216,7 +4216,7 @@ export const questions = [
             "D) Charta 77."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4232,7 +4232,7 @@ export const questions = [
             "D) Vznikl samostatný český a slovenský stát."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4248,7 +4248,7 @@ export const questions = [
             "D) 17. listopadu 1989."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4264,7 +4264,7 @@ export const questions = [
             "D) Předseda Národního shromáždění."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4280,7 +4280,7 @@ export const questions = [
             "D) Vydávání české literatury v zahraničí."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4296,7 +4296,7 @@ export const questions = [
             "D) Litoměřice."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4312,7 +4312,7 @@ export const questions = [
             "D) Marta Gottwaldová."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 3,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4328,7 +4328,7 @@ export const questions = [
             "D) 17. listopadu 1989."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4344,7 +4344,7 @@ export const questions = [
             "D) K ekonomické spolupráci."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4360,7 +4360,7 @@ export const questions = [
             "D) V roce  2004."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4376,7 +4376,7 @@ export const questions = [
             "D) Česká socialistická republika a Slovenská socialistická republika."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4392,7 +4392,7 @@ export const questions = [
             "D) 17. listopadu."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4408,7 +4408,7 @@ export const questions = [
             "D) Funkci předsedy Poslanecké sněmovny."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4424,7 +4424,7 @@ export const questions = [
             "D) 17. listopadu."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4440,7 +4440,7 @@ export const questions = [
             "D) Vladimír Špidla."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4456,7 +4456,7 @@ export const questions = [
             "D) Miloš Vystrčil."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4472,7 +4472,7 @@ export const questions = [
             "D) V roce 2004."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 4,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4488,7 +4488,7 @@ export const questions = [
             "D) Česká mše vánoční."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4504,7 +4504,7 @@ export const questions = [
             "D) Josef K."
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4520,7 +4520,7 @@ export const questions = [
             "D) Bohumil Hrabal."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4536,7 +4536,7 @@ export const questions = [
             "D) Miloš Forman."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4552,7 +4552,7 @@ export const questions = [
             "D) Pokusy s rostlinami"
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4568,7 +4568,7 @@ export const questions = [
             "D) Robot."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4584,7 +4584,7 @@ export const questions = [
             "D) Václav Laurin."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4600,7 +4600,7 @@ export const questions = [
             "D) Měkké kontaktní čočky."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4616,7 +4616,7 @@ export const questions = [
             "D) Povídky malostranské."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4632,7 +4632,7 @@ export const questions = [
             "D) V hokeji."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 5,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4648,7 +4648,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt4.jpg?1702374779"
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4664,7 +4664,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt4.jpg?1702374779"
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4680,7 +4680,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/17alt4.jpg?1702374779"
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4696,7 +4696,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/18alt4.jpg?1702374780"
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4712,7 +4712,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/19alt4.jpg?1702374780"
         ],
         "correctAnswer": "2",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4728,7 +4728,7 @@ export const questions = [
             "D) Kostel sv. Jana Nepomuckého na Zelené hoře."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4744,7 +4744,7 @@ export const questions = [
             "D) Tomáše Garrigua Masaryka."
         ],
         "correctAnswer": "1",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4760,7 +4760,7 @@ export const questions = [
             "D) V Brně."
         ],
         "correctAnswer": "4",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",
@@ -4776,7 +4776,7 @@ export const questions = [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/23alt4.jpg?1702374780"
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "photo",
         "answerSelectionType": "single",
@@ -4792,7 +4792,7 @@ export const questions = [
             "D) Je to parlament."
         ],
         "correctAnswer": "3",
-        "category": 3,
+        "category": 2,
         "subCategory": 6,
         "questionType": "text",
         "answerSelectionType": "single",

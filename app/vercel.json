@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/quiz/(.*)", "destination": "/quiz/$1" }
+    { "source": "/kviz/(.*)", "destination": "/kviz/$1" }
   ]
 }

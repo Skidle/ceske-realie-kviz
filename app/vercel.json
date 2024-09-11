@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/quiz/static/:asset*", "destination": "/static/:asset*" },
-    { "source": "/quiz/:any*", "destination": "/index.html" }
+    { "source": "/quiz", "destination": "/" },
+    { "source": "/quiz/:any*", "destination": "/quiz/index.html" }
   ]
 }

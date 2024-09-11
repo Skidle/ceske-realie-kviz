@@ -7,7 +7,6 @@ const quizDir = path.join(buildDir, 'kviz');
 
 const publicDir = path.join(__dirname, 'public');
 const mainPageDir = path.join(publicDir, 'main');
-const ssszDir = path.join(publicDir, 'sssz');
 
 if (fs.existsSync(quizDir)) {
     fse.removeSync(quizDir);
@@ -16,7 +15,7 @@ if (fs.existsSync(quizDir)) {
 fs.mkdirSync(quizDir);
 
 fse.removeSync(path.join(buildDir, 'main'));
-fse.removeSync(path.join(buildDir, 'sssz'));
+fse.removeSync(path.join(buildDir, 'sssz-formular.pdf'));
 
 fs.readdirSync(buildDir).forEach(file => {
     const srcPath = path.join(buildDir, file);
@@ -28,6 +27,6 @@ fs.readdirSync(buildDir).forEach(file => {
 });
 
 fse.copySync(mainPageDir, buildDir);
-fse.copySync(ssszDir, 'build/sssz');
+fs.copyFileSync(path.join(publicDir, 'sssz-formular.pdf'), path.join(buildDir, 'sssz-formular.pdf'));
 
 console.log('All files moved to "build/kviz" successfully.');

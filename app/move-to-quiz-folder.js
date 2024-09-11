@@ -11,7 +11,13 @@ if (fs.existsSync(quizDir)) {
 
 fs.mkdirSync(quizDir);
 
-fse.moveSync(path.join(buildDir, 'static'), path.join(quizDir, 'static'));
-fse.moveSync(path.join(buildDir, 'index.html'), path.join(quizDir, 'index.html'));
+fs.readdirSync(buildDir).forEach(file => {
+    const srcPath = path.join(buildDir, file);
+    const destPath = path.join(quizDir, file);
 
-// fs.writeFileSync(path.join(buildDir, 'index.html'), '<meta http-equiv="refresh" content="0; url=/kviz" />');
+    if (file !== 'kviz') {
+        fse.moveSync(srcPath, destPath);
+    }
+});
+
+console.log('All files moved to "build/kviz" successfully.');

@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "homepage": "/kviz/",
+  "name": "ceske-realie-kviz",
+  "homepage": "/kviz",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/kviz/(.*)", "destination": "/kviz/$1" }
+    { "source": "/kviz", "destination": "/index.html" }
   ]
 }

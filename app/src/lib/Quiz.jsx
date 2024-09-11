@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Core from './Core';
 import defaultLocale from './Locale';
 import flag from '../cz_flag.png';
-import './styles.css';
 
 function Quiz({
   quiz,
@@ -269,7 +268,6 @@ function Quiz({
               <img src={flag} style={{
                 width: '20px',
                 border: 'solid 1px #aeaeae',
-                verticalAlign: 'text-top',
                 height: 'auto',
                 marginLeft: '5px',
               }} />
@@ -306,21 +304,22 @@ function Quiz({
           <br />
 
           {selectedCategory !== 'all' && (
-          <div>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label>Vyberte podkategorii</label>
-            <br />
-            <select value={selectedSubCategory} onChange={handleSubCategoryChange}>
-              <option value="all">Všechny podkategorie</option>
-              {categories[selectedCategory].subCategories.map((subCat, idx) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <option value={idx} key={idx}>{subCat}</option>
-              ))}
-            </select>
-          </div>
+            <>
+              <div>
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label>Vyberte podkategorii</label>
+                <br />
+                <select value={selectedSubCategory} onChange={handleSubCategoryChange}>
+                  <option value="all">Všechny podkategorie</option>
+                  {categories[selectedCategory].subCategories.map((subCat, idx) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <option value={idx} key={idx}>{subCat}</option>
+                  ))}
+                </select>
+              </div>
+              <br />
+            </>
           )}
-
-          <br />
 
           <div className="simple-checkbox-container">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}

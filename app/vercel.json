@@ -1,6 +1,8 @@
 {
   "rewrites": [
-    { "source": "/static/:asset*", "destination": "/quiz/static/:asset*" },
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/quiz/:path*",
+      "destination": "/:path*"
+    }
   ]
 }

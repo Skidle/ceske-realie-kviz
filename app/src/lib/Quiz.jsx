@@ -58,9 +58,6 @@ function Quiz({
       {!start && (
         <div>
           <h2>{quiz.quizTitle}</h2>
-          <div>
-            {appLocale.landingHeaderText.replace('<questionLength>', finalQuestions.length)}
-          </div>
           <div className="quiz-synopsis">
             <span>
               <strong>Vítejte v aplikaci pro přípravu na zkoušku z českých reálií!</strong>
@@ -106,13 +103,15 @@ function Quiz({
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>{appLocale.chooseCategoryLabel}</label>
             <br />
-            <select value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
-              <option value="">{appLocale.allCategoriesLabel}</option>
-              {categories.map((cat, idx) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <option value={idx} key={idx}>{cat.name}</option>
-              ))}
-            </select>
+            <div className="custom-select-container">
+              <select className="custom-select" value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
+                <option value="">{appLocale.allCategoriesLabel}</option>
+                {categories.map((cat, idx) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <option value={idx} key={idx}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {selectedCategory !== '' && (
@@ -121,13 +120,15 @@ function Quiz({
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label>{appLocale.chooseSubCategoryLabel}</label>
                 <br />
-                <select value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
-                  <option value="">{appLocale.allSubCategoriesLabel}</option>
-                  {categories[selectedCategory].subCategories.map((subCat, idx) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <option value={idx} key={idx}>{subCat}</option>
-                  ))}
-                </select>
+                <div className="custom-select-container">
+                  <select className="custom-select" value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
+                    <option value="">{appLocale.allSubCategoriesLabel}</option>
+                    {categories[selectedCategory].subCategories.map((subCat, idx) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <option value={idx} key={idx}>{subCat}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </>
           )}
@@ -138,8 +139,14 @@ function Quiz({
             <input type="checkbox" checked={shuffle} onChange={handleShuffleChange} disabled={isRealTest} />
           </div>
 
+          <br /><br />
+
+          <div>
+            {appLocale.landingHeaderText.replace('<questionLength>', finalQuestions.length)}
+          </div>
+
           <div className="startQuizWrapper">
-            <button type="button" onClick={() => setStart(true)} className="startQuizBtn btn">
+            <button type="button" onClick={() => setStart(true)} className="startQuizBtn primary-button btn">
               {appLocale.startQuizBtn}
             </button>
           </div>

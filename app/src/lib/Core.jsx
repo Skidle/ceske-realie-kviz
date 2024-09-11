@@ -482,7 +482,7 @@ function Core({
 
                   <button
                     onClick={() => nextQuestion(currentQuestionIndex)}
-                    className="nextQuestionBtn btn"
+                    className="nextQuestionBtn primary-button btn"
                     type="button"
                   >
                     {appLocale.nextQuestionBtn}

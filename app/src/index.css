@@ -1,10 +1,11 @@
 .react-quiz-container {
-  margin: 20px;
+  margin: 0 auto;
   max-width: 500px;
+  padding: 15px;
 }
 
 #main-container {
-  margin: auto;
+  margin: 0 auto;
   width: 500px;
 }
 
@@ -138,14 +139,14 @@ html, body {
 @media (max-width: 768px) {
   #main-container {
     width: 90%;
-    padding: 10px;
+    /*padding: 10px;*/
   }
 }
 
 @media (max-width: 480px) {
   #main-container {
     width: 100%;
-    padding: 10px;
+    /*padding: 10px;*/
   }
 }
 

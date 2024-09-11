@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "homepage": "/kviz",
+  "homepage": "/kviz/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

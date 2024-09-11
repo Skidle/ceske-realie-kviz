@@ -1,29 +1,8 @@
 import { questions } from './questions';
+import { appLocale } from './appLocale';
 
 export const quiz =  {
     "quizTitle": "Kvíz na české reálie",
-    "appLocale": {
-        landingHeaderText: 'Množství otázek: <questionLength>',
-        question: 'Otázky',
-        startQuizBtn: 'Spustit kvíz',
-        resultFilterAll: 'Vše',
-        resultFilterCorrect: 'Správně',
-        resultFilterIncorrect: 'Nesprávně',
-        resultFilterUnanswered: 'Nezodpovězeno',
-        nextQuestionBtn: 'Další',
-        prevQuestionBtn: 'Předchozí',
-        resultPageHeaderText: 'Dokončil(a) jste kvíz. Máte spravně <correctIndexLength> z <questionLength> otázek.',
-        resultPagePoint: 'Získal(a) jste <correctPoints> z <totalPoints> bodů.',
-        pauseScreenDisplay: 'Test je pozastaven. Klikněte na tlačítko Obnovit pro pokračování.',
-        timerTimeRemaining: 'Zbývající čas',
-        timerTimeTaken: 'Časový limit',
-        pauseScreenPause: 'Pauza',
-        pauseScreenResume: 'Obnovit',
-        singleSelectionTagText: 'Jedna správná odpověď',
-        multipleSelectionTagText: 'Více správných odpovědí',
-        pickNumberOfSelection: 'Vyberte <numberOfSelection>',
-        marksOfQuestion: '(<marks> Body)',
-    },
-    "progressBarColor": "#9de1f6",
-    "questions": questions,
+    questions,
+    appLocale,
 }

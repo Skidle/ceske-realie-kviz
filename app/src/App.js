@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
         <div id="main-container">
-            <Quiz quiz={quiz} showInstantFeedback={true} categories={categories.categories} />
+            <Quiz quiz={quiz} categories={categories.categories} />
         </div>
     </div>
   );

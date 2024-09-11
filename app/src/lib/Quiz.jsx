@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Core from './Core';
 import defaultLocale from './Locale';
+import flag from '../cz_flag.png';
 import './styles.css';
 
 function Quiz({
@@ -262,9 +263,30 @@ function Quiz({
               nrOfQuestions,
             )}
           </div>
-          {quiz.quizSynopsis && (
-            <div className="quiz-synopsis">{quiz.quizSynopsis}</div>
-          )}
+          <div className="quiz-synopsis">
+            <span>
+              <strong>Vítejte v aplikaci pro přípravu na zkoušku z českých reálií!</strong>
+              <img src={flag} style={{
+                width: '20px',
+                border: 'solid 1px #aeaeae',
+                verticalAlign: 'text-top',
+                height: 'auto',
+                marginLeft: '5px',
+              }} />
+            </span>
+            <br /><br />
+            Interaktivní testové úlohy vám pomohou efektivně se připravit na zkoušku a prohloubit vaše znalosti o České republice.
+            <br /><br />
+            Úlohy pocházejí z Národního pedagogického institutu České republiky, který je výhradním vlastníkem autorských práv.
+            <br /><br />
+            <span>
+              Více informací o zkoušce a jejím průběhu naleznete na stránkách <a href='https://cestina-pro-cizince.cz/obcanstvi/' target="_blank">https://cestina-pro-cizince.cz/obcanstvi/</a>.
+            </span>
+            <br /><br />
+            Hodně štěstí při přípravě a úspěchu u zkoušky!
+            <br /><br />
+            Pokud narazíte na jakýkoli problém s aplikací, neváhejte nás kontaktovat na: <a href="mailto:someone@example.com">someone@example.com</a>.
+          </div>
 
           <h2>Nastavení</h2>
 

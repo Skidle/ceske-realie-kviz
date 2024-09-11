@@ -1,7 +1,7 @@
 import { questions } from './questions';
 
 export const quiz =  {
-    "quizTitle": "React Quiz Component Demo",
+    "quizTitle": "Kvíz na české reálie",
     "appLocale": {
         landingHeaderText: 'Množství otázek: <questionLength>',
         question: 'Otázky',
@@ -24,7 +24,6 @@ export const quiz =  {
         pickNumberOfSelection: 'Vyberte <numberOfSelection>',
         marksOfQuestion: '(<marks> Body)',
     },
-    "quizSynopsis": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim",
     "progressBarColor": "#9de1f6",
     "questions": questions,
 }

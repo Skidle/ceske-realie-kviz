@@ -109,21 +109,6 @@ function QuizResultFilter({ filteredValue, handleChange, appLocale }) {
           >
             {appLocale.resultFilterIncorrect}
           </div>
-          <div
-            className={`dropdown-options-item ${
-              filteredValue === 'unanswered' ? 'selected' : ''
-            }`}
-            onClick={() => handleOptionClick('unanswered')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleOptionClick('unanswered');
-              }
-            }}
-            role="menuitem"
-            tabIndex={0}
-          >
-            {appLocale.resultFilterUnanswered}
-          </div>
         </div>
       )}
     </div>

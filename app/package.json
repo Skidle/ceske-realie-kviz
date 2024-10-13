@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "main": "live-server public/main/index.html",
     "build": "react-scripts build && node ./move-to-quiz-folder.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -90,7 +90,7 @@ const LandingPage = () => {
                     <p className="text-zinc-700">
                         © {new Date().getFullYear()} Průvodce občanstvím
                     </p>
-                    <a href="https://instagram.com"
+                    <a href="https://www.instagram.com/czech_citizenship/"
                        target="_blank"
                        className="text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-2">
                         <Instagram className="w-5 h-5"/>

@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/kviz/:path*", "destination": "/kviz/:path*" },
-    { "source": "/:path*", "destination": "/main/index.html" }
-  ]
-}

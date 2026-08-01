@@ -68,6 +68,13 @@ npm run build      # production build into app/build
 
 CI runs lint, typecheck, tests and build on every push and pull request.
 
+## Keeping the questions current
+
+The official question bank is revised periodically and this copy is a snapshot.
+[`packages/monitor`](packages/monitor) checks monthly whether the source has moved and
+opens an issue when it has. It reports three outcomes — verified, drift, and *could not
+verify* — so a failed check never reads as a clean one.
+
 ## Documentation
 
 [`docs/BEHAVIOR.md`](docs/BEHAVIOR.md) describes what the app does today, including known

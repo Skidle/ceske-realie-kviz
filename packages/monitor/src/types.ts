@@ -14,6 +14,8 @@ export interface CheckResult {
   name: string;
   state: ItemState;
   detail?: string;
+  /** Set for images, so the report can say which question is affected. */
+  usedBy?: ImageUse;
 }
 
 /** What the server tells us about an image without sending the body. */
@@ -23,10 +25,18 @@ export interface ImageFacts {
   contentLength?: string | null;
 }
 
+/** Which question an image belongs to, so a drift report can name it. */
+export interface ImageUse {
+  question: string;
+  /** "answer 3", or "question image". */
+  role: string;
+}
+
 /** A recorded image, as stored in the baseline. */
 export interface ImageRecord extends ImageFacts {
   sha256: string;
   bytes: number;
+  usedBy?: ImageUse;
   /** Present when we already know this image is wrong and have chosen not to act yet. */
   knownBad?: { reason: string; since: string };
 }

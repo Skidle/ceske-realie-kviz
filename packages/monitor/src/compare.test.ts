@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { compareImage, compareSource, factsMatch } from './compare.js';
-import type { ImageRecord, SourceRecord } from './types.js';
+import { compareImage, compareSource, factsMatch } from './compare.ts';
+import type { ImageRecord, SourceRecord } from './types.ts';
 
 const recorded: ImageRecord = {
   etag: '"23b83-645fc38209b00"',
@@ -46,6 +46,26 @@ describe('compareImage', () => {
 
     expect(result.state).toBe('known');
     expect(result.detail).toContain('National Theatre');
+  });
+
+  // The baseline captured this image while it was already wrong, so matching it means
+  // "still wrong". Reporting unchanged would let a clean run read as all-clear.
+  it('still reports an acknowledged image when its content matches the baseline', () => {
+    const known: ImageRecord = {
+      ...recorded,
+      knownBad: { reason: 'shows a president, not the National Theatre', since: '2025-12-15' },
+    };
+
+    expect(compareImage('17alt1.jpg', recorded.sha256, known).state).toBe('known');
+  });
+
+  it('notes when an acknowledged image has changed again since it was recorded', () => {
+    const known: ImageRecord = {
+      ...recorded,
+      knownBad: { reason: 'wrong picture', since: '2025-12-15' },
+    };
+
+    expect(compareImage('17alt1.jpg', 'c'.repeat(64), known).detail).toContain('changed again');
   });
 
   // Never "unchanged": with nothing to compare against, the item was not verified.

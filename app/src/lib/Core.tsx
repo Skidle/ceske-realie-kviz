@@ -1,9 +1,15 @@
-import React from 'react';
 import QuestionView from './core-components/QuestionView';
 import ResultsView from './core-components/ResultsView';
 import { useQuizState } from './useQuizState';
+import type { AppLocale, IndexedQuestion } from '../types';
 
-function Core({ questions, appLocale, showInstantFeedback }) {
+interface CoreProps {
+  questions: IndexedQuestion[];
+  appLocale: AppLocale;
+  showInstantFeedback: boolean;
+}
+
+function Core({ questions, appLocale, showInstantFeedback }: CoreProps) {
   const quiz = useQuizState(questions);
 
   return (

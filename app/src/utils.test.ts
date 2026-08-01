@@ -1,25 +1,28 @@
 import { getFinalQuestions } from './utils';
 import { questions } from './questions';
+import type { Question, QuestionSelection } from './types';
 
 // Characterization tests: these describe what the code does today, so that refactoring
 // can be checked against current behaviour. See docs/BEHAVIOR.md.
 
-const defaults = {
+const defaults: Omit<QuestionSelection, 'questions'> = {
   selectedCategory: '',
   selectedSubCategory: '',
   shuffle: false,
   isRealTest: false,
 };
 
-const run = (overrides) => getFinalQuestions({ questions, ...defaults, ...overrides });
+const run = (overrides: Partial<QuestionSelection> = {}) => getFinalQuestions({
+  questions, ...defaults, ...overrides,
+});
 
-const countByCategory = (qs) => qs.reduce((acc, q) => {
+const countByCategory = (qs: Question[]) => qs.reduce<Record<number, number>>((acc, q) => {
   acc[q.category] = (acc[q.category] || 0) + 1;
   return acc;
 }, {});
 
 // The correct answer's *text*, which must survive answer shuffling.
-const correctText = (q) => q.answers[Number(q.correctAnswer) - 1];
+const correctText = (q: Question) => q.answers[Number(q.correctAnswer) - 1];
 
 describe('getFinalQuestions', () => {
   describe('with no filters', () => {

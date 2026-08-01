@@ -1,4 +1,5 @@
 import { checkAnswer } from './helpers';
+import type { AnswerButtons, Question } from '../../types';
 
 // Characterization tests for the answer-checking logic. These assert what the code does
 // TODAY, including behaviour that is arguably wrong (see docs/BEHAVIOR.md § Known quirks).
@@ -7,14 +8,28 @@ import { checkAnswer } from './helpers';
 // Only the single-selection path is covered: every one of the 300 questions is
 // single-selection, and the multiple-selection branches are unreachable in this app.
 
-const QUESTION = {
+const QUESTION: Question = {
+  question: 'A question',
   answers: ['A) one', 'B) two', 'C) three', 'D) four'],
   correctAnswer: '3', // 1-based index, as a string, matching the real data
+  category: 0,
+  subCategory: 0,
+  questionType: 'text',
+  answerSelectionType: 'single',
+  point: '1',
+  questionPic: null,
 };
+
+type Config = ReturnType<typeof makeConfig>;
 
 // checkAnswer takes the state it reads and the setters it calls as two separate bags.
 // This helper keeps them in one object for brevity, and splits them at the call site.
-const makeConfig = (overrides = {}) => ({
+const makeConfig = (overrides: Partial<{
+  userInput: number[];
+  currentQuestionIndex: number;
+  incorrect: number[];
+  correct: number[];
+}> = {}) => ({
   userInput: [],
   currentQuestionIndex: 0,
   incorrect: [],
@@ -30,7 +45,7 @@ const makeConfig = (overrides = {}) => ({
 });
 
 // checkAnswer takes a 1-based answer index.
-const answerWith = (index, config) => checkAnswer(
+const answerWith = (index: number, config: Config) => checkAnswer(
   index,
   QUESTION,
   {
@@ -43,7 +58,7 @@ const answerWith = (index, config) => checkAnswer(
 );
 
 // Setters are called with updater functions; resolve one against a starting state.
-const resolveUpdater = (setter, prevState = {}) => {
+const resolveUpdater = (setter: Config['setButtons'], prevState: AnswerButtons = {}) => {
   const updater = setter.mock.calls[0][0];
   return typeof updater === 'function' ? updater(prevState) : updater;
 };
@@ -192,7 +207,7 @@ describe('checkAnswer (single selection)', () => {
   // the same tests assert the opposite.
   describe('purity', () => {
     it('does not mutate the correct array it was given', () => {
-      const correct = [];
+      const correct: number[] = [];
       const config = makeConfig({ correct });
 
       answerWith(3, config);
@@ -201,7 +216,7 @@ describe('checkAnswer (single selection)', () => {
     });
 
     it('calls setCorrect with a new array, not the one it was given', () => {
-      const correct = [];
+      const correct: number[] = [];
       const config = makeConfig({ correct });
 
       answerWith(3, config);
@@ -211,7 +226,7 @@ describe('checkAnswer (single selection)', () => {
     });
 
     it('does not mutate the incorrect array it was given', () => {
-      const incorrect = [];
+      const incorrect: number[] = [];
       const config = makeConfig({ incorrect });
 
       answerWith(1, config);
@@ -222,7 +237,7 @@ describe('checkAnswer (single selection)', () => {
     });
 
     it('does not mutate userInput', () => {
-      const userInput = [];
+      const userInput: number[] = [];
       const config = makeConfig({ userInput });
 
       answerWith(3, config);

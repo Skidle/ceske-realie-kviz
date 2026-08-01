@@ -1,4 +1,3 @@
-import React from 'react';
 import { Mail, Instagram, ArrowRight, FileText, CheckSquare, BookOpen, Clock, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './globals.css';

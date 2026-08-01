@@ -82,13 +82,6 @@ quirks and every deviation from the official question bank, with reasons and dat
 
 ## Credits
 
-Questions are reproduced from the official public question bank, published by the Národní
-pedagogický institut ČR as a PDF on
-[cestina-pro-cizince.cz](https://cestina-pro-cizince.cz/obcanstvi/databanka-uloh/) —
-**copied in September 2024 and not updated since**.
-
-The PDF is not mirrored here: it is theirs, and its URL changes with every edition, so the
-page is linked rather than the file. The interactive version of the bank on the same site
-sits behind a sign-in, which is why the PDF is the source the importer reads. This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
+Questions are reproduced from the official public question bank linked above, **copied in September 2024 and not updated since**. This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
 
 One question has been removed since that snapshot because it was retired upstream; see `docs/BEHAVIOR.md` for details.

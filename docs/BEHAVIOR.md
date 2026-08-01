@@ -135,3 +135,20 @@ matters: the first attempt pulled 2022 captures, and because source filenames en
 question *position* rather than identity, `18alt3.jpg` from 2022 is a photograph of the
 Municipal House in Prague rather than Karlštejn. Every recovered image was checked visually
 against its question before being committed.
+
+### Known broken: hotlinked images can silently serve the wrong picture
+
+32 images are still hotlinked to the source site. Because filenames encode question
+*position* rather than identity, upstream renumbering does not only cause 404s — a URL can
+return HTTP 200 with a **different question's image**.
+
+Confirmed case: *"Na kterém obrázku je Národní divadlo v Praze?"* (category 2,
+subcategory 6). Its four `17alt*.jpg` answers now serve portraits of Czech presidents, so
+no answer is correct. The Internet Archive's last capture, 5 October 2024, still holds the
+right images, so the swap happened after that date — most likely at the 5 January 2026
+republication of the bank. There is no later capture to narrow it further.
+
+This is not fixed by hand. A status-code check is not sufficient to detect it; only
+comparing image content against a known-good snapshot is. The full audit of the remaining
+32 images, standardised filenames, and self-hosting are deferred to the importer and
+monitor work, which addresses the root cause rather than the symptoms.

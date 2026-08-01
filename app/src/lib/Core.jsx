@@ -26,6 +26,8 @@ function Core({
   const [filteredValue, setFilteredValue] = useState('all');
   const [userAttempt, setUserAttempt] = useState(1);
   const [showDefaultResultState, setShowDefaultResult] = useState(true);
+  // answerSelectionTypeState is only read by the commented-out renderTags call below.
+  // eslint-disable-next-line no-unused-vars
   const [answerSelectionTypeState, setAnswerSelectionType] = useState(undefined);
 
   const [totalPoints, setTotalPoints] = useState(0);
@@ -69,6 +71,7 @@ function Core({
       setTotalPoints(totalPointsTemp);
       setCorrectPoints(correctPointsTemp);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endQuiz]);
 
   useEffect(() => {
@@ -81,12 +84,14 @@ function Core({
       totalPoints,
       correctPoints,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalPoints, correctPoints]);
 
   useEffect(() => {
     if (endQuiz && onComplete !== undefined && questionSummary !== undefined) {
       onComplete(questionSummary);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionSummary]);
 
   const nextQuestion = (currentQuestionIdx) => {
@@ -162,6 +167,8 @@ function Core({
     });
   };
 
+  // Kept for reference: every call site is currently commented out.
+  // eslint-disable-next-line no-unused-vars
   const renderTags = (answerSelectionType, numberOfSelection, segment) => {
     const {
       singleSelectionTagText,
@@ -220,6 +227,8 @@ function Core({
         : userInput[index];
 
       // Default single to avoid code breaking due to automatic version upgrade
+      // (only read by the commented-out renderTags call below)
+      // eslint-disable-next-line no-unused-vars
       const answerSelectionType = question.answerSelectionType || 'single';
 
       return (
@@ -246,6 +255,7 @@ function Core({
         </div>
       );
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endQuiz, filteredValue]);
 
   const renderAnswers = (question, answerButtons) => {

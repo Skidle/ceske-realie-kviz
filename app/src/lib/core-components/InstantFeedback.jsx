@@ -18,6 +18,7 @@ function InstantFeedback({
     if (onQuestionSubmit && (correctAnswer || incorrectAnswer)) {
       onQuestionSubmit({ question, userAnswer, isCorrect: correctAnswer });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [correctAnswer, incorrectAnswer]);
 
   return (

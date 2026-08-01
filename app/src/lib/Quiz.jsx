@@ -61,7 +61,8 @@ function Quiz({
           <div className="quiz-synopsis">
             <span>
               <strong>Vítejte v aplikaci pro přípravu na zkoušku z českých reálií!</strong>
-              <img src={flag} style={{
+              {/* decorative: the adjacent text already says this is the Czech exam */}
+              <img src={flag} alt="" style={{
                 width: '20px',
                 border: 'solid 1px #aeaeae',
                 height: 'auto',

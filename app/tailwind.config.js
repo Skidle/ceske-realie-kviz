@@ -24,6 +24,14 @@ export default {
           800: '#0B2C52',
           900: '#08203C',
         },
+        // Used for correct answers, nothing else. Green is not in the flag, but a
+        // semantic colour is not a brand colour, and nothing else reads as "right".
+        right: {
+          50: '#F0F7F2',
+          100: '#DDEDE2',
+          600: '#2E7D50',
+          700: '#24623E',
+        },
         // Used for incorrect answers, nothing else.
         wrong: {
           50: '#FDF2F2',

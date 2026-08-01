@@ -22,7 +22,7 @@ function AnswerFeedback({
     <div
       role="status"
       className={`mb-4 flex items-center gap-2 rounded-lg px-4 py-3 text-sm ${
-        right ? 'bg-green-50 text-green-800' : 'bg-wrong-50 text-wrong-700'
+        right ? 'bg-right-50 text-right-700' : 'bg-wrong-50 text-wrong-700'
       }`}
     >
       {right ? <Check className="w-5 h-5 shrink-0" /> : <X className="w-5 h-5 shrink-0" />}

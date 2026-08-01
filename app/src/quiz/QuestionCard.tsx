@@ -1,3 +1,4 @@
+import { Check, X } from 'lucide-react';
 import { rawMarkup } from '../shared/markdown';
 import AnswerFeedback from './AnswerFeedback';
 import type { AnswerButtons, IndexedQuestion } from './types';
@@ -9,9 +10,24 @@ const isCorrectAnswer = (index: number, correctAnswer: string) => index === Numb
 const BASE = 'w-full text-left rounded border px-4 py-3 transition-colors '
   + 'focus:outline-none focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1';
 const UNANSWERED = 'border-zinc-200 bg-white hover:border-flag-400 hover:bg-flag-50';
-const CORRECT = 'border-green-600 bg-green-600 text-white';
+const CORRECT = 'border-right-600 bg-right-600 text-white';
 const INCORRECT = 'border-wrong-500 bg-wrong-500 text-white';
 const DIMMED = 'border-zinc-200 bg-white text-zinc-400';
+
+/** Never colour alone: an icon and a word carry the same meaning. */
+type Mark = 'correct' | 'incorrect' | null;
+
+const Marker = ({ mark }: { mark: Mark }) => {
+  if (!mark) return null;
+
+  const isRight = mark === 'correct';
+  return (
+    <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
+      {isRight ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
+      {isRight ? 'Správně' : 'Nesprávně'}
+    </span>
+  );
+};
 
 interface AnswerContentProps {
   answer: string;
@@ -54,14 +70,21 @@ function QuestionCard({
   const { answers, correctAnswer, questionType } = question;
   const questionId = `question-${question.questionIndex}`;
 
-  const styleFor = (index: number) => {
+  const markFor = (index: number): Mark => {
     const state = answerButtons[index];
-    if (!state) return UNANSWERED;
-    if (state.className === 'correct') return CORRECT;
-    if (state.className === 'incorrect') return INCORRECT;
-    // Answered, but this is not the one that was picked. Reveal the right answer when
-    // the player got it wrong, otherwise fade it back.
-    return isCorrectAnswer(index + 1, correctAnswer) && showInstantFeedback ? CORRECT : DIMMED;
+    if (!state) return null;
+    if (state.className === 'correct') return 'correct';
+    if (state.className === 'incorrect') return 'incorrect';
+    // Answered, but not the one picked. Reveal the right answer when they got it wrong.
+    return isCorrectAnswer(index + 1, correctAnswer) && showInstantFeedback ? 'correct' : null;
+  };
+
+  const styleFor = (index: number) => {
+    if (!answerButtons[index]) return UNANSWERED;
+    const mark = markFor(index);
+    if (mark === 'correct') return CORRECT;
+    if (mark === 'incorrect') return INCORRECT;
+    return DIMMED;
   };
 
   return (
@@ -109,7 +132,10 @@ function QuestionCard({
             className={`${BASE} ${questionType === 'photo' ? 'p-2' : ''} ${styleFor(index)}`}
             onClick={() => onAnswer(index + 1)}
           >
-            <AnswerContent answer={answer} questionType={questionType} />
+            <span className="flex items-center justify-between gap-3">
+              <AnswerContent answer={answer} questionType={questionType} />
+              <Marker mark={markFor(index)} />
+            </span>
           </button>
         ))}
       </div>

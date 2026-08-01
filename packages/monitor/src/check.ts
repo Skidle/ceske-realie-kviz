@@ -53,14 +53,17 @@ export async function checkImage(url: string, record: ImageRecord | undefined): 
   const name = shortName(url);
   if (!record) return unverified(name, 'no baseline recorded');
 
+  // Carried through so the report can name the question rather than only a filename.
+  const tag = (result: CheckResult): CheckResult => ({ ...result, usedBy: record.usedBy });
+
   const facts = await headFacts(url);
   if (!facts.ok) {
     if ('missing' in facts) {
-      return record.knownBad
+      return tag(record.knownBad
         ? { name, state: 'known', detail: record.knownBad.reason }
-        : { name, state: 'missing', detail: 'HTTP 404' };
+        : { name, state: 'missing', detail: 'HTTP 404' });
     }
-    return unverified(name, facts.unverified);
+    return tag(unverified(name, facts.unverified));
   }
 
   // The ETag and Last-Modified the server just gave us match what we recorded, so the
@@ -68,17 +71,17 @@ export async function checkImage(url: string, record: ImageRecord | undefined): 
   if (factsMatch(facts.value, record)) {
     // For an ordinary image that settles it. A known-bad one still has to appear in
     // every report, so hand it to compareImage with the hash we already have on file.
-    if (!record.knownBad) return { name, state: 'unchanged' };
-    return compareImage(name, record.sha256, record);
+    if (!record.knownBad) return tag({ name, state: 'unchanged' });
+    return tag(compareImage(name, record.sha256, record));
   }
 
   const bytes = await getBytes(url, 'jpeg');
   if (!bytes.ok) {
-    if ('missing' in bytes) return { name, state: 'missing', detail: 'HTTP 404' };
-    return unverified(name, bytes.unverified);
+    if ('missing' in bytes) return tag({ name, state: 'missing', detail: 'HTTP 404' });
+    return tag(unverified(name, bytes.unverified));
   }
 
-  return compareImage(name, sha256(bytes.value), record);
+  return tag(compareImage(name, sha256(bytes.value), record));
 }
 
 export async function checkImages(baseline: Baseline): Promise<CheckResult[]> {

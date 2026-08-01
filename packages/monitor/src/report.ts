@@ -16,6 +16,7 @@ export function report(results: CheckResult[], verdict: Verdict): string {
     lines.push('Problems');
     problems.forEach((result) => {
       lines.push(`  ${result.state.toUpperCase().padEnd(11)} ${result.name}${result.detail ? `  ${result.detail}` : ''}`);
+      if (result.usedBy) lines.push(`              ${result.usedBy.role} of "${result.usedBy.question}"`);
     });
     lines.push('');
   }
@@ -23,7 +24,10 @@ export function report(results: CheckResult[], verdict: Verdict): string {
   const known = results.filter((result) => result.state === 'known');
   if (known.length) {
     lines.push(`Known bad, tracked separately (${known.length})`);
-    known.forEach((result) => lines.push(`  ${result.name}  ${result.detail ?? ''}`));
+    known.forEach((result) => {
+      lines.push(`  ${result.name}  ${result.detail ?? ''}`);
+      if (result.usedBy) lines.push(`    ${result.usedBy.role} of "${result.usedBy.question}"`);
+    });
     lines.push('');
   }
 

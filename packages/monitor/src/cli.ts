@@ -11,6 +11,7 @@ import { checkImages, checkSource, readSource } from './check.ts';
 import { headFacts, getBytes, sha256 } from './fetch.ts';
 import { report } from './report.ts';
 import { EXIT, verdict } from './verdict.ts';
+import { hotlinkedImages } from './images.ts';
 import type { ImageRecord } from './types.ts';
 
 const recording = process.argv.includes('--record');
@@ -28,17 +29,20 @@ async function recordBaseline(): Promise<number> {
     return EXIT.unverified;
   }
 
+  // The list comes from the questions themselves, so an image added or removed by editing
+  // them is picked up here rather than drifting out of sync with the baseline.
+  const uses = hotlinkedImages();
   const images: Record<string, ImageRecord> = {};
   let failures = 0;
 
-  for (const url of Object.keys(existing.images)) {
+  for (const [url, usedBy] of uses) {
     const facts = await headFacts(url);
     const bytes = await getBytes(url, 'jpeg');
 
     if (!facts.ok || !bytes.ok) {
       failures += 1;
       // Keep what we already knew rather than dropping the entry.
-      images[url] = existing.images[url];
+      images[url] = { ...existing.images[url], usedBy };
       console.error(`  could not read ${url}`);
       continue;
     }
@@ -47,6 +51,7 @@ async function recordBaseline(): Promise<number> {
       ...facts.value,
       sha256: sha256(bytes.value),
       bytes: bytes.value.length,
+      usedBy,
       // Acknowledgements are a human decision; a re-record must not silently clear them.
       ...(existing.images[url]?.knownBad ? { knownBad: existing.images[url].knownBad } : {}),
     };

@@ -6,6 +6,47 @@ The quiz data is a snapshot of a source that keeps moving. Nothing used to notic
 moved, which is why questions showed 404s for months and one still shows four portraits of
 Czech presidents instead of the National Theatre.
 
+## How a run works
+
+```
+baseline.json ──┐
+                ├──→  check.ts  ──→  CheckResult[]  ──┬──→  verdict.ts  ──→  exit 0 / 1 / 2
+source site  ───┘                                     └──→  report.ts   ──→  text
+```
+
+```mermaid
+flowchart TD
+    CLI["cli.ts<br/>entry point, exit code"]
+
+    CLI --> BASE["baseline.ts<br/>read / write baseline.json"]
+    CLI --> CHECK["check.ts<br/>runs one check"]
+    CLI --> VERDICT["verdict.ts<br/>results → exit code"]
+    CLI --> REPORT["report.ts<br/>results → text"]
+
+    CHECK --> FETCH["fetch.ts<br/>HTTP: retries, timeouts, magic bytes"]
+    CHECK --> PARSE["parse.ts<br/>PDF link, edition line"]
+    CHECK --> COMPARE["compare.ts<br/>current vs recorded"]
+    CLI --> IMAGES["images.ts<br/>which image belongs to which question"]
+
+    FETCH -.-> SITE(["cestina-pro-cizince.cz"])
+    IMAGES -.-> Q(["app questions.ts"])
+    BASE -.-> FILE(["baseline.json"])
+```
+
+| File | Takes | Gives back |
+|---|---|---|
+| `fetch.ts` | a URL | bytes, headers, or a reason it failed — never throws |
+| `parse.ts` | page HTML, PDF text | the PDF link; the edition line and topic count |
+| `compare.ts` | current facts + the recorded ones | one `CheckResult` per item |
+| `verdict.ts` | all results | an exit code, worst outcome winning |
+| `report.ts` | all results | the text a human reads |
+| `check.ts` | the baseline | wires fetch → parse → compare together |
+| `images.ts` | the app's questions | every hotlinked URL, and which question uses it |
+| `baseline.ts` | — | reads and writes `baseline.json` |
+
+Functions rather than classes on purpose: every step takes data and returns data, so each
+one is testable without the network, and there is no state worth wrapping in an object.
+
 ## Use
 
 ```bash

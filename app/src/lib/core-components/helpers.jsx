@@ -5,63 +5,76 @@ import dompurify from 'dompurify';
 // sanitizing first would let markdown re-introduce unsafe markup.
 export const rawMarkup = (data) => ({ __html: dompurify.sanitize(snarkdown(data)) });
 
-// `index` is 1-based. `correctAnswer` is that same 1-based index held as a string.
-export const checkAnswer = (index, correctAnswer, answerSelectionType, answers, {
-  userInput,
+// Every answer is disabled except the one that was clicked, which is left enabled but
+// tagged correct/incorrect. Re-answering is ignored, so leaving it enabled is harmless.
+const answerButtonStates = (answerCount, answerIndex, className) => {
+  const states = {};
+
+  for (let i = 0; i < answerCount; i += 1) {
+    states[i] = { disabled: true };
+  }
+  states[answerIndex - 1] = { className };
+
+  return states;
+};
+
+const withIndex = (indices, questionIndex) => (
+  indices.includes(questionIndex) ? indices : [...indices, questionIndex]
+);
+
+/**
+ * Records the answer to the current question.
+ *
+ * `answerIndex` is 1-based, matching `question.correctAnswer`, which holds the same
+ * 1-based index as a string.
+ *
+ * Takes the current values it needs and hands new arrays to the setters. It does not
+ * mutate anything it is given.
+ */
+export const checkAnswer = (answerIndex, question, {
   currentQuestionIndex,
-  incorrect,
   correct,
+  incorrect,
+  userInput,
+}, {
   setButtons,
-  setIsCorrect,
-  setIncorrectAnswer,
   setCorrect,
   setIncorrect,
+  setIsCorrect,
+  setIncorrectAnswer,
   setShowNextQuestionButton,
   setUserInput,
 }) => {
-  const indexStr = `${index}`;
-  const disabledAll = Object.keys(answers).map(() => ({ disabled: true }));
-  const userInputCopy = [...userInput];
+  const isAnswerCorrect = `${answerIndex}` === question.correctAnswer;
 
-  if (userInputCopy[currentQuestionIndex] === undefined) {
-    userInputCopy[currentQuestionIndex] = index;
+  // The first answer given to a question is the one that counts; later clicks on the
+  // same question are ignored.
+  const alreadyAnswered = correct.includes(currentQuestionIndex)
+    || incorrect.includes(currentQuestionIndex);
+
+  if (!alreadyAnswered) {
+    if (isAnswerCorrect) {
+      setCorrect(withIndex(correct, currentQuestionIndex));
+    } else {
+      setIncorrect(withIndex(incorrect, currentQuestionIndex));
+    }
   }
 
-  if (indexStr === correctAnswer) {
-    if (incorrect.indexOf(currentQuestionIndex) < 0 && correct.indexOf(currentQuestionIndex) < 0) {
-      correct.push(currentQuestionIndex);
-    }
-
-    setButtons((prevState) => ({
-      ...prevState,
-      ...disabledAll,
-      [index - 1]: {
-        className: 'correct',
-      },
-    }));
-
-    setIsCorrect(true);
-    setIncorrectAnswer(false);
-    setCorrect(correct);
-    setShowNextQuestionButton(true);
-  } else {
-    if (correct.indexOf(currentQuestionIndex) < 0 && incorrect.indexOf(currentQuestionIndex) < 0) {
-      incorrect.push(currentQuestionIndex);
-    }
-
-    setButtons((prevState) => ({
-      ...prevState,
-      ...disabledAll,
-      [index - 1]: {
-        className: 'incorrect',
-      },
-    }));
-
-    setShowNextQuestionButton(true);
-    setIncorrectAnswer(true);
-    setIsCorrect(false);
-    setIncorrect(incorrect);
+  if (userInput[currentQuestionIndex] === undefined) {
+    const updatedUserInput = [...userInput];
+    updatedUserInput[currentQuestionIndex] = answerIndex;
+    setUserInput(updatedUserInput);
   }
 
-  setUserInput(userInputCopy);
+  setButtons((previous) => ({
+    ...previous,
+    ...answerButtonStates(
+      question.answers.length,
+      answerIndex,
+      isAnswerCorrect ? 'correct' : 'incorrect',
+    ),
+  }));
+  setIsCorrect(isAnswerCorrect);
+  setIncorrectAnswer(!isAnswerCorrect);
+  setShowNextQuestionButton(true);
 };

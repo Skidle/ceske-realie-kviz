@@ -47,19 +47,22 @@ function Core({ questions, appLocale, showInstantFeedback }) {
       answers, correctAnswer, questionType,
     } = question;
 
-    const onClickAnswer = (index) => checkAnswer(index + 1, correctAnswer, 'single', answers, {
-      userInput,
-      currentQuestionIndex,
-      incorrect,
-      correct,
-      setButtons,
-      setIsCorrect,
-      setIncorrectAnswer,
-      setCorrect,
-      setIncorrect,
-      setShowNextQuestionButton,
-      setUserInput,
-    });
+    const onClickAnswer = (index) => checkAnswer(
+      index + 1,
+      question,
+      {
+        currentQuestionIndex, correct, incorrect, userInput,
+      },
+      {
+        setButtons,
+        setCorrect,
+        setIncorrect,
+        setIsCorrect,
+        setIncorrectAnswer,
+        setShowNextQuestionButton,
+        setUserInput,
+      },
+    );
 
     return answers.map((answer, index) => (
       <Fragment key={nanoid()}>

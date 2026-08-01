@@ -7,16 +7,16 @@ import { checkAnswer } from './helpers';
 // Only the single-selection path is covered: every one of the 300 questions is
 // single-selection, and the multiple-selection branches are unreachable in this app.
 
-const ANSWERS = ['A) one', 'B) two', 'C) three', 'D) four'];
-const CORRECT_ANSWER = '3'; // 1-based index, as a string, matching the real data
+const QUESTION = {
+  answers: ['A) one', 'B) two', 'C) three', 'D) four'],
+  correctAnswer: '3', // 1-based index, as a string, matching the real data
+};
 
-// Builds the config bag checkAnswer expects, with jest.fn() for every setter.
+// checkAnswer takes the state it reads and the setters it calls as two separate bags.
+// This helper keeps them in one object for brevity, and splits them at the call site.
 const makeConfig = (overrides = {}) => ({
   userInput: [],
-  userAttempt: 1,
   currentQuestionIndex: 0,
-  continueTillCorrect: undefined,
-  showNextQuestionButton: false,
   incorrect: [],
   correct: [],
   setButtons: jest.fn(),
@@ -26,12 +26,21 @@ const makeConfig = (overrides = {}) => ({
   setIncorrect: jest.fn(),
   setShowNextQuestionButton: jest.fn(),
   setUserInput: jest.fn(),
-  setUserAttempt: jest.fn(),
   ...overrides,
 });
 
 // checkAnswer takes a 1-based answer index.
-const answerWith = (index, config) => checkAnswer(index, CORRECT_ANSWER, 'single', ANSWERS, config);
+const answerWith = (index, config) => checkAnswer(
+  index,
+  QUESTION,
+  {
+    currentQuestionIndex: config.currentQuestionIndex,
+    correct: config.correct,
+    incorrect: config.incorrect,
+    userInput: config.userInput,
+  },
+  config,
+);
 
 // Setters are called with updater functions; resolve one against a starting state.
 const resolveUpdater = (setter, prevState = {}) => {
@@ -143,7 +152,7 @@ describe('checkAnswer (single selection)', () => {
 
       answerWith(3, config);
 
-      expect(config.setCorrect).toHaveBeenCalledWith([0]);
+      expect(config.setCorrect).not.toHaveBeenCalled();
     });
 
     it('does not move a question from incorrect to correct', () => {
@@ -151,16 +160,18 @@ describe('checkAnswer (single selection)', () => {
 
       answerWith(3, config);
 
-      expect(config.setCorrect).toHaveBeenCalledWith([]);
+      expect(config.setCorrect).not.toHaveBeenCalled();
       expect(config.incorrect).toEqual([0]);
     });
 
+    // Previously this set userInput to an unchanged copy; it now skips the write
+    // entirely. Same resulting state either way -- the first answer stands.
     it('keeps the first recorded answer in userInput', () => {
       const config = makeConfig({ userInput: [1] });
 
       answerWith(3, config);
 
-      expect(config.setUserInput).toHaveBeenCalledWith([1]);
+      expect(config.setUserInput).not.toHaveBeenCalled();
     });
   });
 
@@ -175,46 +186,57 @@ describe('checkAnswer (single selection)', () => {
     });
   });
 
-  // These two document quirk #1 in docs/BEHAVIOR.md: the arrays passed in are mutated,
-  // and state is then set to that same reference. React can bail out of re-rendering on
-  // reference equality. Phase 1 removes this; these assertions must be updated
-  // deliberately at that point, and the Quiz smoke test must keep passing unchanged.
-  describe('argument mutation (current behaviour, slated for removal)', () => {
-    it('mutates the correct array it was given', () => {
+  // These assertions were inverted in Phase 1. They previously documented quirk #1 in
+  // docs/BEHAVIOR.md: the arrays were mutated in place and state was then set to those
+  // same references, which React can skip re-rendering on. checkAnswer is now pure, so
+  // the same tests assert the opposite.
+  describe('purity', () => {
+    it('does not mutate the correct array it was given', () => {
       const correct = [];
       const config = makeConfig({ correct });
 
       answerWith(3, config);
 
-      expect(correct).toEqual([0]);
+      expect(correct).toEqual([]);
     });
 
-    it('calls setCorrect with that same array reference', () => {
+    it('calls setCorrect with a new array, not the one it was given', () => {
       const correct = [];
       const config = makeConfig({ correct });
 
       answerWith(3, config);
 
-      expect(config.setCorrect.mock.calls[0][0]).toBe(correct);
+      expect(config.setCorrect).toHaveBeenCalledWith([0]);
+      expect(config.setCorrect.mock.calls[0][0]).not.toBe(correct);
     });
 
-    it('mutates the incorrect array it was given', () => {
+    it('does not mutate the incorrect array it was given', () => {
       const incorrect = [];
       const config = makeConfig({ incorrect });
 
       answerWith(1, config);
 
-      expect(incorrect).toEqual([0]);
-      expect(config.setIncorrect.mock.calls[0][0]).toBe(incorrect);
+      expect(incorrect).toEqual([]);
+      expect(config.setIncorrect).toHaveBeenCalledWith([0]);
+      expect(config.setIncorrect.mock.calls[0][0]).not.toBe(incorrect);
     });
 
-    it('does not mutate userInput, which is copied first', () => {
+    it('does not mutate userInput', () => {
       const userInput = [];
       const config = makeConfig({ userInput });
 
       answerWith(3, config);
 
       expect(userInput).toEqual([]);
+    });
+
+    it('preserves earlier entries when recording a later question', () => {
+      const correct = [1, 2];
+      const config = makeConfig({ correct, currentQuestionIndex: 5 });
+
+      answerWith(3, config);
+
+      expect(config.setCorrect).toHaveBeenCalledWith([1, 2, 5]);
     });
   });
 });

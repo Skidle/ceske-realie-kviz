@@ -24,10 +24,13 @@ Categories are indices into `content/categories.ts`:
 `getFinalQuestions({ questions, selectedCategory, selectedSubCategory, shuffle, isRealTest })`
 returns the question set, then stamps `questionIndex` 1..n onto it.
 
-- **Real test** (`isRealTest`) takes precedence over every other setting. Picks 16 random
-  questions from category 0, 7 from category 1, 7 from category 2 — always 30 — then
-  shuffles question order and answer order. The UI disables the category, subcategory,
-  and shuffle controls while it is on.
+- **Real test** (`isRealTest`) takes precedence over every other setting. Takes one random
+  question from each of the 30 topics — a topic being a category and subcategory together
+  — then shuffles question order and answer order. That is how the exam is built:
+  *"Databanka testových úloh je rozčleněna do 30 témat, z každého tématu bude do testu
+  zařazena 1 testová úloha."* It gives 30 questions split 16/7/7 across the categories,
+  because the first category holds 16 topics and the others 7 each. The UI disables the
+  category, subcategory and shuffle controls while it is on.
 - **Otherwise**, filters by `selectedCategory` then `selectedSubCategory` (empty string
   means no filter), and applies shuffling only if `shuffle` is on.
 - **Shuffling** means both question order *and* answer order. When answers are reordered,

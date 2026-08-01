@@ -98,3 +98,26 @@ vendored template unreachable in this application:
 
 Reachable behaviour is: pick a mode, answer single-selection questions one at a time with
 instant feedback, then see the result screen with its filter.
+
+## Question set changes
+
+Deviations from the September 2024 snapshot of the official question bank, newest first.
+
+### 2026-08-01 — removed "Na kterém obrázku je Český Krumlov, město plné významných památek?"
+
+Category 2 (historical and cultural), subcategory 6. Its four answer images had been
+returning 404 from the source site, so the question was unanswerable in production.
+
+Checked against the official bank as republished on 2026-01-05
+(`OBC_databanka_testovychuloh_260105.pdf`): the question is gone. The only remaining
+mentions of Český Krumlov are a differently-worded UNESCO question, where it appears as
+one answer option, and an image credit. The question was retired upstream.
+
+Question count is now 299. Category 2 holds 69 questions; the 16/7/7 real-test split is
+unaffected.
+
+Note this is a symptom of a larger issue: the bank is still 300 questions (30 topics x 10),
+but individual questions have been replaced since this data was copied. The published
+update dates show 15 questions revised during 2025 and 1 during 2026, plus some of the 25
+revised during 2024 that postdate the September copy. The dataset needs a proper re-sync
+against the current PDF, which is tracked separately.

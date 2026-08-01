@@ -4640,22 +4640,6 @@ export const questions = [
         "questionPic": null
     },
     {
-        "question": "Na kterém obrázku je Český Krumlov, město plné významných památek?",
-        "answers": [
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt1.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt2.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt3.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt4.jpg?1702374779"
-        ],
-        "correctAnswer": "1",
-        "category": 2,
-        "subCategory": 6,
-        "questionType": "photo",
-        "answerSelectionType": "single",
-        "point": "1",
-        "questionPic": null
-    },
-    {
         "question": "Na kterém obrázku jsou Pražský hrad s gotickým Chrámem svatého Víta – symboly české státnosti?",
         "answers": [
             "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt1.jpg?1702374779",

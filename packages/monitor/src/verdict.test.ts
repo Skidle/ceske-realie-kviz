@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { EXIT, verdict } from './verdict.js';
-import type { CheckResult } from './types.js';
+import { EXIT, verdict } from './verdict.ts';
+import type { CheckResult } from './types.ts';
 
 const item = (state: CheckResult['state']): CheckResult => ({ name: state, state });
 

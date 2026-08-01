@@ -1,4 +1,4 @@
-import type { CheckResult } from './types.js';
+import type { CheckResult } from './types.ts';
 
 export const EXIT = {
   /** Everything was checked and nothing changed. */

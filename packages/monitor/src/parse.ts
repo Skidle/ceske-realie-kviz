@@ -1,4 +1,4 @@
-import type { SourceRecord } from './types.js';
+import type { SourceRecord } from './types.ts';
 
 /**
  * The question-bank PDFs linked from the databanka page.

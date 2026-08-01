@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractPdfLinks, parseEdition } from './parse.js';
+import { extractPdfLinks, parseEdition } from './parse.ts';
 
 const CURRENT = 'https://cestina-pro-cizince.cz/obcanstvi/wp-content/uploads/2026/01/OBC_databanka_testovychuloh_260105.pdf';
 

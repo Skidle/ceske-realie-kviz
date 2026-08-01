@@ -26,6 +26,7 @@ const LandingPage = () => {
                     </p>
                     <a href="https://buymeacoffee.com/cz.citizenship.guide/e/302955"
                        target="_blank"
+                       rel="noopener noreferrer"
                        className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors inline-flex items-center">
                         Koupit průvodce
                         <ArrowRight className="ml-2 w-5 h-5"/>
@@ -75,6 +76,7 @@ const LandingPage = () => {
                         </p>
                         <a href="/sssz-formular.pdf"
                            target="_blank"
+                           rel="noopener noreferrer"
                            className="text-fuchsia-600 hover:text-fuchsia-700 inline-flex items-center">
                             Stáhnout SSSZ formulář
                             <ArrowRight className="ml-1 w-4 h-4"/>
@@ -92,6 +94,7 @@ const LandingPage = () => {
                     </p>
                     <a href="https://www.instagram.com/czech_citizenship/"
                        target="_blank"
+                       rel="noopener noreferrer"
                        className="text-fuchsia-600 hover:text-fuchsia-700 flex items-center gap-2">
                         <Instagram className="w-5 h-5"/>
                         Sledujte nás na Instagramu

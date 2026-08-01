@@ -78,7 +78,7 @@ function Quiz({
               Úlohy pocházejí z Národního pedagogického institutu České republiky, který je výhradním vlastníkem autorských práv.
               <br /><br />
               <span>
-              Více informací o zkoušce a jejím průběhu naleznete na stránkách <a href='https://cestina-pro-cizince.cz/obcanstvi/' target="_blank">https://cestina-pro-cizince.cz/obcanstvi/</a>.
+              Více informací o zkoušce a jejím průběhu naleznete na stránkách <a href='https://cestina-pro-cizince.cz/obcanstvi/' target="_blank" rel="noopener noreferrer">https://cestina-pro-cizince.cz/obcanstvi/</a>.
             </span>
               <br /><br />
               Hodně štěstí při přípravě a úspěchu u zkoušky!

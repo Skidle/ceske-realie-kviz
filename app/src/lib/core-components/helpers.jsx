@@ -1,10 +1,9 @@
 import snarkdown from 'snarkdown';
 import dompurify from 'dompurify';
 
-export const rawMarkup = (data) => {
-  const sanitizer = dompurify.sanitize;
-  return { __html: snarkdown(sanitizer(data)) };
-};
+// Sanitize *after* rendering markdown: snarkdown turns text into HTML, so
+// sanitizing first would let markdown re-introduce unsafe markup.
+export const rawMarkup = (data) => ({ __html: dompurify.sanitize(snarkdown(data)) });
 
 export const checkAnswer = (index, correctAnswer, answerSelectionType, answers, {
   userInput,

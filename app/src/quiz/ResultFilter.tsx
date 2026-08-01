@@ -1,124 +1,44 @@
-import { useState, useEffect, useRef } from 'react';
+import type { ChangeEvent } from 'react';
 import type { ResultFilterValue } from './types';
 import type { AppLocale } from '../content/types';
 
 interface ResultFilterProps {
   filteredValue: ResultFilterValue;
-  handleChange: (event: { target: { value: string } }) => void;
+  onChange: (value: ResultFilterValue) => void;
   appLocale: AppLocale;
 }
 
-function ResultFilter({ filteredValue, handleChange, appLocale }: ResultFilterProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOptionClick = (value: ResultFilterValue) => {
-    handleChange({ target: { value } });
-    setIsOpen(false);
-  };
-
-  const selectedOptionClass = isOpen ? 'selected-open' : '';
-  const selectedValuesLocale: Record<string, string> = {
-    all: appLocale.resultFilterAll,
-    correct: appLocale.resultFilterCorrect,
-    incorrect: appLocale.resultFilterIncorrect,
-    unanswered: appLocale.resultFilterUnanswered,
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        isOpen
-        && dropdownRef.current
-        && !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [isOpen]);
+/**
+ * A plain <select>, matching the category and subcategory controls on the setup screen.
+ *
+ * It replaces a hand-rolled dropdown: a div of role="menuitem" children with its own
+ * outside-click listener and its own Enter handling. The browser does all of that
+ * correctly, and the version it replaces could not be reached by keyboard at all.
+ */
+function ResultFilter({ filteredValue, onChange, appLocale }: ResultFilterProps) {
+  const options: Array<[ResultFilterValue, string]> = [
+    ['all', appLocale.resultFilterAll],
+    ['correct', appLocale.resultFilterCorrect],
+    ['incorrect', appLocale.resultFilterIncorrect],
+  ];
 
   return (
     <div className="quiz-result-filter">
-      <div
-        ref={dropdownRef}
-        className={`filter-dropdown-select ${isOpen ? 'open' : ''}`}
-        onClick={toggleDropdown}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            toggleDropdown();
-          }
-        }}
-        role="button"
-        tabIndex={0}
-      >
-        <div className={`selected-option ${selectedOptionClass}`}>
-          {selectedValuesLocale[filteredValue]}
-        </div>
-        <span className={`arrow ${isOpen ? 'up' : 'down'}`} />
-      </div>
-      {isOpen && (
-        <div
-          className="dropdown-options"
-          role="menu"
-          aria-labelledby="quiz-filter"
+      <label htmlFor="resultFilter">{appLocale.resultFilterLabel}</label>
+      <div className="custom-select-container">
+        <select
+          id="resultFilter"
+          className="custom-select"
+          value={filteredValue}
+          onChange={(event: ChangeEvent<HTMLSelectElement>) => (
+            onChange(event.target.value as ResultFilterValue)
+          )}
         >
-          <div
-            className={`dropdown-options-item ${
-              filteredValue === 'all' ? 'selected' : ''
-            }`}
-            onClick={() => handleOptionClick('all')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleOptionClick('all');
-              }
-            }}
-            role="menuitem"
-            tabIndex={0}
-          >
-            {appLocale.resultFilterAll}
-          </div>
-          <div
-            className={`dropdown-options-item ${
-              filteredValue === 'correct' ? 'selected' : ''
-            }`}
-            onClick={() => handleOptionClick('correct')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleOptionClick('correct');
-              }
-            }}
-            role="menuitem"
-            tabIndex={0}
-          >
-            {appLocale.resultFilterCorrect}
-          </div>
-          <div
-            className={`dropdown-options-item ${
-              filteredValue === 'incorrect' ? 'selected' : ''
-            }`}
-            onClick={() => handleOptionClick('incorrect')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleOptionClick('incorrect');
-              }
-            }}
-            role="menuitem"
-            tabIndex={0}
-          >
-            {appLocale.resultFilterIncorrect}
-          </div>
-        </div>
-      )}
+          {options.map(([value, label]) => (
+            <option key={value} value={value}>{label}</option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }

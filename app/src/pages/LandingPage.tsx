@@ -15,7 +15,7 @@ const LandingPage = () => {
                     <a href="https://buymeacoffee.com/cz.citizenship.guide/e/302955"
                        target="_blank"
                        rel="noopener noreferrer"
-                       className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors inline-flex items-center">
+                       className="bg-flag-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-flag-700 transition-colors inline-flex items-center">
                         Koupit průvodce
                         <ArrowRight className="ml-2 w-5 h-5"/>
                     </a>
@@ -25,39 +25,39 @@ const LandingPage = () => {
             <main className="container mx-auto px-4 py-16 flex-grow">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div className="bg-white/60 p-8 rounded-2xl shadow backdrop-blur-sm">
-                        <FileText className="w-12 h-12 text-indigo-600 mb-4"/>
+                        <FileText className="w-12 h-12 text-flag-600 mb-4"/>
                         <h2 className="text-2xl font-serif mb-4 text-zinc-800">Co najdete v průvodci?</h2>
                         <ul className="space-y-3 text-zinc-700">
                             <li className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-indigo-600"/>
+                                <Clock className="w-4 h-4 text-flag-600"/>
                                 Kompletní postup žádosti
                             </li>
                             <li className="flex items-center gap-2">
-                                <FileText className="w-4 h-4 text-indigo-600"/>
+                                <FileText className="w-4 h-4 text-flag-600"/>
                                 Seznam potřebných dokumentů
                             </li>
                             <li className="flex items-center gap-2">
-                                <BookOpen className="w-4 h-4 text-indigo-600"/>
+                                <BookOpen className="w-4 h-4 text-flag-600"/>
                                 Tipy pro zkoušku
                             </li>
                         </ul>
                     </div>
 
                     <div className="bg-white/60 p-8 rounded-2xl shadow backdrop-blur-sm">
-                        <CheckSquare className="w-12 h-12 text-indigo-600 mb-4"/>
+                        <CheckSquare className="w-12 h-12 text-flag-600 mb-4"/>
                         <h2 className="text-2xl font-serif mb-4 text-zinc-800">Připravte se na zkoušku</h2>
                         <p className="text-zinc-700 mb-4">
                             Vyzkoušejte si kvíz z českých reálií zdarma.
                         </p>
                         <Link to="/kviz"
-                           className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors inline-flex items-center">
+                           className="bg-flag-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-flag-700 transition-colors inline-flex items-center">
                             Spustit kvíz
                             <ArrowRight className="ml-2 w-4 h-4"/>
                         </Link>
                     </div>
 
                     <div className="bg-white/60 p-8 rounded-2xl shadow backdrop-blur-sm">
-                        <Download className="w-12 h-12 text-indigo-600 mb-4"/>
+                        <Download className="w-12 h-12 text-flag-600 mb-4"/>
                         <h2 className="text-2xl font-serif mb-4 text-zinc-800">Formuláře</h2>
                         <p className="text-zinc-700 mb-4">
                             Stáhněte si potřebné dokumenty.
@@ -65,7 +65,7 @@ const LandingPage = () => {
                         <a href="/sssz-formular.pdf"
                            target="_blank"
                            rel="noopener noreferrer"
-                           className="text-fuchsia-600 hover:text-fuchsia-700 inline-flex items-center">
+                           className="text-flag-600 hover:text-flag-700 inline-flex items-center">
                             Stáhnout SSSZ formulář
                             <ArrowRight className="ml-1 w-4 h-4"/>
                         </a>

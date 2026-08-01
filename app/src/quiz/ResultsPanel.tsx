@@ -1,11 +1,12 @@
+import { Check, X } from 'lucide-react';
 import ResultFilter from './ResultFilter';
 import { rawMarkup } from '../shared/markdown';
 import type { IndexedQuestion, ResultFilterValue } from './types';
 import type { AppLocale } from '../content/types';
 
 const BASE = 'w-full text-left rounded-lg border px-4 py-2';
-const CORRECT = 'border-green-600 bg-green-600 text-white';
-const PICKED_WRONG = 'border-red-500 bg-red-500 text-white';
+const CORRECT = 'border-right-600 bg-right-50 text-right-700';
+const PICKED_WRONG = 'border-wrong-500 bg-wrong-50 text-wrong-700';
 const OTHER = 'border-zinc-200 bg-white text-zinc-500';
 
 interface AnsweredQuestionProps {
@@ -27,14 +28,19 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
     else if (wasPicked) style = PICKED_WRONG;
 
     return (
-      <div key={`${question.questionIndex}-${index}`} className="flex items-center gap-2">
-        <span className="w-6 shrink-0 text-sm text-zinc-400">
-          {wasPicked ? '→' : ''}
-        </span>
+      <div key={`${question.questionIndex}-${index}`}>
         <button type="button" disabled className={`${BASE} ${style}`}>
-          {questionType === 'photo'
-            ? <img src={answer} alt="" className="w-full h-28 object-contain" />
-            : <span>{answer}</span>}
+          <span className="flex items-center justify-between gap-3">
+            {questionType === 'photo'
+              ? <img src={answer} alt="" className="w-full h-28 object-contain" />
+              : <span>{answer}</span>}
+            {(isCorrect || wasPicked) && (
+              <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
+                {isCorrect ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
+                {isCorrect ? 'Správně' : 'Vaše odpověď'}
+              </span>
+            )}
+          </span>
         </button>
       </div>
     );

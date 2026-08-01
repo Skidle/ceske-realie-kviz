@@ -31,7 +31,7 @@ function ResultFilter({ filteredValue, onChange, appLocale }: ResultFilterProps)
         <select
           id="resultFilter"
           className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-800
-            focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            focus:border-flag-500 focus:outline-none focus:ring-1 focus:ring-flag-500"
           value={filteredValue}
           onChange={(event: ChangeEvent<HTMLSelectElement>) => (
             onChange(event.target.value as ResultFilterValue)

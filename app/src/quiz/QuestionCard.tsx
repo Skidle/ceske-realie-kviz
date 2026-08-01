@@ -1,3 +1,4 @@
+import { Check, X } from 'lucide-react';
 import { rawMarkup } from '../shared/markdown';
 import AnswerFeedback from './AnswerFeedback';
 import type { AnswerButtons, IndexedQuestion } from './types';
@@ -6,11 +7,29 @@ import type { AppLocale, QuestionType } from '../content/types';
 // correctAnswer is a 1-based index held as a string, e.g. "3".
 const isCorrectAnswer = (index: number, correctAnswer: string) => index === Number(correctAnswer);
 
-const BASE = 'w-full text-left rounded-lg border px-4 py-3 transition-colors';
-const UNANSWERED = 'border-zinc-200 bg-white hover:border-indigo-400 hover:bg-indigo-50';
-const CORRECT = 'border-green-600 bg-green-600 text-white';
-const INCORRECT = 'border-red-500 bg-red-500 text-white';
+const BASE = 'w-full text-left rounded border px-4 py-3 transition-colors '
+  + 'focus:outline-none focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1';
+const UNANSWERED = 'border-zinc-200 bg-white hover:border-flag-400 hover:bg-flag-50';
+const CORRECT = 'border-right-600 bg-right-50 text-right-700';
+const INCORRECT = 'border-wrong-500 bg-wrong-50 text-wrong-700';
 const DIMMED = 'border-zinc-200 bg-white text-zinc-400';
+
+/** Never colour alone: an icon and a word carry the same meaning. */
+type Mark = 'correct' | 'incorrect' | null;
+
+const Marker = ({ mark }: { mark: Mark }) => {
+  if (!mark) return null;
+
+  const isRight = mark === 'correct';
+  return (
+    <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
+      {isRight ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
+      {/* The icon carries the meaning on its own; the word is dropped when there is no
+          room for it, and the label keeps it available to a screen reader. */}
+      <span className="sr-only sm:not-sr-only">{isRight ? 'Správně' : 'Nesprávně'}</span>
+    </span>
+  );
+};
 
 interface AnswerContentProps {
   answer: string;
@@ -51,15 +70,23 @@ function QuestionCard({
   onNext,
 }: QuestionCardProps) {
   const { answers, correctAnswer, questionType } = question;
+  const questionId = `question-${question.questionIndex}`;
+
+  const markFor = (index: number): Mark => {
+    const state = answerButtons[index];
+    if (!state) return null;
+    if (state.className === 'correct') return 'correct';
+    if (state.className === 'incorrect') return 'incorrect';
+    // Answered, but not the one picked. Reveal the right answer when they got it wrong.
+    return isCorrectAnswer(index + 1, correctAnswer) && showInstantFeedback ? 'correct' : null;
+  };
 
   const styleFor = (index: number) => {
-    const state = answerButtons[index];
-    if (!state) return UNANSWERED;
-    if (state.className === 'correct') return CORRECT;
-    if (state.className === 'incorrect') return INCORRECT;
-    // Answered, but this is not the one that was picked. Reveal the right answer when
-    // the player got it wrong, otherwise fade it back.
-    return isCorrectAnswer(index + 1, correctAnswer) && showInstantFeedback ? CORRECT : DIMMED;
+    if (!answerButtons[index]) return UNANSWERED;
+    const mark = markFor(index);
+    if (mark === 'correct') return CORRECT;
+    if (mark === 'incorrect') return INCORRECT;
+    return DIMMED;
   };
 
   return (
@@ -69,6 +96,7 @@ function QuestionCard({
       </p>
 
       <h3
+        id={questionId}
         className="text-lg text-zinc-800 mb-4"
         dangerouslySetInnerHTML={rawMarkup(question.question)}
       />
@@ -81,15 +109,27 @@ function QuestionCard({
         />
       )}
 
-      <AnswerFeedback
-        showInstantFeedback={showInstantFeedback}
-        correctAnswer={isCorrect}
-        incorrectAnswer={incorrectAnswer}
-      />
+      {/* The slot is always here, so answering fills it rather than pushing the
+          answers down the page. */}
+      <div className="mb-4 min-h-[3.25rem]">
+        <AnswerFeedback
+          showInstantFeedback={showInstantFeedback}
+          correctAnswer={isCorrect}
+          incorrectAnswer={incorrectAnswer}
+        />
+      </div>
 
       {/* Photo answers go two to a row, so all four fit on screen without scrolling.
-          Stacked full width they ran well past a laptop viewport. */}
-      <div className={questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}>
+          Stacked full width they ran well past a laptop viewport.
+
+          A labelled group rather than a radiogroup: choosing an answer submits it and
+          cannot be undone, and arrow keys in a radiogroup both move and select, so a
+          keyboard user exploring the options would answer by accident. */}
+      <div
+        role="group"
+        aria-labelledby={questionId}
+        className={questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}
+      >
         {answers.map((answer, index) => (
           <button
             key={`${question.questionIndex}-${index}`}
@@ -98,21 +138,31 @@ function QuestionCard({
             className={`${BASE} ${questionType === 'photo' ? 'p-2' : ''} ${styleFor(index)}`}
             onClick={() => onAnswer(index + 1)}
           >
-            <AnswerContent answer={answer} questionType={questionType} />
+            <span className="flex items-center justify-between gap-3">
+              <span className="min-w-0">
+                <AnswerContent answer={answer} questionType={questionType} />
+              </span>
+              <Marker mark={markFor(index)} />
+            </span>
           </button>
         ))}
       </div>
 
-      {showNextQuestionButton && (
-        <button
-          type="button"
-          onClick={onNext}
-          className="mt-6 w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium
-            hover:bg-indigo-700 transition-colors"
-        >
-          {appLocale.nextQuestionBtn}
-        </button>
-      )}
+      {/* Reserved for the same reason: the page keeps its height when the button
+          appears, so nothing below it moves. */}
+      <div className="mt-6 min-h-[3.25rem]">
+        {showNextQuestionButton && (
+          <button
+            type="button"
+            onClick={onNext}
+            className="w-full bg-flag-600 text-white px-6 py-3 rounded font-medium
+              hover:bg-flag-700 transition-colors focus:outline-none
+              focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1"
+          >
+            {appLocale.nextQuestionBtn}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

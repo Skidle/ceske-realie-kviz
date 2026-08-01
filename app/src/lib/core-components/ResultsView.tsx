@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import QuizResultFilter from './QuizResultFilter';
 import { rawMarkup } from './helpers';
 import type {
@@ -27,7 +26,7 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
     const correctClassName = answerNumber === correctAnswer ? 'correct' : '';
 
     return (
-      <div key={nanoid()}>
+      <div key={`${question.questionIndex}-${index}`}>
         <button
           type="button"
           disabled
@@ -97,7 +96,7 @@ function ResultsView({
         appLocale={appLocale}
       />
       {(filteredQuestions || questions).map((question, index) => (
-        <div className="result-answer-wrapper" key={nanoid()}>
+        <div className="result-answer-wrapper" key={question.questionIndex}>
           <h3
             dangerouslySetInnerHTML={rawMarkup(
               `${appLocale.question} ${question.questionIndex}: ${question.question}`,

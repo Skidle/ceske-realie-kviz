@@ -61,27 +61,21 @@ static files under `public/` are matched before that rewrite.
 
 Still present. Documented rather than fixed, to keep refactor commits behaviour-preserving.
 
-1. **`nanoid()` is used as a React `key`** in the answer and result lists, generating a
-   fresh key on every render. React cannot match old elements to new ones, so it destroys
-   and recreates all four answer buttons on every state change. This is not merely
-   inefficient: on image questions the pictures are torn out of the DOM and re-inserted,
-   the browser loses its scroll anchor, and the page jumps to the top when an answer is
-   clicked. Reported from real use.
-2. **The chosen answer button is not disabled.** On answering, every *other* button gets
+1. **The chosen answer button is not disabled.** On answering, every *other* button gets
    `{ disabled: true }`, but the clicked one is replaced by `{ className: 'correct' }`,
    losing `disabled`. It only stops mattering because a repeat answer is ignored.
-3. **Answer buttons render a literal `undefined` class.** `class="undefined answerBtn btn"`
+2. **Answer buttons render a literal `undefined` class.** `class="undefined answerBtn btn"`
    appears on answered questions, because the state for non-selected answers has no
    `className` and that value is interpolated into the class string. Harmless — no
    `.undefined` rule exists.
-4. **`alt="answer"` on every answer image** tells a screen-reader user nothing. Note the
+3. **`alt="answer"` on every answer image** tells a screen-reader user nothing. Note the
    tension: an accurate description would give away the answer to "which picture shows
    Karlštejn". Something like `alt="Možnost 1"` identifies without spoiling.
-5. **Image answers are not sized to fit.** Four alternatives do not fit on screen, so
+4. **Image answers are not sized to fit.** Four alternatives do not fit on screen, so
    answering an image question requires scrolling.
-6. **`appLocale.resultFilterUnanswered` is unused.** The filter offers only all, correct
+5. **`appLocale.resultFilterUnanswered` is unused.** The filter offers only all, correct
    and incorrect.
-7. **32 question images are still hotlinked** to the source site. See below — one set is
+6. **32 question images are still hotlinked** to the source site. See below — one set is
    already known to serve the wrong pictures.
 
 ## Fixed since the baseline
@@ -98,6 +92,7 @@ Kept for context, since these shaped the code that exists now.
 | Form controls had no associated labels; the icon-only back button had no accessible name | Phase 4 |
 | A missing `}` left `.filter-dropdown-select` compiling only as a nested descendant selector, and `height: 12px` on a 16px font made its text overflow | Phase 4 follow-up |
 | The result page prefixed questions with English `Q1:`, and `appLocale.question` was the plural `Otázky` | Phase 4 follow-up |
+| Answer and result lists were keyed with `nanoid()`, so React destroyed and recreated all four answer buttons on every render. On image questions the pictures were torn out of the DOM and the page jumped to the top | Post-Phase-4 fix |
 
 ## Question set changes
 

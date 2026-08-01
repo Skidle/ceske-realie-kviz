@@ -61,6 +61,21 @@ describe('Quiz', () => {
       expect(screen.getByText(/Máte spravně 1 z 2 otázek/)).toBeInTheDocument();
     });
 
+    // Regression test. The answers used to be keyed with nanoid(), so every render
+    // produced new keys and React destroyed and recreated all four buttons. On image
+    // questions that tore the pictures out of the DOM and threw the page back to the top.
+    it('updates the answer buttons in place rather than recreating them', () => {
+      renderQuiz();
+      startQuiz();
+
+      const before = screen.getByRole('button', { name: 'Otazka jedna B' });
+
+      chooseAnswer('Otazka jedna C');
+
+      const after = screen.getByRole('button', { name: 'Otazka jedna B' });
+      expect(after).toBe(before);
+    });
+
     it('awards points for correct answers only', () => {
       renderQuiz();
       startQuiz();

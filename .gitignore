@@ -1,5 +1,19 @@
+# dependencies — npm hoists these to the workspace root
+node_modules/
+
+# build output
+build/
+dist/
+coverage/
+
 # agent working docs, not part of the project
 tasks/
 
 # IDE
 .idea/
+
+# misc
+.DS_Store
+*.local
+.env
+.env.*.local

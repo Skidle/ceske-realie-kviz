@@ -4640,28 +4640,12 @@ export const questions = [
         "questionPic": null
     },
     {
-        "question": "Na kterém obrázku je Český Krumlov, město plné významných památek?",
-        "answers": [
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt1.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt2.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt3.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/15alt4.jpg?1702374779"
-        ],
-        "correctAnswer": "1",
-        "category": 2,
-        "subCategory": 6,
-        "questionType": "photo",
-        "answerSelectionType": "single",
-        "point": "1",
-        "questionPic": null
-    },
-    {
         "question": "Na kterém obrázku jsou Pražský hrad s gotickým Chrámem svatého Víta – symboly české státnosti?",
         "answers": [
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt1.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt2.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt3.jpg?1702374779",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/16alt4.jpg?1702374779"
+            "/images/questions/16alt1.jpg",
+            "/images/questions/16alt2.jpg",
+            "/images/questions/16alt3.jpg",
+            "/images/questions/16alt4.jpg"
         ],
         "correctAnswer": "1",
         "category": 2,
@@ -4690,10 +4674,10 @@ export const questions = [
     {
         "question": "Na kterém obrázku je hrad Karlštejn, který založil Karel IV.?",
         "answers": [
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/18alt1.jpg?1702374780",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/18alt2.jpg?1702374780",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/18alt3.jpg?1702374780",
-            "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/18alt4.jpg?1702374780"
+            "/images/questions/18alt1.jpg",
+            "/images/questions/18alt2.jpg",
+            "/images/questions/18alt3.jpg",
+            "/images/questions/18alt4.jpg"
         ],
         "correctAnswer": "3",
         "category": 2,
@@ -4765,7 +4749,7 @@ export const questions = [
         "questionType": "text",
         "answerSelectionType": "single",
         "point": "1",
-        "questionPic": "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/22otazka.jpg?1702374780"
+        "questionPic": "/images/questions/22otazka.jpg"
     },
     {
         "question": "Orloj jsou středověké hodiny na věži. Na kterém obrázku je Pražský orloj?",

@@ -65,8 +65,10 @@ Pre-existing; documented deliberately rather than fixed as part of the refactor.
 3. **Unknown URLs render a blank page.** `App.js` string-compares `window.location.pathname`
    against `/` and `/kviz`. Anything else — including `/kviz/` with a trailing slash —
    matches neither branch and renders nothing.
-4. **Question images are hotlinked** to the source site, so they break if that site moves
-   or blocks them.
+4. **Most question images are hotlinked** to the source site, so they break if that site
+   moves or blocks them. This has already happened once; see Question set changes. The 9
+   images belonging to the three affected questions are now served from
+   `public/images/questions/`. The remaining 32 are still hotlinked and carry the same risk.
 5. **`alert()` / `window.confirm()`** are used for "Quiz is incomplete" and submit
    confirmation. Both are unreachable in this app (see below).
 6. **The "unanswered" result filter is unreachable.** `QuizResultFilter` renders only
@@ -98,3 +100,55 @@ vendored template unreachable in this application:
 
 Reachable behaviour is: pick a mode, answer single-selection questions one at a time with
 instant feedback, then see the result screen with its filter.
+
+## Question set changes
+
+Deviations from the September 2024 snapshot of the official question bank, newest first.
+
+### 2026-08-01 — removed "Na kterém obrázku je Český Krumlov, město plné významných památek?"
+
+Category 2 (historical and cultural), subcategory 6. Its four answer images had been
+returning 404 from the source site, so the question was unanswerable in production.
+
+Checked against the official bank as republished on 2026-01-05
+(`OBC_databanka_testovychuloh_260105.pdf`): the question is gone. The only remaining
+mentions of Český Krumlov are a differently-worded UNESCO question, where it appears as
+one answer option, and an image credit. The question was retired upstream.
+
+Question count is now 299. Category 2 holds 69 questions; the 16/7/7 real-test split is
+unaffected.
+
+Note this is a symptom of a larger issue: the bank is still 300 questions (30 topics x 10),
+but individual questions have been replaced since this data was copied. The published
+update dates show 15 questions revised during 2025 and 1 during 2026, plus some of the 25
+revised during 2024 that postdate the September copy. The dataset needs a proper re-sync
+against the current PDF, which is tracked separately.
+
+### 2026-08-01 — self-hosted 9 question images
+
+The images for the Pražský hrad, Karlštejn and Vila Tugendhat questions were 404 at the
+source. All three questions still exist in the official bank, so the images were recovered
+from the Internet Archive and are now served from `public/images/questions/`.
+
+Captures were date-matched to the September 2024 snapshot this dataset came from. That
+matters: the first attempt pulled 2022 captures, and because source filenames encode
+question *position* rather than identity, `18alt3.jpg` from 2022 is a photograph of the
+Municipal House in Prague rather than Karlštejn. Every recovered image was checked visually
+against its question before being committed.
+
+### Known broken: hotlinked images can silently serve the wrong picture
+
+32 images are still hotlinked to the source site. Because filenames encode question
+*position* rather than identity, upstream renumbering does not only cause 404s — a URL can
+return HTTP 200 with a **different question's image**.
+
+Confirmed case: *"Na kterém obrázku je Národní divadlo v Praze?"* (category 2,
+subcategory 6). Its four `17alt*.jpg` answers now serve portraits of Czech presidents, so
+no answer is correct. The Internet Archive's last capture, 5 October 2024, still holds the
+right images, so the swap happened after that date — most likely at the 5 January 2026
+republication of the bank. There is no later capture to narrow it further.
+
+This is not fixed by hand. A status-code check is not sufficient to detect it; only
+comparing image content against a known-good snapshot is. The full audit of the remaining
+32 images, standardised filenames, and self-hosting are deferred to the importer and
+monitor work, which addresses the root cause rather than the symptoms.

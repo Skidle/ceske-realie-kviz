@@ -26,7 +26,7 @@ describe('getFinalQuestions', () => {
     it('returns every question in source order', () => {
       const result = run();
 
-      expect(result).toHaveLength(300);
+      expect(result).toHaveLength(questions.length);
       expect(result.map((q) => q.question)).toEqual(questions.map((q) => q.question));
     });
 
@@ -34,7 +34,7 @@ describe('getFinalQuestions', () => {
       const result = run();
 
       expect(result[0].questionIndex).toBe(1);
-      expect(result[299].questionIndex).toBe(300);
+      expect(result[questions.length - 1].questionIndex).toBe(questions.length);
     });
 
     it('does not mutate the source questions', () => {
@@ -79,7 +79,7 @@ describe('getFinalQuestions', () => {
 
       const result = run({ shuffle: true });
 
-      expect(result).toHaveLength(300);
+      expect(result).toHaveLength(questions.length);
       result.forEach((q) => {
         expect(correctText(q)).toBe(expected.get(q.question));
       });
@@ -95,7 +95,7 @@ describe('getFinalQuestions', () => {
     it('changes the order', () => {
       const result = run({ shuffle: true });
 
-      // Probabilistic, but the chance of 300 questions shuffling back into source
+      // Probabilistic, but the chance of the whole bank shuffling back into source
       // order is effectively zero.
       expect(result.map((q) => q.question))
         .not.toEqual(questions.map((q) => q.question));

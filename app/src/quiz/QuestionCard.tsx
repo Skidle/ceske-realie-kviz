@@ -6,10 +6,11 @@ import type { AppLocale, QuestionType } from '../content/types';
 // correctAnswer is a 1-based index held as a string, e.g. "3".
 const isCorrectAnswer = (index: number, correctAnswer: string) => index === Number(correctAnswer);
 
-const BASE = 'w-full text-left rounded-lg border px-4 py-3 transition-colors';
-const UNANSWERED = 'border-zinc-200 bg-white hover:border-indigo-400 hover:bg-indigo-50';
+const BASE = 'w-full text-left rounded border px-4 py-3 transition-colors '
+  + 'focus:outline-none focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1';
+const UNANSWERED = 'border-zinc-200 bg-white hover:border-flag-400 hover:bg-flag-50';
 const CORRECT = 'border-green-600 bg-green-600 text-white';
-const INCORRECT = 'border-red-500 bg-red-500 text-white';
+const INCORRECT = 'border-wrong-500 bg-wrong-500 text-white';
 const DIMMED = 'border-zinc-200 bg-white text-zinc-400';
 
 interface AnswerContentProps {
@@ -51,6 +52,7 @@ function QuestionCard({
   onNext,
 }: QuestionCardProps) {
   const { answers, correctAnswer, questionType } = question;
+  const questionId = `question-${question.questionIndex}`;
 
   const styleFor = (index: number) => {
     const state = answerButtons[index];
@@ -69,6 +71,7 @@ function QuestionCard({
       </p>
 
       <h3
+        id={questionId}
         className="text-lg text-zinc-800 mb-4"
         dangerouslySetInnerHTML={rawMarkup(question.question)}
       />
@@ -88,8 +91,16 @@ function QuestionCard({
       />
 
       {/* Photo answers go two to a row, so all four fit on screen without scrolling.
-          Stacked full width they ran well past a laptop viewport. */}
-      <div className={questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}>
+          Stacked full width they ran well past a laptop viewport.
+
+          A labelled group rather than a radiogroup: choosing an answer submits it and
+          cannot be undone, and arrow keys in a radiogroup both move and select, so a
+          keyboard user exploring the options would answer by accident. */}
+      <div
+        role="group"
+        aria-labelledby={questionId}
+        className={questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}
+      >
         {answers.map((answer, index) => (
           <button
             key={`${question.questionIndex}-${index}`}
@@ -107,8 +118,8 @@ function QuestionCard({
         <button
           type="button"
           onClick={onNext}
-          className="mt-6 w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium
-            hover:bg-indigo-700 transition-colors"
+          className="mt-6 w-full bg-flag-600 text-white px-6 py-3 rounded-lg font-medium
+            hover:bg-flag-700 transition-colors"
         >
           {appLocale.nextQuestionBtn}
         </button>

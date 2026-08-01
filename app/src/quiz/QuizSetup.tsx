@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 /** Shared by both dropdowns so they cannot drift apart. */
 const SELECT_CLASS = 'w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 '
-  + 'text-zinc-800 focus:border-indigo-500 focus:outline-none focus:ring-1 '
-  + 'focus:ring-indigo-500 disabled:bg-zinc-100 disabled:text-zinc-400';
+  + 'text-zinc-800 focus:border-flag-500 focus:outline-none focus:ring-1 '
+  + 'focus:ring-flag-500 disabled:bg-zinc-100 disabled:text-zinc-400';
 import { ArrowLeft } from 'lucide-react';
 import QuizRunner from './QuizRunner';
 import flag from '../assets/cz_flag.png';
@@ -79,7 +79,7 @@ function QuizSetup({
             </p>
 
             <details className="mt-4">
-              <summary className="cursor-pointer text-fuchsia-600 hover:text-fuchsia-700">
+              <summary className="cursor-pointer text-flag-600 hover:text-flag-700">
                 Popis aplikace
               </summary>
               <div className="mt-3 space-y-3 text-sm">
@@ -98,7 +98,7 @@ function QuizSetup({
                     href="https://cestina-pro-cizince.cz/obcanstvi/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-fuchsia-600 hover:text-fuchsia-700 underline"
+                    className="text-flag-600 hover:text-flag-700 underline"
                   >
                     cestina-pro-cizince.cz
                   </a>
@@ -110,7 +110,7 @@ function QuizSetup({
                   {' '}
                   <a
                     href="mailto:cz.citizenship.guide@gmail.com"
-                    className="text-fuchsia-600 hover:text-fuchsia-700 underline"
+                    className="text-flag-600 hover:text-flag-700 underline"
                   >
                     cz.citizenship.guide@gmail.com
                   </a>
@@ -138,7 +138,7 @@ function QuizSetup({
                 />
                 <span
                   className="w-12 h-6 bg-zinc-300 rounded-full transition-colors
-                    peer-checked:bg-indigo-600 peer-focus:ring-2 peer-focus:ring-indigo-400"
+                    peer-checked:bg-flag-600 peer-focus:ring-2 peer-focus:ring-flag-400"
                 />
                 <span
                   className="absolute left-1 w-4 h-4 bg-white rounded-full transition-transform
@@ -192,7 +192,7 @@ function QuizSetup({
                 checked={shuffle}
                 onChange={handleShuffleChange}
                 disabled={isRealTest}
-                className="w-4 h-4 accent-indigo-600 disabled:opacity-50"
+                className="w-4 h-4 accent-flag-600 disabled:opacity-50"
               />
               <label htmlFor="shuffleToggle" className="text-zinc-700">
                 {appLocale.shuffleCheckboxLabel}
@@ -207,8 +207,8 @@ function QuizSetup({
           <button
             type="button"
             onClick={() => setStart(true)}
-            className="mt-4 w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium
-              hover:bg-indigo-700 transition-colors"
+            className="mt-4 w-full bg-flag-600 text-white px-6 py-3 rounded-lg font-medium
+              hover:bg-flag-700 transition-colors"
           >
             {appLocale.startQuizBtn}
           </button>
@@ -221,7 +221,7 @@ function QuizSetup({
             type="button"
             onClick={() => setStart(false)}
             aria-label={appLocale.backButtonLabel}
-            className="mb-4 inline-flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-700"
+            className="mb-4 inline-flex items-center gap-1 text-flag-600 hover:text-flag-700"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>

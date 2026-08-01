@@ -5,7 +5,7 @@ import type { AppLocale } from '../content/types';
 
 const BASE = 'w-full text-left rounded-lg border px-4 py-2';
 const CORRECT = 'border-green-600 bg-green-600 text-white';
-const PICKED_WRONG = 'border-red-500 bg-red-500 text-white';
+const PICKED_WRONG = 'border-wrong-500 bg-wrong-500 text-white';
 const OTHER = 'border-zinc-200 bg-white text-zinc-500';
 
 interface AnsweredQuestionProps {

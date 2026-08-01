@@ -32,7 +32,7 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
         <button type="button" disabled className={`${BASE} ${style}`}>
           <span className={questionType === 'photo' ? 'relative block' : 'flex items-center justify-between gap-3'}>
             {questionType === 'photo'
-              ? <img src={answer} alt="" className="w-full h-40 object-contain" />
+              ? <img src={answer} alt="" className="w-full h-[min(10rem,18vh)] object-contain" />
               : <span className="min-w-0">{answer}</span>}
             {(isCorrect || wasPicked) && (
               <span className={`flex shrink-0 items-center gap-1 text-sm font-medium ${

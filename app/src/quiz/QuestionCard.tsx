@@ -44,7 +44,7 @@ interface AnswerContentProps {
 
 const AnswerContent = ({ answer, questionType }: AnswerContentProps) => (
   questionType === 'photo'
-    ? <img src={answer} alt="" className="w-full h-44 sm:h-52 object-contain" />
+    ? <img src={answer} alt="" className="w-full h-[min(13rem,22vh)] object-contain" />
     : <span>{answer}</span>
 );
 

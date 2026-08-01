@@ -9,28 +9,23 @@ Czech presidents instead of the National Theatre.
 ## How a run works
 
 ```
-baseline.json ──┐
-                ├──→  check.ts  ──→  CheckResult[]  ──┬──→  verdict.ts  ──→  exit 0 / 1 / 2
-source site  ───┘                                     └──→  report.ts   ──→  text
-```
-
-```mermaid
-flowchart TD
-    CLI["cli.ts<br/>entry point, exit code"]
-
-    CLI --> BASE["baseline.ts<br/>read / write baseline.json"]
-    CLI --> CHECK["check.ts<br/>runs one check"]
-    CLI --> VERDICT["verdict.ts<br/>results → exit code"]
-    CLI --> REPORT["report.ts<br/>results → text"]
-
-    CHECK --> FETCH["fetch.ts<br/>HTTP: retries, timeouts, magic bytes"]
-    CHECK --> PARSE["parse.ts<br/>PDF link, edition line"]
-    CHECK --> COMPARE["compare.ts<br/>current vs recorded"]
-    CLI --> IMAGES["images.ts<br/>which image belongs to which question"]
-
-    FETCH -.-> SITE(["cestina-pro-cizince.cz"])
-    IMAGES -.-> Q(["app questions.ts"])
-    BASE -.-> FILE(["baseline.json"])
+npm run monitor
+│
+├─ 1. read baseline.json .................. what we recorded last time
+│
+├─ 2. GET the databanka page .............. find the one PDF link
+├─ 3. GET + parse that PDF ................ edition line, topic count
+├─ 4. compare 2 and 3 with the baseline ... 3 results
+│
+├─ 5. for each of the 32 images:
+│        HEAD it ......................... ETag, Last-Modified, size
+│        │
+│        ├─ same as recorded? ─ yes ─→ unchanged, body never downloaded
+│        └─────────────────── no ──→ GET, sha256, compare
+│                                                     ... 32 results
+│
+├─ 6. verdict(35 results) ................. exit 0, 1 or 2
+└─ 7. print the report, save checkedAt
 ```
 
 | File | Takes | Gives back |
@@ -40,7 +35,7 @@ flowchart TD
 | `compare.ts` | current facts + the recorded ones | one `CheckResult` per item |
 | `verdict.ts` | all results | an exit code, worst outcome winning |
 | `report.ts` | all results | the text a human reads |
-| `check.ts` | the baseline | wires fetch → parse → compare together |
+| `check.ts` | the baseline | runs steps 2 to 5 |
 | `images.ts` | the app's questions | every hotlinked URL, and which question uses it |
 | `baseline.ts` | — | reads and writes `baseline.json` |
 

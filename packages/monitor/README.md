@@ -9,23 +9,42 @@ Czech presidents instead of the National Theatre.
 ## How a run works
 
 ```
-npm run monitor
+npm run monitor                                    cli.ts
 │
-├─ 1. read baseline.json .................. what we recorded last time
+├─ 1. readBaseline() ........................... baseline.ts   what we recorded last time
 │
-├─ 2. GET the databanka page .............. find the one PDF link
-├─ 3. GET + parse that PDF ................ edition line, topic count
-├─ 4. compare 2 and 3 with the baseline ... 3 results
+├─ 2. checkSource(baseline) .................... check.ts
+│       ├─ getText(DATABANKA_PAGE) ............. fetch.ts      GET the page
+│       ├─ extractPdfLinks(html) ............... parse.ts      find the one PDF link
+│       ├─ getBytes(pdfUrl, 'pdf') ............. fetch.ts      GET the PDF
+│       ├─ extractText(pdf) .................... unpdf
+│       ├─ parseEdition(text) .................. parse.ts      edition line, topic count
+│       └─ compareSource(current, baseline) .... compare.ts    → 3 results
 │
-├─ 5. for each of the 32 images:
-│        HEAD it ......................... ETag, Last-Modified, size
-│        │
-│        ├─ same as recorded? ─ yes ─→ unchanged, body never downloaded
-│        └─────────────────── no ──→ GET, sha256, compare
-│                                                     ... 32 results
+├─ 3. checkImages(baseline) .................... check.ts      loops the 32 images
+│       └─ checkImage(url, record) ............. check.ts
+│            ├─ headFacts(url) ................. fetch.ts      ETag, Last-Modified, size
+│            ├─ factsMatch(current, recorded) .. compare.ts
+│            │     ├─ yes → unchanged, body never downloaded
+│            │     └─ no  ↓
+│            ├─ getBytes(url, 'jpeg') .......... fetch.ts
+│            ├─ sha256(bytes) .................. fetch.ts
+│            └─ compareImage(name, hash, rec) .. compare.ts    → 32 results
 │
-├─ 6. verdict(35 results) ................. exit 0, 1 or 2
-└─ 7. print the report, save checkedAt
+├─ 4. verdict(35 results) ...................... verdict.ts    → exit 0, 1 or 2
+├─ 5. report(results, verdict) ................. report.ts     → the text printed
+└─ 6. writeBaseline({ checkedAt }) ............. baseline.ts   heartbeat
+```
+
+Recording a new baseline takes a different path:
+
+```
+npm run monitor:record                             cli.ts --record
+│
+├─ hotlinkedImages() ........................... images.ts     which image, which question
+├─ readSource() ................................ check.ts      as steps 2 above
+├─ headFacts() + getBytes() + sha256() ......... fetch.ts      per image
+└─ writeBaseline({ source, images }) ........... baseline.ts   knownBad is preserved
 ```
 
 | File | Takes | Gives back |

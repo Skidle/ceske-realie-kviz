@@ -63,10 +63,14 @@ export async function checkImage(url: string, record: ImageRecord | undefined): 
     return unverified(name, facts.unverified);
   }
 
-  // A known-bad image is surfaced every run, so it must not short-circuit on matching
-  // validators the way an ordinary one does.
-  if (factsMatch(facts.value, record) && !record.knownBad) return { name, state: 'unchanged' };
-  if (factsMatch(facts.value, record)) return compareImage(name, record.sha256, record);
+  // The ETag and Last-Modified the server just gave us match what we recorded, so the
+  // bytes are the same and there is no reason to download them.
+  if (factsMatch(facts.value, record)) {
+    // For an ordinary image that settles it. A known-bad one still has to appear in
+    // every report, so hand it to compareImage with the hash we already have on file.
+    if (!record.knownBad) return { name, state: 'unchanged' };
+    return compareImage(name, record.sha256, record);
+  }
 
   const bytes = await getBytes(url, 'jpeg');
   if (!bytes.ok) {

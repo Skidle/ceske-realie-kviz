@@ -152,3 +152,10 @@ This is not fixed by hand. A status-code check is not sufficient to detect it; o
 comparing image content against a known-good snapshot is. The full audit of the remaining
 32 images, standardised filenames, and self-hosting are deferred to the importer and
 monitor work, which addresses the root cause rather than the symptoms.
+
+### Cosmetic: answer buttons render a literal "undefined" class
+
+`class="undefined answerBtn btn"` appears on answered questions, because the button state
+for non-selected answers is `{ disabled: true }` with no `className`, and that value is
+interpolated into the class string. Harmless -- no `.undefined` rule exists -- and
+pre-existing. Fixable with a `?? ''`, deferred as it is a rendering change.

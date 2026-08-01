@@ -1,4 +1,6 @@
-export const appLocale = {
+import type { AppLocale } from './types';
+
+export const appLocale: AppLocale = {
     landingHeaderText: 'Množství otázek: <questionLength>',
     question: 'Otázky',
     startQuizBtn: 'Spustit kvíz',

@@ -65,8 +65,10 @@ Pre-existing; documented deliberately rather than fixed as part of the refactor.
 3. **Unknown URLs render a blank page.** `App.js` string-compares `window.location.pathname`
    against `/` and `/kviz`. Anything else — including `/kviz/` with a trailing slash —
    matches neither branch and renders nothing.
-4. **Question images are hotlinked** to the source site, so they break if that site moves
-   or blocks them.
+4. **Most question images are hotlinked** to the source site, so they break if that site
+   moves or blocks them. This has already happened once; see Question set changes. The 9
+   images belonging to the three affected questions are now served from
+   `public/images/questions/`. The remaining 32 are still hotlinked and carry the same risk.
 5. **`alert()` / `window.confirm()`** are used for "Quiz is incomplete" and submit
    confirmation. Both are unreachable in this app (see below).
 6. **The "unanswered" result filter is unreachable.** `QuizResultFilter` renders only
@@ -121,3 +123,15 @@ but individual questions have been replaced since this data was copied. The publ
 update dates show 15 questions revised during 2025 and 1 during 2026, plus some of the 25
 revised during 2024 that postdate the September copy. The dataset needs a proper re-sync
 against the current PDF, which is tracked separately.
+
+### 2026-08-01 — self-hosted 9 question images
+
+The images for the Pražský hrad, Karlštejn and Vila Tugendhat questions were 404 at the
+source. All three questions still exist in the official bank, so the images were recovered
+from the Internet Archive and are now served from `public/images/questions/`.
+
+Captures were date-matched to the September 2024 snapshot this dataset came from. That
+matters: the first attempt pulled 2022 captures, and because source filenames encode
+question *position* rather than identity, `18alt3.jpg` from 2022 is a photograph of the
+Municipal House in Prague rather than Karlštejn. Every recovered image was checked visually
+against its question before being committed.

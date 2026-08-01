@@ -33,7 +33,7 @@ npm run monitor                                    cli.ts
 │
 ├─ 4. verdict(35 results) ...................... verdict.ts    → exit 0, 1 or 2
 ├─ 5. report(results, verdict) ................. report.ts     → the text printed
-└─ 6. writeBaseline({ checkedAt }) ............. baseline.ts   heartbeat
+└─ 6. exit with the verdict's code
 ```
 
 Recording a new baseline takes a different path:
@@ -116,5 +116,7 @@ workflow does not sit permanently red.
 }
 ```
 
-`checkedAt` is committed by the workflow each month, so a check that stopped running shows
-up as a stale date rather than as silence.
+`checkedAt` records when the baseline was last re-recorded. The monthly check does not
+write it: `main` requires pull requests, so the workflow cannot commit. The "last checked"
+date lives in the tracking issue instead, and a stale date there is how a check that
+stopped running becomes visible.

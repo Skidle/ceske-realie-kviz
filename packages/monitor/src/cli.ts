@@ -78,10 +78,6 @@ async function check(): Promise<number> {
 
   console.log(text);
 
-  // The heartbeat is committed by the workflow, so a check that stopped running is
-  // visible in git history rather than being indistinguishable from silence.
-  await writeBaseline({ ...baseline, checkedAt: new Date().toISOString() });
-
   if (process.env.GITHUB_STEP_SUMMARY) {
     await appendFile(process.env.GITHUB_STEP_SUMMARY, `## Monitor\n\n\`\`\`\n${text}\n\`\`\`\n`);
   }

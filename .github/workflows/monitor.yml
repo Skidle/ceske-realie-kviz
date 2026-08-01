@@ -5,8 +5,9 @@ name: Monitor source
 # outside that window: on a quiet repo the workflow would switch itself off about a month
 # before it was next due, and the failure mode is silence.
 #
-# Each run also commits the heartbeat, which is unambiguous activity and makes a check
-# that stopped happening visible in git history.
+# The run cannot commit anything: main requires pull requests. The "last checked" date
+# lives in the tracking issue instead, so a check that stopped happening shows up as a
+# stale date there.
 on:
   schedule:
     - cron: '17 4 1 * *' # 04:17 UTC on the 1st
@@ -17,17 +18,8 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
   issues: write
-
-env:
-  # The heartbeat commit needs an author. These are GitHub's own values for the Actions
-  # bot: 41898282 is the numeric account id of github-actions[bot], and
-  # <id>+<username>@users.noreply.github.com is how GitHub attributes a commit to an
-  # account without exposing a real address. Using them makes the monthly commit show up
-  # as the bot rather than as whoever last touched the repository.
-  BOT_NAME: 'github-actions[bot]'
-  BOT_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
 
 jobs:
   check:
@@ -47,20 +39,14 @@ jobs:
         run: npm run monitor -w @kviz/monitor
         continue-on-error: true
 
-      - name: Record the heartbeat
-        run: |
-          git config user.name "$BOT_NAME"
-          git config user.email "$BOT_EMAIL"
-          git add packages/monitor/baseline.json
-          git diff --staged --quiet || git commit -m "Monitor: checked on $(date -u +%Y-%m-%d)"
-          git push
-
+      # always(): the report is how a failure is noticed, so it must not be skipped
+      # because an earlier step failed.
       - name: Report
+        if: always()
         uses: actions/github-script@v8
         with:
           script: |
-            const fs = require('fs');
-            const { checkedAt } = JSON.parse(fs.readFileSync('packages/monitor/baseline.json', 'utf8'));
+            const checkedAt = new Date().toISOString();
             const failed = '${{ steps.check.outcome }}' !== 'success';
             const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
 

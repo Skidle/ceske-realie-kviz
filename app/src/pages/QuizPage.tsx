@@ -4,7 +4,7 @@ import { categories } from '../content/categories';
 
 function QuizPage() {
   return (
-    <main className="container mx-auto px-4 pt-32 pb-16 flex-grow">
+    <main className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-16 flex-grow">
       <div className="max-w-2xl mx-auto bg-white rounded-lg border border-flag-100 shadow-sm">
         {/* The flag, as a rule rather than a picture. */}
         <div className="flex h-1 rounded-t-lg overflow-hidden">

@@ -24,7 +24,9 @@ const Marker = ({ mark }: { mark: Mark }) => {
   return (
     <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
       {isRight ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
-      {isRight ? 'Správně' : 'Nesprávně'}
+      {/* The icon carries the meaning on its own; the word is dropped when there is no
+          room for it, and the label keeps it available to a screen reader. */}
+      <span className="sr-only sm:not-sr-only">{isRight ? 'Správně' : 'Nesprávně'}</span>
     </span>
   );
 };
@@ -137,7 +139,9 @@ function QuestionCard({
             onClick={() => onAnswer(index + 1)}
           >
             <span className="flex items-center justify-between gap-3">
-              <AnswerContent answer={answer} questionType={questionType} />
+              <span className="min-w-0">
+                <AnswerContent answer={answer} questionType={questionType} />
+              </span>
               <Marker mark={markFor(index)} />
             </span>
           </button>

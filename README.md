@@ -82,6 +82,9 @@ quirks and every deviation from the official question bank, with reasons and dat
 
 ## Credits
 
-Questions are reproduced from the official public question bank linked above, **copied in September 2024 and not updated since**. This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
+Questions are reproduced from the official public question bank, published by the Národní
+pedagogický institut ČR — current edition:
+[OBC_databanka_testovychuloh_260105.pdf](https://cestina-pro-cizince.cz/obcanstvi/wp-content/uploads/2026/01/OBC_databanka_testovychuloh_260105.pdf)
+(5 January 2026). **Copied in September 2024 and not updated since.** This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
 
 One question has been removed since that snapshot because it was retired upstream; see `docs/BEHAVIOR.md` for details.

@@ -21,7 +21,7 @@ function AnswerFeedback({
   return (
     <div
       role="status"
-      className={`mb-4 flex items-center gap-2 rounded-lg px-4 py-3 text-sm ${
+      className={`flex items-center gap-2 rounded px-4 py-3 text-sm ${
         right ? 'bg-right-50 text-right-700' : 'bg-wrong-50 text-wrong-700'
       }`}
     >

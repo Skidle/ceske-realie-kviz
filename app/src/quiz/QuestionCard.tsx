@@ -107,11 +107,15 @@ function QuestionCard({
         />
       )}
 
-      <AnswerFeedback
-        showInstantFeedback={showInstantFeedback}
-        correctAnswer={isCorrect}
-        incorrectAnswer={incorrectAnswer}
-      />
+      {/* The slot is always here, so answering fills it rather than pushing the
+          answers down the page. */}
+      <div className="mb-4 min-h-[3.25rem]">
+        <AnswerFeedback
+          showInstantFeedback={showInstantFeedback}
+          correctAnswer={isCorrect}
+          incorrectAnswer={incorrectAnswer}
+        />
+      </div>
 
       {/* Photo answers go two to a row, so all four fit on screen without scrolling.
           Stacked full width they ran well past a laptop viewport.
@@ -140,16 +144,21 @@ function QuestionCard({
         ))}
       </div>
 
-      {showNextQuestionButton && (
-        <button
-          type="button"
-          onClick={onNext}
-          className="mt-6 w-full bg-flag-600 text-white px-6 py-3 rounded-lg font-medium
-            hover:bg-flag-700 transition-colors"
-        >
-          {appLocale.nextQuestionBtn}
-        </button>
-      )}
+      {/* Reserved for the same reason: the page keeps its height when the button
+          appears, so nothing below it moves. */}
+      <div className="mt-6 min-h-[3.25rem]">
+        {showNextQuestionButton && (
+          <button
+            type="button"
+            onClick={onNext}
+            className="w-full bg-flag-600 text-white px-6 py-3 rounded font-medium
+              hover:bg-flag-700 transition-colors focus:outline-none
+              focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1"
+          >
+            {appLocale.nextQuestionBtn}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

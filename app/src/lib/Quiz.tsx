@@ -2,27 +2,33 @@ import React, { useState } from 'react';
 import Core from './Core';
 import flag from '../cz_flag.png';
 import { getFinalQuestions } from '../utils';
+import type { Category, QuizData } from '../types';
+
+interface QuizProps {
+  quiz: QuizData;
+  categories: Category[];
+}
 
 function Quiz({
   quiz,
   categories,
-}) {
+}: QuizProps) {
   const [start, setStart] = useState(false);
 
   const [shuffle, toggleShuffle] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<number | ''>('');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<number | ''>('');
   const [isRealTest, setIsRealTest] = useState(false);
 
   const appLocale = quiz.appLocale;
 
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const category = event.target.value === '' ? '' : parseInt(event.target.value, 10);
     setSelectedCategory(category);
     setSelectedSubCategory('');
   };
 
-  const handleSubCategoryChange = (event) => {
+  const handleSubCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const subCategory = event.target.value === '' ? '' : parseInt(event.target.value, 10);
     setSelectedSubCategory(subCategory);
   };
@@ -106,7 +112,7 @@ function Quiz({
             <div className="custom-select-container">
               <select className="custom-select" value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
                 <option value="">{appLocale.allCategoriesLabel}</option>
-                {categories.map((cat, idx) => (
+                {categories.map((cat: Category, idx: number) => (
                   <option value={idx} key={idx}>{cat.name}</option>
                 ))}
               </select>
@@ -121,7 +127,7 @@ function Quiz({
                 <div className="custom-select-container">
                   <select className="custom-select" value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
                     <option value="">{appLocale.allSubCategoriesLabel}</option>
-                    {categories[selectedCategory].subCategories.map((subCat, idx) => (
+                    {categories[selectedCategory].subCategories.map((subCat: string, idx: number) => (
                       <option value={idx} key={idx}>{subCat}</option>
                     ))}
                   </select>
@@ -138,7 +144,7 @@ function Quiz({
           <br /><br />
 
           <div>
-            {appLocale.landingHeaderText.replace('<questionLength>', finalQuestions.length)}
+            {appLocale.landingHeaderText.replace('<questionLength>', String(finalQuestions.length))}
           </div>
 
           <div className="startQuizWrapper">

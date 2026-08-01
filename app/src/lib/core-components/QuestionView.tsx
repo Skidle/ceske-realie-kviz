@@ -1,17 +1,39 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { nanoid } from 'nanoid';
 import { rawMarkup } from './helpers';
 import InstantFeedback from './InstantFeedback';
+import type {
+  AnswerButtons, AppLocale, IndexedQuestion, QuestionType,
+} from '../../types';
 
 // correctAnswer is a 1-based index held as a string, e.g. "3".
-const isCorrectAnswer = (index, correctAnswer) => index === Number(correctAnswer);
+const isCorrectAnswer = (index: number, correctAnswer: string) => index === Number(correctAnswer);
 
-const AnswerContent = ({ answer, questionType }) => (
+interface AnswerContentProps {
+  answer: string;
+  questionType: QuestionType;
+}
+
+const AnswerContent = ({ answer, questionType }: AnswerContentProps) => (
   <>
     {questionType === 'text' && <span>{answer}</span>}
     {questionType === 'photo' && <img src={answer} alt="answer" />}
   </>
 );
+
+interface QuestionViewProps {
+  question: IndexedQuestion;
+  questionNumber: number;
+  questionCount: number;
+  appLocale: AppLocale;
+  showInstantFeedback: boolean;
+  isCorrect: boolean;
+  incorrectAnswer: boolean;
+  answerButtons: AnswerButtons;
+  showNextQuestionButton: boolean;
+  onAnswer: (answerIndex: number) => void;
+  onNext: () => void;
+}
 
 function QuestionView({
   question,
@@ -25,7 +47,7 @@ function QuestionView({
   showNextQuestionButton,
   onAnswer,
   onNext,
-}) {
+}: QuestionViewProps) {
   const { answers, correctAnswer, questionType } = question;
 
   return (

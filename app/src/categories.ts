@@ -1,4 +1,6 @@
-export const categories = {
+import type { Category } from './types';
+
+export const categories: { categories: Category[] } = {
     "categories": [
         {
             "name": "Občanský základ",

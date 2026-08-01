@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -10,8 +11,9 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 export default [
   { ignores: ['build/**', 'coverage/**'] },
   js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -31,11 +33,12 @@ export default [
       ),
       // The new JSX transform means React need not be in scope.
       'react/react-in-jsx-scope': 'off',
+      // TypeScript checks prop types now.
       'react/prop-types': 'off',
     },
   },
   {
-    files: ['**/*.test.{js,jsx}', 'src/setupTests.js'],
+    files: ['**/*.test.{ts,tsx}', 'src/setupTests.ts'],
     languageOptions: { globals: { ...globals.node, ...globals.vitest } },
   },
 ];

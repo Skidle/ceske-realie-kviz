@@ -1,14 +1,21 @@
 import snarkdown from 'snarkdown';
 import dompurify from 'dompurify';
+import type {
+  AnswerButtons, CheckAnswerSetters, CheckAnswerState, Question,
+} from '../../types';
 
 // Sanitize *after* rendering markdown: snarkdown turns text into HTML, so
 // sanitizing first would let markdown re-introduce unsafe markup.
-export const rawMarkup = (data) => ({ __html: dompurify.sanitize(snarkdown(data)) });
+export const rawMarkup = (data: string) => ({ __html: dompurify.sanitize(snarkdown(data)) });
 
 // Every answer is disabled except the one that was clicked, which is left enabled but
 // tagged correct/incorrect. Re-answering is ignored, so leaving it enabled is harmless.
-const answerButtonStates = (answerCount, answerIndex, className) => {
-  const states = {};
+const answerButtonStates = (
+  answerCount: number,
+  answerIndex: number,
+  className: string,
+): AnswerButtons => {
+  const states: AnswerButtons = {};
 
   for (let i = 0; i < answerCount; i += 1) {
     states[i] = { disabled: true };
@@ -18,7 +25,7 @@ const answerButtonStates = (answerCount, answerIndex, className) => {
   return states;
 };
 
-const withIndex = (indices, questionIndex) => (
+const withIndex = (indices: number[], questionIndex: number): number[] => (
   indices.includes(questionIndex) ? indices : [...indices, questionIndex]
 );
 
@@ -31,12 +38,12 @@ const withIndex = (indices, questionIndex) => (
  * Takes the current values it needs and hands new arrays to the setters. It does not
  * mutate anything it is given.
  */
-export const checkAnswer = (answerIndex, question, {
+export const checkAnswer = (answerIndex: number, question: Question, {
   currentQuestionIndex,
   correct,
   incorrect,
   userInput,
-}, {
+}: CheckAnswerState, {
   setButtons,
   setCorrect,
   setIncorrect,
@@ -44,7 +51,7 @@ export const checkAnswer = (answerIndex, question, {
   setIncorrectAnswer,
   setShowNextQuestionButton,
   setUserInput,
-}) => {
+}: CheckAnswerSetters) => {
   const isAnswerCorrect = `${answerIndex}` === question.correctAnswer;
 
   // The first answer given to a question is the one that counts; later clicks on the

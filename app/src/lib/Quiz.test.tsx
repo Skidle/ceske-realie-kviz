@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Quiz from './Quiz';
 import { quizFixture, categoriesFixture } from '../__fixtures__/quiz';
@@ -14,11 +13,11 @@ const renderQuiz = () => render(
 // fireEvent from RTL, not user-event: @testing-library/dom is hoisted at v10 while RTL 13
 // carries its own nested v8, so user-event's clicks go through a different instance and
 // escape RTL's act() wrapper, leaving React 18 updates unflushed. Revisit in Phase 2.
-const clickButton = (name) => fireEvent.click(screen.getByRole('button', { name }));
+const clickButton = (name: string) => fireEvent.click(screen.getByRole('button', { name }));
 
 const startQuiz = () => clickButton('Spustit kvíz');
 const goToNextQuestion = () => clickButton('Další');
-const chooseAnswer = (label) => clickButton(label);
+const chooseAnswer = (label: string) => clickButton(label);
 
 describe('Quiz', () => {
   describe('start screen', () => {

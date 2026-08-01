@@ -1,9 +1,17 @@
-import React from 'react';
 import { nanoid } from 'nanoid';
 import QuizResultFilter from './QuizResultFilter';
 import { rawMarkup } from './helpers';
+import type {
+  AppLocale, IndexedQuestion, ResultFilter,
+} from '../../types';
 
-const AnsweredQuestion = ({ question, userInputIndex }) => {
+interface AnsweredQuestionProps {
+  question: IndexedQuestion;
+  /** The 1-based answer the player chose, or undefined if they never answered. */
+  userInputIndex: number | undefined;
+}
+
+const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) => {
   const { answers, correctAnswer, questionType } = question;
 
   return answers.map((answer, index) => {
@@ -33,6 +41,18 @@ const AnsweredQuestion = ({ question, userInputIndex }) => {
   });
 };
 
+interface ResultsViewProps {
+  questions: IndexedQuestion[];
+  correct: number[];
+  incorrect: number[];
+  userInput: number[];
+  correctPoints: number;
+  totalPoints: number;
+  appLocale: AppLocale;
+  filteredValue: ResultFilter;
+  onFilterChange: (event: { target: { value: string } }) => void;
+}
+
 function ResultsView({
   questions,
   correct,
@@ -43,9 +63,9 @@ function ResultsView({
   appLocale,
   filteredValue,
   onFilterChange,
-}) {
-  let filteredQuestions;
-  let filteredUserInput;
+}: ResultsViewProps) {
+  let filteredQuestions: IndexedQuestion[] | undefined;
+  let filteredUserInput: number[] | undefined;
 
   if (filteredValue !== 'all') {
     const targetQuestions = filteredValue === 'correct' ? correct : incorrect;
@@ -62,13 +82,13 @@ function ResultsView({
     <div className="card-body">
       <h2>
         {appLocale.resultPageHeaderText
-          .replace('<correctIndexLength>', correct.length)
-          .replace('<questionLength>', questions.length)}
+          .replace('<correctIndexLength>', String(correct.length))
+          .replace('<questionLength>', String(questions.length))}
       </h2>
       <h2>
         {appLocale.resultPagePoint
-          .replace('<correctPoints>', correctPoints)
-          .replace('<totalPoints>', totalPoints)}
+          .replace('<correctPoints>', String(correctPoints))
+          .replace('<totalPoints>', String(totalPoints))}
       </h2>
       <br />
       <QuizResultFilter

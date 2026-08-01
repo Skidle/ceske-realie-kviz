@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { checkAnswer } from './core-components/helpers';
+import type {
+  AnswerButtons, IndexedQuestion, ResultFilter,
+} from '../types';
 
-const toPoints = (point) => parseInt(point, 10) || 0;
+const toPoints = (point: string): number => parseInt(point, 10) || 0;
 
 /**
  * Holds the state of a quiz in progress: which question is showing, which questions were
@@ -9,23 +12,23 @@ const toPoints = (point) => parseInt(point, 10) || 0;
  *
  * Scores are derived rather than stored, so they cannot drift out of sync with `correct`.
  */
-export function useQuizState(questions) {
+export function useQuizState(questions: IndexedQuestion[]) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [correct, setCorrect] = useState([]);
-  const [incorrect, setIncorrect] = useState([]);
-  const [userInput, setUserInput] = useState([]);
-  const [buttons, setButtons] = useState({});
+  const [correct, setCorrect] = useState<number[]>([]);
+  const [incorrect, setIncorrect] = useState<number[]>([]);
+  const [userInput, setUserInput] = useState<number[]>([]);
+  const [buttons, setButtons] = useState<AnswerButtons>({});
   const [isCorrect, setIsCorrect] = useState(false);
   const [incorrectAnswer, setIncorrectAnswer] = useState(false);
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
   const [endQuiz, setEndQuiz] = useState(false);
-  const [filteredValue, setFilteredValue] = useState('all');
+  const [filteredValue, setFilteredValue] = useState<ResultFilter>('all');
 
   const activeQuestion = questions[currentQuestionIndex];
   const totalPoints = questions.reduce((sum, question) => sum + toPoints(question.point), 0);
   const correctPoints = correct.reduce((sum, index) => sum + toPoints(questions[index].point), 0);
 
-  const answerQuestion = (answerIndex) => checkAnswer(
+  const answerQuestion = (answerIndex: number) => checkAnswer(
     answerIndex,
     activeQuestion,
     {
@@ -55,7 +58,9 @@ export function useQuizState(questions) {
     }
   };
 
-  const filterResults = (event) => setFilteredValue(event.target.value);
+  const filterResults = (event: { target: { value: string } }) => (
+    setFilteredValue(event.target.value as ResultFilter)
+  );
 
   return {
     activeQuestion,

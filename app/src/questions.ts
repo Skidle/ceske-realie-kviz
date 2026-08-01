@@ -1,4 +1,6 @@
-export const questions = [
+import type { Question } from './types';
+
+export const questions: Question[] = [
     {
         "question": "Který svátek slaví Češi i lidé po celém světě 8. března?",
         "answers": [

@@ -49,6 +49,11 @@ records the question index in `correct` or `incorrect`, disables the other answe
 marks the clicked one, and reveals the next-question button. The first answer to a
 question is the one that counts; later clicks on the same question are ignored.
 
+The marking is an icon and a word as well as a colour, so it survives greyscale and
+red-green colour blindness. Answers are buttons in a group labelled by the question,
+deliberately not a radiogroup: arrow keys there both move and select, and choosing an
+answer here submits it irreversibly.
+
 It is pure: it reads the values it needs and hands new arrays to the setters.
 
 ## Routing (`App.tsx`)
@@ -61,21 +66,12 @@ static files under `public/` are matched before that rewrite.
 
 Still present. Documented rather than fixed, to keep refactor commits behaviour-preserving.
 
-1. **The chosen answer button is not disabled.** On answering, every *other* button gets
-   `{ disabled: true }`, but the clicked one is replaced by `{ className: 'correct' }`,
-   losing `disabled`. It only stops mattering because a repeat answer is ignored.
-2. **Answer buttons render a literal `undefined` class.** `class="undefined answerBtn btn"`
-   appears on answered questions, because the state for non-selected answers has no
-   `className` and that value is interpolated into the class string. Harmless — no
-   `.undefined` rule exists.
-3. **`alt="answer"` on every answer image** tells a screen-reader user nothing. Note the
-   tension: an accurate description would give away the answer to "which picture shows
-   Karlštejn". Something like `alt="Možnost 1"` identifies without spoiling.
-4. **Image answers are not sized to fit.** Four alternatives do not fit on screen, so
-   answering an image question requires scrolling.
-5. **`appLocale.resultFilterUnanswered` is unused.** The filter offers only all, correct
+1. **The chosen answer button is not disabled.** On answering, every *other* answer gets
+   `{ disabled: true }`, but the clicked one keeps only its marking, losing `disabled`. It
+   stops mattering because a repeat answer is ignored.
+2. **`appLocale.resultFilterUnanswered` is unused.** The filter offers only all, correct
    and incorrect.
-6. **32 question images are still hotlinked** to the source site. See below — one set is
+3. **32 question images are still hotlinked** to the source site. See below — one set is
    already known to serve the wrong pictures.
 
 ## Fixed since the baseline
@@ -90,6 +86,12 @@ Kept for context, since these shaped the code that exists now.
 | `alert()` and `window.confirm()` for "Quiz is incomplete" and submit confirmation | Phase 1 — both paths were unreachable and were deleted |
 | Roughly 80% of the vendored template was unreachable: timer, progress bar, previous-question button, retry-until-correct, `selectAnswer`, multiple-selection, custom result page, `Explanation` | Phase 1 — deleted |
 | Form controls had no associated labels; the icon-only back button had no accessible name | Phase 4 |
+| Answer images carried `alt="answer"`, which tells a screen-reader user nothing | Design phase — they are decorative now, and the marking carries the meaning |
+| Four image answers did not fit on screen, so answering required scrolling | Design phase — two to a row, sized to fit |
+| Answer buttons rendered a literal `undefined` class | Design phase — the class strings were rewritten |
+| Correct and incorrect were conveyed by fill colour alone | Design phase — icon and word added |
+| Choosing an answer pushed the answers down the page mid-click | Design phase — reserved slots |
+| `#main-container` was a hard 500px, overflowing a 390px phone by 110px | Design phase — `quiz.css` deleted |
 | A missing `}` left `.filter-dropdown-select` compiling only as a nested descendant selector, and `height: 12px` on a 16px font made its text overflow | Phase 4 follow-up |
 | The result page prefixed questions with English `Q1:`, and `appLocale.question` was the plural `Otázky` | Phase 4 follow-up |
 | Answer and result lists were keyed with `nanoid()`, so React destroyed and recreated all four answer buttons on every render. On image questions the pictures were torn out of the DOM and the page jumped to the top | Post-Phase-4 fix |

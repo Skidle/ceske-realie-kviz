@@ -20,7 +20,9 @@ Everything runs client-side; no backend, no user data stored.
 
 ## Tech
 
-React 18 + TypeScript on Vite, with Tailwind for the landing page and plain CSS for the quiz. Tested with Vitest and Testing Library, routed with react-router.
+React 18 + TypeScript on Vite, styled with Tailwind throughout. Tested with Vitest and Testing Library, routed with react-router.
+
+The palette is the Czech flag: blue `#11457E` carries the brand, and red `#D7141A` is reserved for a wrong answer so the two meanings never collide.
 
 The quiz under `app/src/lib/` began as an off-the-shelf React quiz template, vendored rather than installed. It has since been cut down to what this app actually uses — roughly 80% of the template was unreachable — and rewritten around a state hook plus two view components.
 
@@ -29,6 +31,7 @@ app/src/
   main.tsx                 entry: mounts the app and loads global styles
   App.tsx                  routes
   pages/
+    SiteLayout.tsx         nav and footer, shared by both routes
     LandingPage.tsx
     QuizPage.tsx
   quiz/                    everything the quiz is and does
@@ -48,7 +51,7 @@ app/src/
     types.ts               shapes as stored
   locale/cs.ts             Czech UI strings
   shared/markdown.ts
-  styles/                  tailwind.css, quiz.css
+  styles/                  tailwind.css
   test/                    setup and fixtures
 app/scripts/               the source monitor (Node, never bundled)
 app/data/                  monitor baselines

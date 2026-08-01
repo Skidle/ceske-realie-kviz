@@ -1,3 +1,17 @@
+/* Visible to screen readers only. Used where a control's visual affordance carries no
+   text of its own, such as the real-test toggle switch. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .react-quiz-container {
   margin: 0 auto;
   max-width: 500px;

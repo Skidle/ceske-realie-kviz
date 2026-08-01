@@ -26,11 +26,16 @@ export default [
       ...react.configs.flat.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       ...jsxA11y.flatConfigs.recommended.rules,
-      // CRA's react-app preset reported accessibility problems as warnings. Kept at warn
-      // so this migration does not have to redesign markup; Phase 4 fixes them for real.
-      ...Object.fromEntries(
-        Object.keys(jsxA11y.flatConfigs.recommended.rules).map((rule) => [rule, 'warn']),
-      ),
+      // Accessibility problems are errors now that they are all fixed. CRA reported them
+      // as warnings, which is how they went unnoticed.
+      //
+      // Two rules stay off, and neither hides a real problem:
+      // - label-has-for is deprecated upstream and demands both nesting AND htmlFor,
+      //   which contradicts label-has-associated-control. That rule is on and passing.
+      // - control-has-associated-label cannot resolve a label that points at a control
+      //   by htmlFor, so it reports inputs that are correctly labelled.
+      'jsx-a11y/label-has-for': 'off',
+      'jsx-a11y/control-has-associated-label': 'off',
       // The new JSX transform means React need not be in scope.
       'react/react-in-jsx-scope': 'off',
       // TypeScript checks prop types now.

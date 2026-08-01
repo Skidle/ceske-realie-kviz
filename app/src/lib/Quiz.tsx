@@ -97,8 +97,9 @@ function Quiz({
           <h2>{appLocale.settings}</h2>
 
           <div className="toggle-container">
-            <span id="toggleLabel">{appLocale.realTestLabel}</span>
+            <span id="toggleLabel" aria-hidden="true">{appLocale.realTestLabel}</span>
             <label className="toggle-switch">
+              <span className="visually-hidden">{appLocale.realTestLabel}</span>
               <input type="checkbox" id="realTestToggle" checked={isRealTest} onChange={handleRealTestToggle} />
               <span className="slider"></span>
             </label>
@@ -107,10 +108,10 @@ function Quiz({
           <br />
 
           <div>
-            <label>{appLocale.chooseCategoryLabel}</label>
+            <label htmlFor="categorySelect">{appLocale.chooseCategoryLabel}</label>
             <br />
             <div className="custom-select-container">
-              <select className="custom-select" value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
+              <select id="categorySelect" className="custom-select" value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
                 <option value="">{appLocale.allCategoriesLabel}</option>
                 {categories.map((cat: Category, idx: number) => (
                   <option value={idx} key={idx}>{cat.name}</option>
@@ -122,10 +123,10 @@ function Quiz({
           {selectedCategory !== '' && (
             <>
               <div>
-                <label>{appLocale.chooseSubCategoryLabel}</label>
+                <label htmlFor="subCategorySelect">{appLocale.chooseSubCategoryLabel}</label>
                 <br />
                 <div className="custom-select-container">
-                  <select className="custom-select" value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
+                  <select id="subCategorySelect" className="custom-select" value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
                     <option value="">{appLocale.allSubCategoriesLabel}</option>
                     {categories[selectedCategory].subCategories.map((subCat: string, idx: number) => (
                       <option value={idx} key={idx}>{subCat}</option>
@@ -137,8 +138,8 @@ function Quiz({
           )}
 
           <div className="simple-checkbox-container">
-            <label>{appLocale.shuffleCheckboxLabel}</label>
-            <input type="checkbox" checked={shuffle} onChange={handleShuffleChange} disabled={isRealTest} />
+            <label htmlFor="shuffleToggle">{appLocale.shuffleCheckboxLabel}</label>
+            <input type="checkbox" id="shuffleToggle" checked={shuffle} onChange={handleShuffleChange} disabled={isRealTest} />
           </div>
 
           <br /><br />
@@ -157,7 +158,7 @@ function Quiz({
 
       {start && (
         <>
-          <button type="button" onClick={() => setStart(false)} id="icon-back-button">
+          <button type="button" onClick={() => setStart(false)} id="icon-back-button" aria-label={appLocale.backButtonLabel}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                  className="feather feather-arrow-left">

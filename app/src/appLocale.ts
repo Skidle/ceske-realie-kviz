@@ -28,4 +28,5 @@ export const appLocale: AppLocale = {
     chooseSubCategoryLabel: 'Vyberte podkategorii',
     allSubCategoriesLabel: 'Všechny podkategorie',
     shuffleCheckboxLabel: 'Zamíchat otázky',
+    backButtonLabel: 'Zpět na nastavení kvízu',
 };

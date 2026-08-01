@@ -67,6 +67,7 @@ export interface AppLocale {
   chooseSubCategoryLabel: string;
   allSubCategoriesLabel: string;
   shuffleCheckboxLabel: string;
+  backButtonLabel: string;
 }
 
 export interface QuizData {

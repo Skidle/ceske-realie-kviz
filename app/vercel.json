@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "outputDirectory": "build",
+  "rewrites": [
+    {
+      "comment": "Client-side routing: serve index.html for any path that is not a real file, so /kviz survives a hard refresh. Static files under public/ still win, as rewrites are applied only after the filesystem is checked.",
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

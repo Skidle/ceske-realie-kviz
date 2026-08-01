@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Instagram, ArrowRight, FileText, CheckSquare, BookOpen, Clock, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './globals.css';
 
 const LandingPage = () => {
@@ -61,11 +62,11 @@ const LandingPage = () => {
                         <p className="text-zinc-700 mb-4">
                             Vyzkoušejte si kvíz z českých reálií zdarma.
                         </p>
-                        <a href="/kviz"
+                        <Link to="/kviz"
                            className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors inline-flex items-center">
                             Spustit kvíz
                             <ArrowRight className="ml-2 w-4 h-4"/>
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="bg-white/60 p-8 rounded-2xl shadow backdrop-blur-sm">

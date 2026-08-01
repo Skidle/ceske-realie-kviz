@@ -101,14 +101,12 @@ function Quiz({
           <br />
 
           <div>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>{appLocale.chooseCategoryLabel}</label>
             <br />
             <div className="custom-select-container">
               <select className="custom-select" value={selectedCategory} onChange={handleCategoryChange} disabled={isRealTest}>
                 <option value="">{appLocale.allCategoriesLabel}</option>
                 {categories.map((cat, idx) => (
-                  // eslint-disable-next-line react/no-array-index-key
                   <option value={idx} key={idx}>{cat.name}</option>
                 ))}
               </select>
@@ -118,14 +116,12 @@ function Quiz({
           {selectedCategory !== '' && (
             <>
               <div>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label>{appLocale.chooseSubCategoryLabel}</label>
                 <br />
                 <div className="custom-select-container">
                   <select className="custom-select" value={selectedSubCategory} onChange={handleSubCategoryChange} disabled={isRealTest}>
                     <option value="">{appLocale.allSubCategoriesLabel}</option>
                     {categories[selectedCategory].subCategories.map((subCat, idx) => (
-                      // eslint-disable-next-line react/no-array-index-key
                       <option value={idx} key={idx}>{subCat}</option>
                     ))}
                   </select>
@@ -135,7 +131,6 @@ function Quiz({
           )}
 
           <div className="simple-checkbox-container">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label>{appLocale.shuffleCheckboxLabel}</label>
             <input type="checkbox" checked={shuffle} onChange={handleShuffleChange} disabled={isRealTest} />
           </div>

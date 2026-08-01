@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { Mail, Instagram, Github } from 'lucide-react';
+import { Mail, Instagram } from 'lucide-react';
 
 /**
  * The nav and footer both routes share. Previously only the landing page had them, so the
@@ -34,28 +34,15 @@ function SiteLayout() {
             {' '}
             Průvodce občanstvím
           </p>
-          <div className="flex items-center gap-5 text-sm sm:text-base">
-            <a
-              href="https://www.instagram.com/czech_citizenship/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-flag-600 hover:text-flag-700 flex items-center gap-2"
-            >
-              <Instagram className="w-5 h-5" />
-              Instagram
-            </a>
-            {/* The questions belong to NPI ČR and the guide to its author, so this
-                credits the only thing it can: the code. */}
-            <a
-              href="https://github.com/Skidle/ceske-realie-kviz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-flag-600 hover:text-flag-700 flex items-center gap-2"
-            >
-              <Github className="w-5 h-5" />
-              Zdrojový kód
-            </a>
-          </div>
+          <a
+            href="https://www.instagram.com/czech_citizenship/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-flag-600 hover:text-flag-700 flex items-center gap-2 text-sm sm:text-base"
+          >
+            <Instagram className="w-5 h-5" />
+            Sledujte nás na Instagramu
+          </a>
         </div>
       </footer>
     </div>

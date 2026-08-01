@@ -11,7 +11,7 @@ function SiteLayout() {
       <nav className="bg-white/80 backdrop-blur-sm shadow-sm fixed w-full z-10">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <Link to="/">
-            <img src="/transparentLogo.png" alt="Průvodce občanstvím" className="w-14 h-14 sm:w-20 sm:h-20" />
+            <img src="/transparentLogo.png" alt="Průvodce občanstvím" className="w-12 h-12 sm:w-16 sm:h-16" />
           </Link>
           <a
             href="mailto:cz.citizenship.guide@gmail.com"

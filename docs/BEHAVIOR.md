@@ -1,25 +1,25 @@
 # Current behaviour
 
-Reference for what the app does as of the Phase 0 baseline. Written before refactoring so
-that changes can be checked against it. Describes what the code *does*, not what it should do.
+What the app does today. Written before the refactor so changes could be checked against
+it, and kept current since. Describes what the code *does*, not what it should do.
 
 ## Question data
 
-All 300 questions share one shape: 4 text answers, `answerSelectionType: "single"`,
+All 299 questions share one shape: 4 answers, `answerSelectionType: "single"`,
 `correctAnswer` a **string** holding a 1-based index (`"3"` = third answer), and
-`point: "1"` as a **string**. 17 questions carry a `questionPic` URL hotlinked from
-`databanka-obcanstvi.cestina-pro-cizince.cz`; `questionType` is `"text"` or `"photo"`.
-No question has an `explanation` field.
+`point: "1"`, also a string. `questionType` is `"text"` (292) or `"photo"` (7), where the
+answers are images rather than text. 17 questions carry a `questionPic` shown with the
+question itself. No question has an `explanation` field.
 
-Categories are indices into `categories.js`:
+Categories are indices into `categories.ts`:
 
 | index | category | questions | subcategories |
 |---|---|---|---|
 | 0 | Občanský základ | 160 | 16 |
 | 1 | Základní geografické informace | 70 | 7 |
-| 2 | Základní historické a kulturní informace | 70 | 7 |
+| 2 | Základní historické a kulturní informace | 69 | 7 |
 
-## Question selection (`utils.js`)
+## Question selection (`utils.ts`)
 
 `getFinalQuestions({ questions, selectedCategory, selectedSubCategory, shuffle, isRealTest })`
 returns the question set, then stamps `questionIndex` 1..n onto it.
@@ -33,73 +33,71 @@ returns the question set, then stamps `questionIndex` 1..n onto it.
 - **Shuffling** means both question order *and* answer order. When answers are reordered,
   `correctAnswer` is recomputed to keep pointing at the same answer text.
 
-## Scoring (`Core.jsx`)
+## Scoring (`useQuizState.ts`)
 
-`correct` and `incorrect` hold question indices. On finishing, `totalPoints` sums every
-question's `point` (parsed from string) and `correctPoints` sums the points of questions
-whose index is in `correct`. Since every question is worth 1 point, points currently
+`correct` and `incorrect` hold question indices. Scores are **derived, not stored**:
+`totalPoints` sums every question's `point`, and `correctPoints` sums the points of
+questions whose index is in `correct`. Since every question is worth 1 point, points
 mirror the question counts.
 
-The result screen shows correct-of-total, points, and a filter (all / correct / incorrect
-/ unanswered) over the answered questions.
+The result screen shows correct-of-total, points, and a filter over the answered questions.
 
-## Answering (`helpers.jsx`)
+## Answering (`helpers.ts`)
 
-`checkAnswer` is the path this app uses. For single-selection it compares the clicked
-1-based index against `correctAnswer` as strings, records the question index in `correct`
-or `incorrect`, disables the answer buttons, marks the clicked button correct/incorrect,
-and reveals the next-question button.
+`checkAnswer` compares the clicked 1-based index against `correctAnswer` as strings,
+records the question index in `correct` or `incorrect`, disables the other answer buttons,
+marks the clicked one, and reveals the next-question button. The first answer to a
+question is the one that counts; later clicks on the same question are ignored.
+
+It is pure: it reads the values it needs and hands new arrays to the setters.
+
+## Routing (`App.tsx`)
+
+`/` is the landing page, `/kviz` the quiz, and any other path redirects to `/`. Vercel
+serves `index.html` for paths that are not real files, so a hard refresh on `/kviz` works;
+static files under `public/` are matched before that rewrite.
 
 ## Known quirks
 
-Pre-existing; documented deliberately rather than fixed as part of the refactor.
+Still present. Documented rather than fixed, to keep refactor commits behaviour-preserving.
 
-1. **State is set to a mutated array.** `checkAnswer` does `correct.push(i)` on the array
-   it was handed, then `setCorrect(correct)` with that same reference. React bails out of
-   re-rendering on reference equality, so this update can be dropped. It appears to work
-   today only because other state changes in the same handler force the re-render.
-   This is the main suspected latent bug.
-2. **`correctAnswer` has two shapes.** A string index for single-selection, an array of
-   numbers for multiple-selection. All 300 questions are single, so only the string form
-   occurs in practice.
-3. **Unknown URLs render a blank page.** `App.js` string-compares `window.location.pathname`
-   against `/` and `/kviz`. Anything else — including `/kviz/` with a trailing slash —
-   matches neither branch and renders nothing.
-4. **Most question images are hotlinked** to the source site, so they break if that site
-   moves or blocks them. This has already happened once; see Question set changes. The 9
-   images belonging to the three affected questions are now served from
-   `public/images/questions/`. The remaining 32 are still hotlinked and carry the same risk.
-5. **`alert()` / `window.confirm()`** are used for "Quiz is incomplete" and submit
-   confirmation. Both are unreachable in this app (see below).
-6. **The "unanswered" result filter is unreachable.** `QuizResultFilter` renders only
-   three choices — all / correct / incorrect. `appLocale.resultFilterUnanswered` and the
-   `unanswered` branch in `Core.jsx` therefore never apply.
-7. **`nanoid()` is used as a React `key`** in the answer and result lists, generating a
-   fresh key on every render. That defeats reconciliation and remounts the whole list each
-   time, instead of updating it.
-8. **The chosen answer button is not disabled.** On answering, every *other* button gets
-   `{ disabled: true }`, but the clicked one is replaced by `{ className: 'correct' }` —
-   losing `disabled`. It only stops responding because a re-answer is ignored elsewhere.
+1. **`nanoid()` is used as a React `key`** in the answer and result lists, generating a
+   fresh key on every render. React cannot match old elements to new ones, so it destroys
+   and recreates all four answer buttons on every state change. This is not merely
+   inefficient: on image questions the pictures are torn out of the DOM and re-inserted,
+   the browser loses its scroll anchor, and the page jumps to the top when an answer is
+   clicked. Reported from real use.
+2. **The chosen answer button is not disabled.** On answering, every *other* button gets
+   `{ disabled: true }`, but the clicked one is replaced by `{ className: 'correct' }`,
+   losing `disabled`. It only stops mattering because a repeat answer is ignored.
+3. **Answer buttons render a literal `undefined` class.** `class="undefined answerBtn btn"`
+   appears on answered questions, because the state for non-selected answers has no
+   `className` and that value is interpolated into the class string. Harmless — no
+   `.undefined` rule exists.
+4. **`alt="answer"` on every answer image** tells a screen-reader user nothing. Note the
+   tension: an accurate description would give away the answer to "which picture shows
+   Karlštejn". Something like `alt="Možnost 1"` identifies without spoiling.
+5. **Image answers are not sized to fit.** Four alternatives do not fit on screen, so
+   answering an image question requires scrolling.
+6. **`appLocale.resultFilterUnanswered` is unused.** The filter offers only all, correct
+   and incorrect.
+7. **32 question images are still hotlinked** to the source site. See below — one set is
+   already known to serve the wrong pictures.
 
-## Reachable surface
+## Fixed since the baseline
 
-`Quiz.jsx` renders `Core` with only three props: `questions`, `appLocale`, and
-`showInstantFeedback`. Everything else is `undefined`, which makes large parts of the
-vendored template unreachable in this application:
+Kept for context, since these shaped the code that exists now.
 
-| Feature | Gated on | Status |
-|---|---|---|
-| Timer, pause screen | `timer` | unreachable |
-| Progress bar | `enableProgressBar` | unreachable |
-| Previous-question button, submit confirm | `allowNavigation` | unreachable |
-| Retry-until-correct | `continueTillCorrect` | unreachable |
-| `selectAnswer` path | `revealAnswerOnSubmit` | unreachable |
-| Custom result page, `onComplete`, `onQuestionSubmit` | respective props | unreachable |
-| Multiple-selection answering | question data | unreachable — all 300 are single |
-| `Explanation` component | `question.explanation` | always renders `null` |
-
-Reachable behaviour is: pick a mode, answer single-selection questions one at a time with
-instant feedback, then see the result screen with its filter.
+| Was | Fixed in |
+|---|---|
+| `checkAnswer` mutated the arrays it was given and called `setState` with the same reference, so React could skip the re-render | Phase 1 — made pure |
+| `correctAnswer` had two shapes: a string index, or an array of numbers for multiple-selection | Phase 1 removed multiple-selection as unreachable; Phase 3 types it as a string |
+| Unknown URLs, including `/kviz/` with a trailing slash, rendered a blank page | Phase 2 — react-router with a catch-all |
+| `alert()` and `window.confirm()` for "Quiz is incomplete" and submit confirmation | Phase 1 — both paths were unreachable and were deleted |
+| Roughly 80% of the vendored template was unreachable: timer, progress bar, previous-question button, retry-until-correct, `selectAnswer`, multiple-selection, custom result page, `Explanation` | Phase 1 — deleted |
+| Form controls had no associated labels; the icon-only back button had no accessible name | Phase 4 |
+| A missing `}` left `.filter-dropdown-select` compiling only as a nested descendant selector, and `height: 12px` on a 16px font made its text overflow | Phase 4 follow-up |
+| The result page prefixed questions with English `Q1:`, and `appLocale.question` was the plural `Otázky` | Phase 4 follow-up |
 
 ## Question set changes
 
@@ -148,14 +146,10 @@ no answer is correct. The Internet Archive's last capture, 5 October 2024, still
 right images, so the swap happened after that date — most likely at the 5 January 2026
 republication of the bank. There is no later capture to narrow it further.
 
-This is not fixed by hand. A status-code check is not sufficient to detect it; only
-comparing image content against a known-good snapshot is. The full audit of the remaining
-32 images, standardised filenames, and self-hosting are deferred to the importer and
-monitor work, which addresses the root cause rather than the symptoms.
+The remaining 31 images have **not** been audited, so the number of affected questions is
+unknown rather than one.
 
-### Cosmetic: answer buttons render a literal "undefined" class
-
-`class="undefined answerBtn btn"` appears on answered questions, because the button state
-for non-selected answers is `{ disabled: true }` with no `className`, and that value is
-interpolated into the class string. Harmless -- no `.undefined` rule exists -- and
-pre-existing. Fixable with a `?? ''`, deferred as it is a rendering change.
+This is not fixed by hand. A status-code check cannot detect it; only comparing image
+content against a known-good snapshot can. The full audit, standardised filenames and
+self-hosting are deferred to the importer and monitor work, which addresses the root cause
+rather than the symptoms.

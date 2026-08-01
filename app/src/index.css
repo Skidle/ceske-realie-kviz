@@ -423,6 +423,7 @@ html, body {
   position: relative;
   width: 120px;
   bottom: 15px;
+}
 
 .filter-dropdown-select {
   padding: 8px;
@@ -436,7 +437,7 @@ html, body {
   cursor: pointer;
   bottom: 10px;
   position: relative;
-  height: 12px;
+  line-height: 1.2;
 }
 
 .filter-dropdown-select:after {
@@ -513,5 +514,4 @@ html, body {
 
 .dropdown-options.open {
   max-height: 200px;
-}
 }

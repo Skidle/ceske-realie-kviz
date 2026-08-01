@@ -100,7 +100,7 @@ function ResultsView({
         <div className="result-answer-wrapper" key={nanoid()}>
           <h3
             dangerouslySetInnerHTML={rawMarkup(
-              `Q${question.questionIndex}: ${question.question}`,
+              `${appLocale.question} ${question.questionIndex}: ${question.question}`,
             )}
           />
           {question.questionPic && <img src={question.questionPic} alt="question" />}

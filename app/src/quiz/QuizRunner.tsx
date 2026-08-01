@@ -14,7 +14,7 @@ function QuizRunner({ questions, appLocale, showInstantFeedback }: QuizRunnerPro
   const quiz = useQuizState(questions);
 
   return (
-    <div className="questionWrapper">
+    <div>
       {quiz.endQuiz ? (
         <ResultsPanel
           questions={questions}

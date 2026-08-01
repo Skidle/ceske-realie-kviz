@@ -23,12 +23,15 @@ function ResultFilter({ filteredValue, onChange, appLocale }: ResultFilterProps)
   ];
 
   return (
-    <div className="quiz-result-filter">
-      <label htmlFor="resultFilter">{appLocale.resultFilterLabel}</label>
-      <div className="custom-select-container">
+    <div className="max-w-xs">
+      <label htmlFor="resultFilter" className="block mb-1 text-sm text-zinc-600">
+        {appLocale.resultFilterLabel}
+      </label>
+      <div>
         <select
           id="resultFilter"
-          className="custom-select"
+          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-zinc-800
+            focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           value={filteredValue}
           onChange={(event: ChangeEvent<HTMLSelectElement>) => (
             onChange(event.target.value as ResultFilterValue)

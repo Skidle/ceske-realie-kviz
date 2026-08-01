@@ -1,37 +1,17 @@
-import React, { useEffect } from 'react';
-import Explanation from './Explanation';
+import React from 'react';
 
-const renderMessageForCorrectAnswer = (question) => {
-  const defaultMessage = 'Máte pravdu. Pro pokračování klikněte na tlačítko «Další»';
-  return question.messageForCorrectAnswer || defaultMessage;
-};
+const CORRECT_MESSAGE = 'Máte pravdu. Pro pokračování klikněte na tlačítko «Další»';
+const INCORRECT_MESSAGE = 'Nesprávná odpověď. Zkuste to prosím znovu.';
 
-const renderMessageForIncorrectAnswer = (question) => {
-  const defaultMessage = 'Nesprávná odpověď. Zkuste to prosím znovu.';
-  return question.messageForIncorrectAnswer || defaultMessage;
-};
-
-function InstantFeedback({
-  showInstantFeedback, incorrectAnswer, correctAnswer, question, onQuestionSubmit, userAnswer,
-}) {
-  useEffect(() => {
-    if (onQuestionSubmit && (correctAnswer || incorrectAnswer)) {
-      onQuestionSubmit({ question, userAnswer, isCorrect: correctAnswer });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [correctAnswer, incorrectAnswer]);
+function InstantFeedback({ showInstantFeedback, incorrectAnswer, correctAnswer }) {
+  if (!showInstantFeedback) {
+    return null;
+  }
 
   return (
     <>
-      {incorrectAnswer && showInstantFeedback
-            && <div className="alert incorrect">{renderMessageForIncorrectAnswer(question)}</div>}
-      {correctAnswer && showInstantFeedback
-            && (
-            <div className="alert correct">
-              {renderMessageForCorrectAnswer(question)}
-              <Explanation question={question} isResultPage={false} />
-            </div>
-            )}
+      {incorrectAnswer && <div className="alert incorrect">{INCORRECT_MESSAGE}</div>}
+      {correctAnswer && <div className="alert correct">{CORRECT_MESSAGE}</div>}
     </>
   );
 }

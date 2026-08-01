@@ -1,2 +1,5 @@
 # agent working docs, not part of the project
 tasks/
+
+# IDE
+.idea/

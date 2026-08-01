@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { nanoid } from 'nanoid';
 import { rawMarkup } from './helpers';
 import InstantFeedback from './InstantFeedback';
 import type {
@@ -70,7 +69,7 @@ function QuestionView({
         const answered = answerButtons[index] !== undefined;
 
         return (
-          <Fragment key={nanoid()}>
+          <Fragment key={`${question.questionIndex}-${index}`}>
             {answered
               ? (
                 <button

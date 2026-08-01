@@ -40,6 +40,7 @@ export interface AppLocale {
   landingHeaderText: string;
   question: string;
   startQuizBtn: string;
+  resultFilterLabel: string;
   resultFilterAll: string;
   resultFilterCorrect: string;
   resultFilterIncorrect: string;

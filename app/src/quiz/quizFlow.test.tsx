@@ -109,12 +109,10 @@ describe('Quiz', () => {
       chooseAnswer('Otazka dva A');
       goToNextQuestion();
 
-      // The filter is a custom dropdown, closed by default and showing only its
-      // current value. Opening it reveals the choices.
-      clickButton('Vše');
-
-      expect(screen.getByRole('menuitem', { name: 'Správně' })).toBeInTheDocument();
-      expect(screen.getByRole('menuitem', { name: 'Nesprávně' })).toBeInTheDocument();
+      // The filter is a <select>, so every choice is present without opening anything.
+      expect(screen.getByRole('combobox', { name: 'Zobrazit' })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Správně' })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Nesprávně' })).toBeInTheDocument();
     });
 
     it('filters the result list down to the incorrect answers', () => {
@@ -126,8 +124,9 @@ describe('Quiz', () => {
       chooseAnswer('Otazka dva D'); // wrong
       goToNextQuestion();
 
-      clickButton('Vše');
-      fireEvent.click(screen.getByRole('menuitem', { name: 'Nesprávně' }));
+      fireEvent.change(screen.getByRole('combobox', { name: 'Zobrazit' }), {
+        target: { value: 'incorrect' },
+      });
 
       expect(screen.getByText(/Otázka 2: Otazka dva/)).toBeInTheDocument();
       expect(screen.queryByText(/Otázka 1: Otazka jedna/)).not.toBeInTheDocument();

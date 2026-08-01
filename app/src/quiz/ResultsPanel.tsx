@@ -48,7 +48,7 @@ interface ResultsPanelProps {
   totalPoints: number;
   appLocale: AppLocale;
   filteredValue: ResultFilterValue;
-  onFilterChange: (event: { target: { value: string } }) => void;
+  onFilterChange: (value: ResultFilterValue) => void;
 }
 
 function ResultsPanel({
@@ -91,7 +91,7 @@ function ResultsPanel({
       <br />
       <ResultFilter
         filteredValue={filteredValue}
-        handleChange={onFilterChange}
+        onChange={onFilterChange}
         appLocale={appLocale}
       />
       {(filteredQuestions || questions).map((question, index) => (

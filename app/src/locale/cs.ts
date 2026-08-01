@@ -4,6 +4,7 @@ export const appLocale: AppLocale = {
     landingHeaderText: 'Množství otázek: <questionLength>',
     question: 'Otázka',
     startQuizBtn: 'Spustit kvíz',
+    resultFilterLabel: 'Zobrazit',
     resultFilterAll: 'Vše',
     resultFilterCorrect: 'Správně',
     resultFilterIncorrect: 'Nesprávně',

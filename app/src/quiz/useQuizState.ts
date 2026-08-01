@@ -56,9 +56,7 @@ export function useQuizState(questions: IndexedQuestion[]) {
     }
   };
 
-  const filterResults = (event: { target: { value: string } }) => (
-    setFilteredValue(event.target.value as ResultFilterValue)
-  );
+  const filterResults = (value: ResultFilterValue) => setFilteredValue(value);
 
   return {
     activeQuestion,

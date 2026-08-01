@@ -33,7 +33,7 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
         </span>
         <button type="button" disabled className={`${BASE} ${style}`}>
           {questionType === 'photo'
-            ? <img src={answer} alt="" className="w-full max-h-32 object-contain" />
+            ? <img src={answer} alt="" className="w-full h-28 object-contain" />
             : <span>{answer}</span>}
         </button>
       </div>
@@ -113,7 +113,7 @@ function ResultsPanel({
                 className="w-full max-h-60 object-contain mb-3"
               />
             )}
-            <div className="space-y-2">
+            <div className={question.questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}>
               <AnsweredQuestion
                 question={question}
                 userInputIndex={filteredUserInput ? filteredUserInput[index] : userInput[index]}

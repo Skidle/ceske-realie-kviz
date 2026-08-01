@@ -19,8 +19,7 @@ interface AnswerContentProps {
 
 const AnswerContent = ({ answer, questionType }: AnswerContentProps) => (
   questionType === 'photo'
-    // Sized so all four alternatives fit on screen without scrolling.
-    ? <img src={answer} alt="" className="w-full max-h-40 object-contain" />
+    ? <img src={answer} alt="" className="w-full h-32 md:h-40 object-contain" />
     : <span>{answer}</span>
 );
 
@@ -88,13 +87,15 @@ function QuestionCard({
         incorrectAnswer={incorrectAnswer}
       />
 
-      <div className="space-y-2">
+      {/* Photo answers go two to a row, so all four fit on screen without scrolling.
+          Stacked full width they ran well past a laptop viewport. */}
+      <div className={questionType === 'photo' ? 'grid grid-cols-2 gap-2' : 'space-y-2'}>
         {answers.map((answer, index) => (
           <button
             key={`${question.questionIndex}-${index}`}
             type="button"
             disabled={answerButtons[index]?.disabled || false}
-            className={`${BASE} ${styleFor(index)}`}
+            className={`${BASE} ${questionType === 'photo' ? 'p-2' : ''} ${styleFor(index)}`}
             onClick={() => onAnswer(index + 1)}
           >
             <AnswerContent answer={answer} questionType={questionType} />

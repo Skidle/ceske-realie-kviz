@@ -30,12 +30,15 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
     return (
       <div key={`${question.questionIndex}-${index}`}>
         <button type="button" disabled className={`${BASE} ${style}`}>
-          <span className="flex items-center justify-between gap-3">
+          <span className={questionType === 'photo' ? 'relative block' : 'flex items-center justify-between gap-3'}>
             {questionType === 'photo'
-              ? <img src={answer} alt="" className="w-full h-28 object-contain" />
-              : <span>{answer}</span>}
+              ? <img src={answer} alt="" className="w-full h-40 object-contain" />
+              : <span className="min-w-0">{answer}</span>}
             {(isCorrect || wasPicked) && (
-              <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
+              <span className={`flex shrink-0 items-center gap-1 text-sm font-medium ${
+                questionType === 'photo' ? 'absolute top-2 right-2 rounded bg-white/90 px-2 py-1 shadow-sm' : ''
+              }`}
+              >
                 {isCorrect ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
                 {isCorrect ? 'Správně' : 'Vaše odpověď'}
               </span>

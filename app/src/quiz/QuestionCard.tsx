@@ -17,12 +17,18 @@ const DIMMED = 'border-zinc-200 bg-white text-zinc-400';
 /** Never colour alone: an icon and a word carry the same meaning. */
 type Mark = 'correct' | 'incorrect' | null;
 
-const Marker = ({ mark }: { mark: Mark }) => {
+const Marker = ({ mark, floating = false }: { mark: Mark; floating?: boolean }) => {
   if (!mark) return null;
 
   const isRight = mark === 'correct';
+  // Over a photo the marker is a badge in the corner, so the picture keeps the full
+  // width of its card. Beside text it sits inline at the end of the row.
+  const position = floating
+    ? 'absolute top-2 right-2 rounded bg-white/90 px-2 py-1 shadow-sm'
+    : '';
+
   return (
-    <span className="flex shrink-0 items-center gap-1 text-sm font-medium">
+    <span className={`flex shrink-0 items-center gap-1 text-sm font-medium ${position}`}>
       {isRight ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
       {/* The icon carries the meaning on its own; the word is dropped when there is no
           room for it, and the label keeps it available to a screen reader. */}
@@ -38,7 +44,7 @@ interface AnswerContentProps {
 
 const AnswerContent = ({ answer, questionType }: AnswerContentProps) => (
   questionType === 'photo'
-    ? <img src={answer} alt="" className="w-full h-32 md:h-40 object-contain" />
+    ? <img src={answer} alt="" className="w-full h-44 sm:h-52 object-contain" />
     : <span>{answer}</span>
 );
 
@@ -138,12 +144,19 @@ function QuestionCard({
             className={`${BASE} ${questionType === 'photo' ? 'p-2' : ''} ${styleFor(index)}`}
             onClick={() => onAnswer(index + 1)}
           >
-            <span className="flex items-center justify-between gap-3">
-              <span className="min-w-0">
+            {questionType === 'photo' ? (
+              <span className="relative block">
                 <AnswerContent answer={answer} questionType={questionType} />
+                <Marker mark={markFor(index)} floating />
               </span>
-              <Marker mark={markFor(index)} />
-            </span>
+            ) : (
+              <span className="flex items-center justify-between gap-3">
+                <span className="min-w-0">
+                  <AnswerContent answer={answer} questionType={questionType} />
+                </span>
+                <Marker mark={markFor(index)} />
+              </span>
+            )}
           </button>
         ))}
       </div>

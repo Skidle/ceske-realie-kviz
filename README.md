@@ -57,6 +57,23 @@ npm run build      # production build into app/build
 
 CI runs lint, typecheck, tests and build on every push and pull request.
 
+## Keeping the questions current
+
+The official question bank is revised periodically, and this copy is a snapshot. A
+scheduled check (`npm run monitor`) watches the source and reports when it moves:
+
+- the PDF link on the official page, whose URL encodes the publication date
+- the edition line inside the PDF (`Vydání desáté ... Aktualizováno 5. 1. 2026`)
+- that the bank still has 30 topics
+- the question images that are still hotlinked to the source
+
+It distinguishes three outcomes — verified, drift, and *could not verify* — so a failed
+check never reads as a clean one. It runs monthly via GitHub Actions, opens an issue when
+something moves, and commits a heartbeat so a check that stopped happening is visible.
+
+`npm run monitor:baseline` re-records the current state as the new baseline. Run it
+deliberately: it blesses whatever the source is serving today.
+
 ## Documentation
 
 [`docs/BEHAVIOR.md`](docs/BEHAVIOR.md) describes what the app does today, including known

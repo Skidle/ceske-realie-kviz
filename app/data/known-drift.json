@@ -1,0 +1,24 @@
+{
+  "images": {
+    "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/17alt1.jpg?1702374779": {
+      "reason": "serves a portrait of a Czech president instead of the National Theatre; swapped 2025-12-15",
+      "since": "2025-12-15",
+      "tracked": "fixed by the importer phase, which self-hosts all images"
+    },
+    "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/17alt2.jpg?1702374779": {
+      "reason": "serves a portrait of a Czech president instead of the National Theatre; swapped 2025-12-15",
+      "since": "2025-12-15",
+      "tracked": "fixed by the importer phase, which self-hosts all images"
+    },
+    "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/17alt3.jpg?1702374779": {
+      "reason": "serves a portrait of a Czech president instead of the National Theatre; swapped 2025-12-15",
+      "since": "2025-12-15",
+      "tracked": "fixed by the importer phase, which self-hosts all images"
+    },
+    "https://databanka-obcanstvi.cestina-pro-cizince.cz/strom-a-ulohy_soubory_aktual/17alt4.jpg?1702374779": {
+      "reason": "serves a portrait of a Czech president instead of the National Theatre; swapped 2025-12-15",
+      "since": "2025-12-15",
+      "tracked": "fixed by the importer phase, which self-hosts all images"
+    }
+  }
+}

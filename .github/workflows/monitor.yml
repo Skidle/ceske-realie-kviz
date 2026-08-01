@@ -1,0 +1,104 @@
+name: Monitor source
+
+# Monthly rather than quarterly on purpose. GitHub disables scheduled workflows in a
+# public repository "when no repository activity has occurred in 60 days", so a 90-day
+# interval would sit outside that window: on a quiet repo the workflow would be switched
+# off roughly a month before it was next due to run, and the failure mode is silence.
+#
+# Each run also commits the heartbeat, which is unambiguous repository activity and keeps
+# "when did we last verify this?" answerable from git history.
+on:
+  schedule:
+    - cron: '17 4 1 * *' # 04:17 UTC on the 1st of each month
+  workflow_dispatch:
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - run: npm ci
+
+      - name: Check the official source
+        id: monitor
+        run: npm run monitor
+        continue-on-error: true
+
+      - name: Record the heartbeat
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/last-check.json
+          git diff --staged --quiet || git commit -m "Monitor: record check on $(date -u +%Y-%m-%d)"
+          git push
+
+      - name: Report the result
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const check = JSON.parse(fs.readFileSync('app/data/last-check.json', 'utf8'));
+            const failed = check.result !== 'verified';
+
+            const title = 'Source monitor';
+            const body = [
+              `Last verified: **${check.checkedAt}**`,
+              '',
+              `Result: **${check.result}**`,
+              '',
+              check.changed.length ? `### Changed\n${check.changed.map((c) => `- ${c}`).join('\n')}` : '',
+              check.missing.length ? `### Missing\n${check.missing.map((c) => `- ${c}`).join('\n')}` : '',
+              check.unverified.length ? `### Could not verify\n${check.unverified.map((c) => `- ${c}`).join('\n')}` : '',
+              check.knownDrift ? `\n${check.knownDrift} known-bad image(s) are tracked separately and not counted as drift.` : '',
+              '',
+              `_Updated automatically by [the monitor workflow](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})._`,
+            ].filter(Boolean).join('\n');
+
+            // One long-lived issue, edited in place rather than commented on, so a clean
+            // run produces no notification but a stale date is still visible.
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'monitor',
+            });
+
+            if (existing.data.length) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['monitor'],
+              });
+            }
+
+            if (failed) {
+              core.setFailed(`Monitor reported: ${check.result}`);
+            }

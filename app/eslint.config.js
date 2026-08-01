@@ -43,7 +43,13 @@ export default [
     },
   },
   {
-    files: ['**/*.test.{ts,tsx}', 'src/setupTests.ts'],
+    files: ['**/*.test.{ts,tsx,mjs}', 'src/setupTests.ts'],
     languageOptions: { globals: { ...globals.node, ...globals.vitest } },
+  },
+  {
+    // Build-time tooling: runs in Node, never shipped to the browser.
+    files: ['scripts/**/*.mjs'],
+    languageOptions: { globals: { ...globals.node } },
+    rules: { 'no-console': 'off', 'no-await-in-loop': 'off' },
   },
 ];

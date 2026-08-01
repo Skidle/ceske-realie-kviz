@@ -137,9 +137,17 @@ return HTTP 200 with a **different question's image**.
 
 Confirmed case: *"Na kterém obrázku je Národní divadlo v Praze?"* (category 2,
 subcategory 6). Its four `17alt*.jpg` answers now serve portraits of Czech presidents, so
-no answer is correct. The Internet Archive's last capture, 5 October 2024, still holds the
-right images, so the swap happened after that date — most likely at the 5 January 2026
-republication of the bank. There is no later capture to narrow it further.
+no answer is correct.
+
+The swap happened on **15 December 2025**: the server reports
+`Last-Modified: Mon, 15 Dec 2025 11:50:36 GMT` for those files. An earlier version of this
+document dated it "after October 2024, most likely the January 2026 republication", which
+was inferred from Internet Archive captures rather than asked of the server.
+
+That precision matters, because it is three weeks *before* the 5 January 2026 edition. So
+image changes do **not** reliably accompany a republication of the PDF: the images live on
+a different server and move independently. This is why the monitor checks them separately
+rather than treating the PDF link as a proxy for everything.
 
 The remaining 31 images have **not** been audited, so the number of affected questions is
 unknown rather than one.

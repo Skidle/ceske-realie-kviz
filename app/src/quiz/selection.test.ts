@@ -1,6 +1,7 @@
-import { getFinalQuestions } from './utils';
-import { questions } from './questions';
-import type { Question, QuestionSelection } from './types';
+import { getFinalQuestions } from './selection';
+import { questions } from '../content/questions';
+import type { QuestionSelection } from './types';
+import type { Question } from '../content/types';
 
 // Characterization tests: these describe what the code does today, so that refactoring
 // can be checked against current behaviour. See docs/BEHAVIOR.md.

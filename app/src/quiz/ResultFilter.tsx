@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import type { AppLocale, ResultFilter } from '../../types';
+import type { ResultFilterValue } from './types';
+import type { AppLocale } from '../content/types';
 
-interface QuizResultFilterProps {
-  filteredValue: ResultFilter;
+interface ResultFilterProps {
+  filteredValue: ResultFilterValue;
   handleChange: (event: { target: { value: string } }) => void;
   appLocale: AppLocale;
 }
 
-function QuizResultFilter({ filteredValue, handleChange, appLocale }: QuizResultFilterProps) {
+function ResultFilter({ filteredValue, handleChange, appLocale }: ResultFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +16,7 @@ function QuizResultFilter({ filteredValue, handleChange, appLocale }: QuizResult
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (value: ResultFilter) => {
+  const handleOptionClick = (value: ResultFilterValue) => {
     handleChange({ target: { value } });
     setIsOpen(false);
   };
@@ -122,4 +123,4 @@ function QuizResultFilter({ filteredValue, handleChange, appLocale }: QuizResult
   );
 }
 
-export default QuizResultFilter;
+export default ResultFilter;

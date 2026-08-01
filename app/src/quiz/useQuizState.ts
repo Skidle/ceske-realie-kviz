@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { checkAnswer } from './core-components/helpers';
-import type {
-  AnswerButtons, IndexedQuestion, ResultFilter,
-} from '../types';
+import { checkAnswer } from './scoring';
+import type { AnswerButtons, IndexedQuestion, ResultFilterValue } from './types';
 
 const toPoints = (point: string): number => parseInt(point, 10) || 0;
 
@@ -22,7 +20,7 @@ export function useQuizState(questions: IndexedQuestion[]) {
   const [incorrectAnswer, setIncorrectAnswer] = useState(false);
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
   const [endQuiz, setEndQuiz] = useState(false);
-  const [filteredValue, setFilteredValue] = useState<ResultFilter>('all');
+  const [filteredValue, setFilteredValue] = useState<ResultFilterValue>('all');
 
   const activeQuestion = questions[currentQuestionIndex];
   const totalPoints = questions.reduce((sum, question) => sum + toPoints(question.point), 0);
@@ -59,7 +57,7 @@ export function useQuizState(questions: IndexedQuestion[]) {
   };
 
   const filterResults = (event: { target: { value: string } }) => (
-    setFilteredValue(event.target.value as ResultFilter)
+    setFilteredValue(event.target.value as ResultFilterValue)
   );
 
   return {

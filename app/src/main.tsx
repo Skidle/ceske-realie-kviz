@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Analytics } from "@vercel/analytics/react";
 import App from './App';
+import './styles/tailwind.css';
+import './styles/quiz.css';
 
 const container = document.getElementById('root');
 if (!container) {

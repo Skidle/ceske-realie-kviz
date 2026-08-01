@@ -1,8 +1,7 @@
-import QuizResultFilter from './QuizResultFilter';
-import { rawMarkup } from './helpers';
-import type {
-  AppLocale, IndexedQuestion, ResultFilter,
-} from '../../types';
+import ResultFilter from './ResultFilter';
+import { rawMarkup } from '../shared/markdown';
+import type { IndexedQuestion, ResultFilterValue } from './types';
+import type { AppLocale } from '../content/types';
 
 interface AnsweredQuestionProps {
   question: IndexedQuestion;
@@ -40,7 +39,7 @@ const AnsweredQuestion = ({ question, userInputIndex }: AnsweredQuestionProps) =
   });
 };
 
-interface ResultsViewProps {
+interface ResultsPanelProps {
   questions: IndexedQuestion[];
   correct: number[];
   incorrect: number[];
@@ -48,11 +47,11 @@ interface ResultsViewProps {
   correctPoints: number;
   totalPoints: number;
   appLocale: AppLocale;
-  filteredValue: ResultFilter;
+  filteredValue: ResultFilterValue;
   onFilterChange: (event: { target: { value: string } }) => void;
 }
 
-function ResultsView({
+function ResultsPanel({
   questions,
   correct,
   incorrect,
@@ -62,7 +61,7 @@ function ResultsView({
   appLocale,
   filteredValue,
   onFilterChange,
-}: ResultsViewProps) {
+}: ResultsPanelProps) {
   let filteredQuestions: IndexedQuestion[] | undefined;
   let filteredUserInput: number[] | undefined;
 
@@ -90,7 +89,7 @@ function ResultsView({
           .replace('<totalPoints>', String(totalPoints))}
       </h2>
       <br />
-      <QuizResultFilter
+      <ResultFilter
         filteredValue={filteredValue}
         handleChange={onFilterChange}
         appLocale={appLocale}
@@ -115,4 +114,4 @@ function ResultsView({
   );
 }
 
-export default ResultsView;
+export default ResultsPanel;

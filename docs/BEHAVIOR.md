@@ -11,7 +11,7 @@ All 299 questions share one shape: 4 answers, `answerSelectionType: "single"`,
 answers are images rather than text. 17 questions carry a `questionPic` shown with the
 question itself. No question has an `explanation` field.
 
-Categories are indices into `categories.ts`:
+Categories are indices into `content/categories.ts`:
 
 | index | category | questions | subcategories |
 |---|---|---|---|
@@ -19,7 +19,7 @@ Categories are indices into `categories.ts`:
 | 1 | Základní geografické informace | 70 | 7 |
 | 2 | Základní historické a kulturní informace | 69 | 7 |
 
-## Question selection (`utils.ts`)
+## Question selection (`quiz/selection.ts`)
 
 `getFinalQuestions({ questions, selectedCategory, selectedSubCategory, shuffle, isRealTest })`
 returns the question set, then stamps `questionIndex` 1..n onto it.
@@ -33,7 +33,7 @@ returns the question set, then stamps `questionIndex` 1..n onto it.
 - **Shuffling** means both question order *and* answer order. When answers are reordered,
   `correctAnswer` is recomputed to keep pointing at the same answer text.
 
-## Scoring (`useQuizState.ts`)
+## Scoring (`quiz/useQuizState.ts`)
 
 `correct` and `incorrect` hold question indices. Scores are **derived, not stored**:
 `totalPoints` sums every question's `point`, and `correctPoints` sums the points of
@@ -42,7 +42,7 @@ mirror the question counts.
 
 The result screen shows correct-of-total, points, and a filter over the answered questions.
 
-## Answering (`helpers.ts`)
+## Answering (`quiz/scoring.ts`)
 
 `checkAnswer` compares the clicked 1-based index against `correctAnswer` as strings,
 records the question index in `correct` or `incorrect`, disables the other answer buttons,

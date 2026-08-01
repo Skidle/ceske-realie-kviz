@@ -1,21 +1,22 @@
-import QuestionView from './core-components/QuestionView';
-import ResultsView from './core-components/ResultsView';
+import QuestionCard from './QuestionCard';
+import ResultsPanel from './ResultsPanel';
 import { useQuizState } from './useQuizState';
-import type { AppLocale, IndexedQuestion } from '../types';
+import type { IndexedQuestion } from './types';
+import type { AppLocale } from '../content/types';
 
-interface CoreProps {
+interface QuizRunnerProps {
   questions: IndexedQuestion[];
   appLocale: AppLocale;
   showInstantFeedback: boolean;
 }
 
-function Core({ questions, appLocale, showInstantFeedback }: CoreProps) {
+function QuizRunner({ questions, appLocale, showInstantFeedback }: QuizRunnerProps) {
   const quiz = useQuizState(questions);
 
   return (
     <div className="questionWrapper">
       {quiz.endQuiz ? (
-        <ResultsView
+        <ResultsPanel
           questions={questions}
           correct={quiz.correct}
           incorrect={quiz.incorrect}
@@ -27,7 +28,7 @@ function Core({ questions, appLocale, showInstantFeedback }: CoreProps) {
           onFilterChange={quiz.filterResults}
         />
       ) : (
-        <QuestionView
+        <QuestionCard
           question={quiz.activeQuestion}
           questionNumber={quiz.currentQuestionIndex + 1}
           questionCount={questions.length}
@@ -45,4 +46,4 @@ function Core({ questions, appLocale, showInstantFeedback }: CoreProps) {
   );
 }
 
-export default Core;
+export default QuizRunner;

@@ -1,13 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Quiz from './Quiz';
-import { quizFixture, categoriesFixture } from '../__fixtures__/quiz';
+import QuizSetup from './QuizSetup';
+import { quizFixture, categoriesFixture } from '../test/fixtures/quiz';
 
 // End-to-end smoke test over the whole quiz flow. This is the safety net for the Phase 1
 // refactor: it must keep passing WITHOUT MODIFICATION. If a refactor requires editing
 // this file to stay green, the refactor changed behaviour.
 
 const renderQuiz = () => render(
-  <Quiz quiz={quizFixture} categories={categoriesFixture} />,
+  <QuizSetup quiz={quizFixture} categories={categoriesFixture} />,
 );
 
 // fireEvent from RTL, not user-event: @testing-library/dom is hoisted at v10 while RTL 13

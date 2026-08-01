@@ -1,8 +1,7 @@
 import snarkdown from 'snarkdown';
 import dompurify from 'dompurify';
-import type {
-  AnswerButtons, CheckAnswerSetters, CheckAnswerState, Question,
-} from '../../types';
+import type { AnswerButtons, CheckAnswerSetters, CheckAnswerState } from './types';
+import type { Question } from '../content/types';
 
 // Sanitize *after* rendering markdown: snarkdown turns text into HTML, so
 // sanitizing first would let markdown re-introduce unsafe markup.

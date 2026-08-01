@@ -1,5 +1,5 @@
-import { appLocale } from '../appLocale';
-import type { Category, Question, QuizData } from '../types';
+import { appLocale } from '../../locale/cs';
+import type { Category, Question, QuizData } from '../../content/types';
 
 // A miniature quiz with the same shape as the real data, so tests do not break when
 // questions.js changes. Mirrors the real format exactly: 4 text answers, single

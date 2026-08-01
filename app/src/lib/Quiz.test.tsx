@@ -41,7 +41,7 @@ describe('Quiz', () => {
       startQuiz();
 
       expect(screen.getByText('Otazka jedna')).toBeInTheDocument();
-      expect(screen.getByText('Otázky 1 / 2:')).toBeInTheDocument();
+      expect(screen.getByText('Otázka 1 / 2:')).toBeInTheDocument();
     });
   });
 
@@ -114,8 +114,8 @@ describe('Quiz', () => {
       clickButton('Vše');
       fireEvent.click(screen.getByRole('menuitem', { name: 'Nesprávně' }));
 
-      expect(screen.getByText(/Q2: Otazka dva/)).toBeInTheDocument();
-      expect(screen.queryByText(/Q1: Otazka jedna/)).not.toBeInTheDocument();
+      expect(screen.getByText(/Otázka 2: Otazka dva/)).toBeInTheDocument();
+      expect(screen.queryByText(/Otázka 1: Otazka jedna/)).not.toBeInTheDocument();
     });
   });
 });

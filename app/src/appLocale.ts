@@ -2,7 +2,7 @@ import type { AppLocale } from './types';
 
 export const appLocale: AppLocale = {
     landingHeaderText: 'Množství otázek: <questionLength>',
-    question: 'Otázky',
+    question: 'Otázka',
     startQuizBtn: 'Spustit kvíz',
     resultFilterAll: 'Vše',
     resultFilterCorrect: 'Správně',

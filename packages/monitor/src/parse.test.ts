@@ -58,4 +58,18 @@ describe('parseEdition', () => {
   it('returns null for empty text rather than inventing an edition', () => {
     expect(parseEdition('')).toBeNull();
   });
+
+  // Taken verbatim from real editions, extracted with the same library the monitor uses.
+  // Note that 2021 and 2023 are both "Vydání osmé": the edition word alone is a weak
+  // signal, and it is the Aktualizováno date that distinguishes them. Comparing the whole
+  // line covers both.
+  describe.each([
+    ['2021', 'Vydání osmé (elektronické), Praha, 2021 Aktualizováno 13. 12. 2021 © NPI ČR', '13. 12. 2021'],
+    ['2023', 'Vydání osmé (elektronické), Praha, 2023 Aktualizováno 11. 12. 2023 © NPI ČR', '11. 12. 2023'],
+    ['2026', 'Vydání desáté (elektronické), upravené, Praha, 2026 Aktualizováno 5. 1. 2026 © NPI ČR', '5. 1. 2026'],
+  ])('the %s edition', (_year, line, expected) => {
+    it('yields its update date', () => {
+      expect(parseEdition(line)?.updatedAt).toBe(expected);
+    });
+  });
 });

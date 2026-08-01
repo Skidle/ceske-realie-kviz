@@ -10,8 +10,8 @@ const isCorrectAnswer = (index: number, correctAnswer: string) => index === Numb
 const BASE = 'w-full text-left rounded border px-4 py-3 transition-colors '
   + 'focus:outline-none focus-visible:ring-2 focus-visible:ring-flag-500 focus-visible:ring-offset-1';
 const UNANSWERED = 'border-zinc-200 bg-white hover:border-flag-400 hover:bg-flag-50';
-const CORRECT = 'border-right-600 bg-right-600 text-white';
-const INCORRECT = 'border-wrong-500 bg-wrong-500 text-white';
+const CORRECT = 'border-right-600 bg-right-50 text-right-700';
+const INCORRECT = 'border-wrong-500 bg-wrong-50 text-wrong-700';
 const DIMMED = 'border-zinc-200 bg-white text-zinc-400';
 
 /** Never colour alone: an icon and a word carry the same meaning. */

@@ -5,8 +5,8 @@ import type { IndexedQuestion, ResultFilterValue } from './types';
 import type { AppLocale } from '../content/types';
 
 const BASE = 'w-full text-left rounded-lg border px-4 py-2';
-const CORRECT = 'border-right-600 bg-right-600 text-white';
-const PICKED_WRONG = 'border-wrong-500 bg-wrong-500 text-white';
+const CORRECT = 'border-right-600 bg-right-50 text-right-700';
+const PICKED_WRONG = 'border-wrong-500 bg-wrong-50 text-wrong-700';
 const OTHER = 'border-zinc-200 bg-white text-zinc-500';
 
 interface AnsweredQuestionProps {

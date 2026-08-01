@@ -66,6 +66,13 @@ The two parsers agree on the 2026 edition without being told about each other: t
 question parser finds 8 questions whose alternatives are pictures, and the citation parser
 finds exactly 4 citations for each of those 8.
 
+## Decided
+
+**Pictures stay black and white**, as the PDF prints them, so practice looks like the
+exam. Commons serves the originals in colour, so the greyscale is applied with a CSS
+filter rather than baked into the files: the originals stay intact and the choice can be
+undone, or offered as a setting, without re-importing anything.
+
 ## Still to come
 
 Mapping the 30 topics onto the app's 3 categories, sourcing images from the Wikimedia

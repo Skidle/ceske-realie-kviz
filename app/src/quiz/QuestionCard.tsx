@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
-import { rawMarkup } from './helpers';
-import InstantFeedback from './InstantFeedback';
-import type {
-  AnswerButtons, AppLocale, IndexedQuestion, QuestionType,
-} from '../../types';
+import { rawMarkup } from '../shared/markdown';
+import AnswerFeedback from './AnswerFeedback';
+import type { AnswerButtons, IndexedQuestion } from './types';
+import type { AppLocale, QuestionType } from '../content/types';
 
 // correctAnswer is a 1-based index held as a string, e.g. "3".
 const isCorrectAnswer = (index: number, correctAnswer: string) => index === Number(correctAnswer);
@@ -20,7 +19,7 @@ const AnswerContent = ({ answer, questionType }: AnswerContentProps) => (
   </>
 );
 
-interface QuestionViewProps {
+interface QuestionCardProps {
   question: IndexedQuestion;
   questionNumber: number;
   questionCount: number;
@@ -34,7 +33,7 @@ interface QuestionViewProps {
   onNext: () => void;
 }
 
-function QuestionView({
+function QuestionCard({
   question,
   questionNumber,
   questionCount,
@@ -46,7 +45,7 @@ function QuestionView({
   showNextQuestionButton,
   onAnswer,
   onNext,
-}: QuestionViewProps) {
+}: QuestionCardProps) {
   const { answers, correctAnswer, questionType } = question;
 
   return (
@@ -58,7 +57,7 @@ function QuestionView({
       <h3 dangerouslySetInnerHTML={rawMarkup(question.question)} />
       {question.questionPic && <img src={question.questionPic} alt="question" />}
       <div className="questionModal">
-        <InstantFeedback
+        <AnswerFeedback
           showInstantFeedback={showInstantFeedback}
           correctAnswer={isCorrect}
           incorrectAnswer={incorrectAnswer}
@@ -114,4 +113,4 @@ function QuestionView({
   );
 }
 
-export default QuestionView;
+export default QuestionCard;

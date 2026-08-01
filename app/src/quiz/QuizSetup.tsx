@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import Core from './Core';
-import flag from '../cz_flag.png';
-import { getFinalQuestions } from '../utils';
-import type { Category, QuizData } from '../types';
+import QuizRunner from './QuizRunner';
+import flag from '../assets/cz_flag.png';
+import { getFinalQuestions } from './selection';
+import type { Category, QuizData } from '../content/types';
 
-interface QuizProps {
+interface QuizSetupProps {
   quiz: QuizData;
   categories: Category[];
 }
 
-function Quiz({
+function QuizSetup({
   quiz,
   categories,
-}: QuizProps) {
+}: QuizSetupProps) {
   const [start, setStart] = useState(false);
 
   const [shuffle, toggleShuffle] = useState(false);
@@ -166,7 +166,7 @@ function Quiz({
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
           </button>
-          <Core
+          <QuizRunner
             questions={finalQuestions}
             appLocale={appLocale}
             showInstantFeedback
@@ -177,4 +177,4 @@ function Quiz({
   );
 }
 
-export default Quiz;
+export default QuizSetup;

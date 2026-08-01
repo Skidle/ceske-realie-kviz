@@ -26,21 +26,32 @@ The quiz under `app/src/lib/` began as an off-the-shelf React quiz template, ven
 
 ```
 app/src/
-  App.tsx                        routes
-  Landing.tsx                    landing page
-  types.ts                       the data model
-  questions.ts                   the questions
-  categories.ts                  category / subcategory names
-  appLocale.ts                   Czech UI strings
-  utils.ts                       shuffling and real-test selection
-  lib/
-    Quiz.tsx                     setup screen — category, shuffle, real-test toggles
-    Core.tsx                     composes the hook and the two views
-    useQuizState.ts              quiz state and the actions that change it
-    core-components/
-      QuestionView.tsx           the question being answered
-      ResultsView.tsx            score, filter and reviewed answers
-      helpers.ts                 answer checking
+  main.tsx                 entry: mounts the app and loads global styles
+  App.tsx                  routes
+  pages/
+    LandingPage.tsx
+    QuizPage.tsx
+  quiz/                    everything the quiz is and does
+    QuizSetup.tsx          category, subcategory, shuffle and real-test controls
+    QuizRunner.tsx         composes the state hook with the two views
+    QuestionCard.tsx       the question being answered
+    ResultsPanel.tsx       score, filter and reviewed answers
+    ResultFilter.tsx
+    AnswerFeedback.tsx
+    useQuizState.ts        quiz state and the actions that change it
+    scoring.ts             answer checking
+    selection.ts           filtering, shuffling and real-test selection
+    types.ts               shapes used while playing
+  content/                 the subject matter
+    questions.ts
+    categories.ts
+    types.ts               shapes as stored
+  locale/cs.ts             Czech UI strings
+  shared/markdown.ts
+  styles/                  tailwind.css, quiz.css
+  test/                    setup and fixtures
+app/scripts/               the source monitor (Node, never bundled)
+app/data/                  monitor baselines
 ```
 
 ## Running it

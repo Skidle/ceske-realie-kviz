@@ -1,4 +1,5 @@
-import type { IndexedQuestion, Question, QuestionSelection } from './types';
+import type { IndexedQuestion, QuestionSelection } from './types';
+import type { Question } from '../content/types';
 
 /**
  * Reorders each question's answers, recomputing `correctAnswer` so it still points at the

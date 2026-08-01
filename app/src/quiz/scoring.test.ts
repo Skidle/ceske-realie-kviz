@@ -1,5 +1,6 @@
-import { checkAnswer } from './helpers';
-import type { AnswerButtons, Question } from '../../types';
+import { checkAnswer } from './scoring';
+import type { AnswerButtons } from './types';
+import type { Question } from '../content/types';
 
 // Characterization tests for the answer-checking logic. These assert what the code does
 // TODAY, including behaviour that is arguably wrong (see docs/BEHAVIOR.md § Known quirks).

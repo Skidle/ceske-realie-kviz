@@ -1,3 +1,5 @@
+/** Shape of the quiz data as it is stored. See docs/BEHAVIOR.md.  */
+
 /** Shape of the quiz data. See docs/BEHAVIOR.md for where these values come from. */
 
 export type QuestionType = 'text' | 'photo';
@@ -27,11 +29,6 @@ export interface Question {
   point: string;
   /** An image shown with the question itself, as opposed to the answers. */
   questionPic: string | null;
-}
-
-/** A question after `getFinalQuestions` has numbered it for display. */
-export interface IndexedQuestion extends Question {
-  questionIndex: number;
 }
 
 export interface Category {
@@ -74,43 +71,4 @@ export interface QuizData {
   quizTitle: string;
   questions: Question[];
   appLocale: AppLocale;
-}
-
-/** Which answers a filtered result view is showing. */
-export type ResultFilter = 'all' | 'correct' | 'incorrect';
-
-/** Per-answer button state while a question is being answered. */
-export interface AnswerButtonState {
-  disabled?: boolean;
-  className?: string;
-}
-
-/** Keyed by the 0-based answer index. */
-export type AnswerButtons = Record<number, AnswerButtonState>;
-
-/** The values `checkAnswer` reads. */
-export interface CheckAnswerState {
-  currentQuestionIndex: number;
-  correct: number[];
-  incorrect: number[];
-  userInput: number[];
-}
-
-/** The setters `checkAnswer` calls. */
-export interface CheckAnswerSetters {
-  setButtons: (update: (previous: AnswerButtons) => AnswerButtons) => void;
-  setCorrect: (indices: number[]) => void;
-  setIncorrect: (indices: number[]) => void;
-  setIsCorrect: (value: boolean) => void;
-  setIncorrectAnswer: (value: boolean) => void;
-  setShowNextQuestionButton: (value: boolean) => void;
-  setUserInput: (input: number[]) => void;
-}
-
-export interface QuestionSelection {
-  questions: Question[];
-  selectedCategory: number | '';
-  selectedSubCategory: number | '';
-  shuffle: boolean;
-  isRealTest: boolean;
 }

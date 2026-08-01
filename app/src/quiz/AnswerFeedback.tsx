@@ -2,15 +2,15 @@
 const CORRECT_MESSAGE = 'Máte pravdu. Pro pokračování klikněte na tlačítko «Další»';
 const INCORRECT_MESSAGE = 'Nesprávná odpověď. Zkuste to prosím znovu.';
 
-interface InstantFeedbackProps {
+interface AnswerFeedbackProps {
   showInstantFeedback: boolean;
   incorrectAnswer: boolean;
   correctAnswer: boolean;
 }
 
-function InstantFeedback({
+function AnswerFeedback({
   showInstantFeedback, incorrectAnswer, correctAnswer,
-}: InstantFeedbackProps) {
+}: AnswerFeedbackProps) {
   if (!showInstantFeedback) {
     return null;
   }
@@ -23,4 +23,4 @@ function InstantFeedback({
   );
 }
 
-export default InstantFeedback;
+export default AnswerFeedback;

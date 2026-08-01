@@ -1,34 +1,46 @@
 # České reálie — kvíz
 
+[![CI](https://github.com/Skidle/ceske-realie-kviz/actions/workflows/ci.yml/badge.svg)](https://github.com/Skidle/ceske-realie-kviz/actions/workflows/ci.yml)
+
 A practice quiz for the **Czech Realia exam** (*zkouška z českých reálií*), the test you have to pass as part of applying for Czech citizenship.
 
 Live at [pruvodceobcanstvim.cz](https://www.pruvodceobcanstvim.cz/) — landing page at `/`, quiz at `/kviz`.
 
-The [official question bank](https://cestina-pro-cizince.cz/obcanstvi/databanka-uloh/) is published as static material, fine for reading but not for drilling. This turns the same 300 questions into something you can practise with.
+The [official question bank](https://cestina-pro-cizince.cz/obcanstvi/databanka-uloh/) is published as static material, fine for reading but not for drilling. This turns the same questions into something you can practise with.
 
 ## What it does
 
-- **All 300 official questions**, from the public question bank as of September 2024.
-- **Three categories** matching the exam structure — Občanský základ (160 questions), Základní geografické informace (70), Základní historické a kulturní informace (70) — each split into subcategories, so you can drill one weak topic at a time.
+- **299 official questions**, from the public question bank as of September 2024.
+- **Three categories** matching the exam structure — Občanský základ (160 questions), Základní geografické informace (70), Základní historické a kulturní informace (69) — each split into subcategories, so you can drill one weak topic at a time.
 - **Shuffle mode** — randomises question order *and* answer order within a question, so you learn the material rather than the position of the right button.
 - **Real test mode** — a 30-question exam with the same category split as the real thing (16 + 7 + 7), drawn at random.
-- Instant feedback and a result summary.
+- Instant feedback and a result summary you can filter by correct or incorrect.
 
 Everything runs client-side; no backend, no user data stored.
 
 ## Tech
 
-Create React App (React 18) + Tailwind. The quiz component under `app/src/lib/` started as a copy of an off-the-shelf React quiz template and was reworked from there — it's vendored rather than installed, so it can be edited directly.
+React 18 + TypeScript on Vite, with Tailwind for the landing page and plain CSS for the quiz. Tested with Vitest and Testing Library, routed with react-router.
+
+The quiz under `app/src/lib/` began as an off-the-shelf React quiz template, vendored rather than installed. It has since been cut down to what this app actually uses — roughly 80% of the template was unreachable — and rewritten around a state hook plus two view components.
 
 ```
 app/src/
-  Landing.jsx     landing page
-  lib/Quiz.jsx    setup screen — category, subcategory, shuffle, real-test toggles
-  lib/Core.jsx    question rendering, answer checking, results
-  questions.js    the 300 questions
-  categories.js   category / subcategory names
-  utils.js        shuffling and real-test question selection
-  appLocale.js    Czech UI strings
+  App.tsx                        routes
+  Landing.tsx                    landing page
+  types.ts                       the data model
+  questions.ts                   the questions
+  categories.ts                  category / subcategory names
+  appLocale.ts                   Czech UI strings
+  utils.ts                       shuffling and real-test selection
+  lib/
+    Quiz.tsx                     setup screen — category, shuffle, real-test toggles
+    Core.tsx                     composes the hook and the two views
+    useQuizState.ts              quiz state and the actions that change it
+    core-components/
+      QuestionView.tsx           the question being answered
+      ResultsView.tsx            score, filter and reviewed answers
+      helpers.ts                 answer checking
 ```
 
 ## Running it
@@ -36,12 +48,22 @@ app/src/
 ```bash
 cd app
 npm install
-npm start        # http://localhost:3000
-npm run build    # production build into app/build
+npm run dev        # http://localhost:3000
+npm test           # vitest
+npm run typecheck  # tsc --noEmit
+npm run lint       # eslint
+npm run build      # production build into app/build
 ```
 
-`app/move-to-quiz-folder.js` is a post-build helper that puts the quiz under `/kviz` and the landing page at the root.
+CI runs lint, typecheck, tests and build on every push and pull request.
+
+## Documentation
+
+[`docs/BEHAVIOR.md`](docs/BEHAVIOR.md) describes what the app does today, including known
+quirks and every deviation from the official question bank, with reasons and dates.
 
 ## Credits
 
 Questions are reproduced from the official public question bank linked above, **copied in September 2024 and not updated since**. This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
+
+One question has been removed since that snapshot because it was retired upstream; see `docs/BEHAVIOR.md` for details.

@@ -37,14 +37,28 @@ const shuffleEverything = (questions: Question[]): Question[] => shuffleAnswerSe
   shuffleQuestions(questions),
 );
 
-/** The real exam draws 16 questions from category 0 and 7 from each of the other two. */
-const REAL_TEST_QUESTIONS_PER_CATEGORY = [16, 7, 7];
-
+/**
+ * One question from each of the 30 topics, which is how the real exam is built:
+ *
+ *   "Databanka testových úloh je rozčleněna do 30 témat, z každého tématu bude do testu
+ *    zařazena 1 testová úloha."
+ *
+ * A topic is a category and subcategory together. Drawing 16 questions from the first
+ * category and 7 from each of the others gives the same totals — there are 16 topics in
+ * the first and 7 in the others — but not the same test: it can ask five questions about
+ * Doprava and none about Volby.
+ */
 const createRealTest = (allQuestions: Question[]): Question[] => {
-  const selected = REAL_TEST_QUESTIONS_PER_CATEGORY.flatMap((count, category) => {
-    const inCategory = allQuestions.filter((question) => question.category === category);
-    return shuffleQuestions([...inCategory]).slice(0, count);
-  });
+  const byTopic = new Map<string, Question[]>();
+
+  for (const question of allQuestions) {
+    const topic = `${question.category}-${question.subCategory}`;
+    byTopic.set(topic, [...(byTopic.get(topic) ?? []), question]);
+  }
+
+  const selected = [...byTopic.values()]
+    .map((questions) => shuffleQuestions([...questions])[0])
+    .filter(Boolean);
 
   return shuffleEverything(selected);
 };

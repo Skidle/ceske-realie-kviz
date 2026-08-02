@@ -141,6 +141,24 @@ describe('getFinalQuestions', () => {
       expect(countByCategory(result)).toEqual({ 0: 16, 1: 7, 2: 7 });
     });
 
+    // "Databanka testových úloh je rozčleněna do 30 témat, z každého tématu bude do testu
+    // zařazena 1 testová úloha." Sampling 16/7/7 per category gives the same totals but a
+    // different test: it can ask five questions about Doprava and none about Volby.
+    it('takes exactly one question from each of the 30 topics', () => {
+      const result = run({ isRealTest: true });
+      const topics = result.map((q) => `${q.category}-${q.subCategory}`);
+
+      expect(new Set(topics).size).toBe(30);
+      expect(topics).toHaveLength(30);
+    });
+
+    it('covers every topic in the bank, not just thirty of them', () => {
+      const allTopics = new Set(questions.map((q) => `${q.category}-${q.subCategory}`));
+      const sampled = new Set(run({ isRealTest: true }).map((q) => `${q.category}-${q.subCategory}`));
+
+      expect(sampled).toEqual(allTopics);
+    });
+
     it('returns no duplicate questions', () => {
       const result = run({ isRealTest: true });
 

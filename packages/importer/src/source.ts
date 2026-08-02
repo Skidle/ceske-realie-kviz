@@ -1,6 +1,7 @@
 import { extractText, getDocumentProxy } from 'unpdf';
 import { download } from './download.ts';
 import { parseCitations } from './citations.ts';
+import { collapse } from './normalise.ts';
 import { parseTopics } from './parse.ts';
 import type { Citation } from './citations.ts';
 import type { Topic } from './types.ts';
@@ -17,6 +18,8 @@ export const PDF_URL = 'https://cestina-pro-cizince.cz/obcanstvi/wp-content/uplo
 export interface Source {
   topics: Topic[];
   citations: Citation[];
+  /** The date the PDF prints on its "Vydání ... Aktualizováno" line. */
+  edition: string;
 }
 
 export async function readSource(url = PDF_URL): Promise<Source> {
@@ -25,5 +28,11 @@ export async function readSource(url = PDF_URL): Promise<Source> {
 
   const { text } = await extractText(await getDocumentProxy(file.bytes), { mergePages: true });
 
-  return { topics: parseTopics(text), citations: parseCitations(text) };
+  const edition = text.match(/Vydání\s+([\d\s.]+)/)?.[1];
+
+  return {
+    topics: parseTopics(text),
+    citations: parseCitations(text),
+    edition: edition ? collapse(edition) : 'unknown',
+  };
 }

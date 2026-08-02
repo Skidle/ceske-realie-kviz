@@ -8,7 +8,15 @@ import type { BuiltQuestion } from './build.ts';
  * questions had a changed correct answer, and two of them differed only by a stray space
  * and a missing full stop.
  */
-const key = (text: string) => text.toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '');
+const key = (text: string) => text
+  // The 2024 data baked the alternative's letter into its text — "A) Den matek." — which
+  // the app then shuffled, so the letters were already appearing out of order on screen.
+  // The regenerated data drops them. Stripping the marker here is what makes the diff
+  // show the content that changed rather than 300 questions changing at once.
+  .replace(/^[A-D]\)\s*/, '')
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[^a-z0-9]/g, '');
 
 const correctText = (question: BuiltQuestion) => question.answers[Number(question.correctAnswer) - 1] ?? '';
 

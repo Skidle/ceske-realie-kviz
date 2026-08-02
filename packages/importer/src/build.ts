@@ -29,7 +29,8 @@ export interface BuildProblem {
 /** One question, either built or refused. Never silently absent. */
 type Outcome = { question: BuiltQuestion } | { problem: BuildProblem };
 
-type ImagePath = (name: string) => string;
+/** Where a fetched picture lives, or null when it was never fetched. */
+type ImagePath = (name: string) => string | null;
 
 /**
  * The 30 topics are the app's 30 subcategories, in order: 16 in the first category, then
@@ -66,9 +67,17 @@ function answersFor(
 
   const cited = LETTERS.map((letter) => pictures.find((picture) => picture.letter === letter));
 
-  return cited.every((picture) => picture !== undefined)
-    ? { answers: cited.map((picture) => imagePath(imageFileName(picture!))) }
-    : { reason: 'alternatives are pictures but the citations do not cover all four' };
+  if (cited.some((picture) => picture === undefined)) {
+    return { reason: 'alternatives are pictures but the citations do not cover all four' };
+  }
+
+  const paths = cited.map((picture) => imagePath(imageFileName(picture!)));
+
+  // An alternative that is a picture cannot fall back to anything, unlike a question's
+  // illustration, so a missing file has to stop the question being built.
+  return paths.every((path) => path !== null)
+    ? { answers: paths as string[] }
+    : { reason: 'a picture for one of the alternatives is not on disk' };
 }
 
 function buildQuestion(

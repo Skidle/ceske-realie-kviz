@@ -10,8 +10,8 @@ The [official question bank](https://cestina-pro-cizince.cz/obcanstvi/databanka-
 
 ## What it does
 
-- **299 official questions**, from the public question bank as of September 2024.
-- **Three categories** matching the exam structure — Občanský základ (160 questions), Základní geografické informace (70), Základní historické a kulturní informace (69) — each split into subcategories, so you can drill one weak topic at a time.
+- **300 official questions**, rebuilt from the official question bank as published on 5 January 2026.
+- **Three categories** matching the exam structure — Občanský základ (160 questions), Základní geografické informace (70), Základní historické a kulturní informace (70) — each split into subcategories, so you can drill one weak topic at a time.
 - **Shuffle mode** — randomises question order *and* answer order within a question, so you learn the material rather than the position of the right button.
 - **Real test mode** — a 30-question exam with the same category split as the real thing (16 + 7 + 7), drawn at random.
 - Instant feedback and a result summary you can filter by correct or incorrect.
@@ -111,6 +111,10 @@ quirks and every deviation from the official question bank, with reasons and dat
 Questions are reproduced from the official public question bank, published by the Národní
 pedagogický institut ČR — current edition:
 [OBC_databanka_testovychuloh_260105.pdf](https://cestina-pro-cizince.cz/obcanstvi/wp-content/uploads/2026/01/OBC_databanka_testovychuloh_260105.pdf)
-(5 January 2026). **Copied in September 2024 and not updated since.** This is an unofficial practice tool, not affiliated with or endorsed by them — always check the official source for the current wording of the exam.
+(5 January 2026), from which this copy is generated. This is an unofficial practice tool, not
+affiliated with or endorsed by them — always check the official source for the current
+wording of the exam.
 
-One question has been removed since that snapshot because it was retired upstream; see `docs/BEHAVIOR.md` for details.
+Question images come from Wikimedia Commons, credited individually in
+[`app/public/images/questions/CREDITS.md`](app/public/images/questions/CREDITS.md) as their
+licences require.

@@ -1,6 +1,7 @@
 # České reálie — kvíz
 
 [![CI](https://github.com/Skidle/ceske-realie-kviz/actions/workflows/ci.yml/badge.svg)](https://github.com/Skidle/ceske-realie-kviz/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/Skidle/ceske-realie-kviz/branch/main/graph/badge.svg)](https://codecov.io/gh/Skidle/ceske-realie-kviz)
 
 A practice quiz for the **Czech Realia exam** (*zkouška z českých reálií*), the test you have to pass as part of applying for Czech citizenship.
 
@@ -61,6 +62,7 @@ cd app
 npm install
 npm run dev        # http://localhost:3000
 npm test           # vitest
+npm run test:coverage
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint
 npm run build      # production build into app/build

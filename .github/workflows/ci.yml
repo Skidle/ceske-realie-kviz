@@ -30,7 +30,16 @@ jobs:
         run: npm run typecheck
 
       - name: Test
-        run: npm test
+        run: npm run test:coverage
+
+      # Runs even when tests fail, so a red build still reports which lines were reached.
+      - name: Upload coverage
+        if: always()
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: app/coverage/lcov.info,packages/importer/coverage/lcov.info,packages/monitor/coverage/lcov.info
+          fail_ci_if_error: true
 
       - name: Build
         run: npm run build

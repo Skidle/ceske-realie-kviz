@@ -1,0 +1,31 @@
+# Three workspaces upload separately; these split the report so a drop can be traced to one.
+component_management:
+  individual_components:
+    - component_id: app
+      name: app
+      paths:
+        - app/**
+    - component_id: importer
+      name: importer
+      paths:
+        - packages/importer/**
+    - component_id: monitor
+      name: monitor
+      paths:
+        - packages/monitor/**
+
+coverage:
+  status:
+    # Coverage is a floor, not a target: a pull request may not lower it, but hitting a
+    # particular number is not the goal. Most bugs this project has had were wrong
+    # decisions rather than unreached lines, and no percentage catches those.
+    project:
+      default:
+        threshold: 1%
+    patch:
+      default:
+        target: 80%
+
+comment:
+  layout: components, diff
+  require_changes: true

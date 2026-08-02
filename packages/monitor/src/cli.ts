@@ -9,12 +9,9 @@
 
 import { appendFile } from 'node:fs/promises';
 import { readBaseline, writeBaseline, baselinePath } from './baseline.ts';
-import { checkImages, checkSource, readSource } from './check.ts';
-import { headFacts, getBytes, sha256 } from './fetch.ts';
+import { checkSource, readSource } from './check.ts';
 import { report } from './report.ts';
 import { EXIT, verdict } from './verdict.ts';
-import { hotlinkedImages } from './images.ts';
-import type { ImageRecord } from './types.ts';
 
 async function recordBaseline(): Promise<number> {
   const existing = await readBaseline().catch(() => null);
@@ -29,38 +26,10 @@ async function recordBaseline(): Promise<number> {
     return EXIT.unverified;
   }
 
-  // The list comes from the questions themselves, so an image added or removed by editing
-  // them is picked up here rather than drifting out of sync with the baseline.
-  const uses = hotlinkedImages();
-  const images: Record<string, ImageRecord> = {};
-  let failures = 0;
+  await writeBaseline({ source: source.source, checkedAt: new Date().toISOString() });
+  console.log(`Recorded the source into ${baselinePath}`);
 
-  for (const [url, usedBy] of uses) {
-    const facts = await headFacts(url);
-    const bytes = await getBytes(url, 'jpeg');
-
-    if (!facts.ok || !bytes.ok) {
-      failures += 1;
-      // Keep what we already knew rather than dropping the entry.
-      images[url] = { ...existing.images[url], usedBy };
-      console.error(`  could not read ${url}`);
-      continue;
-    }
-
-    images[url] = {
-      ...facts.value,
-      sha256: sha256(bytes.value),
-      bytes: bytes.value.length,
-      usedBy,
-      // Acknowledgements are a human decision; a re-record must not silently clear them.
-      ...(existing.images[url]?.knownBad ? { knownBad: existing.images[url].knownBad } : {}),
-    };
-  }
-
-  await writeBaseline({ source: source.source, images, checkedAt: new Date().toISOString() });
-  console.log(`Recorded ${Object.keys(images).length} images and the source into ${baselinePath}`);
-
-  return failures ? EXIT.unverified : EXIT.verified;
+  return EXIT.verified;
 }
 
 async function check(): Promise<number> {
@@ -72,7 +41,7 @@ async function check(): Promise<number> {
     return EXIT.unverified;
   }
 
-  const results = [...await checkSource(baseline), ...await checkImages(baseline)];
+  const results = await checkSource(baseline);
   const outcome = verdict(results);
   const text = report(results, outcome);
 

@@ -1,9 +1,9 @@
 import { extractText, getDocumentProxy } from 'unpdf';
-import { compareImage, compareSource, factsMatch } from './compare.ts';
+import { compareSource } from './compare.ts';
 import { extractPdfLinks, parseEdition } from './parse.ts';
-import { getBytes, getText, headFacts, sha256 } from './fetch.ts';
+import { getBytes, getText } from './fetch.ts';
 import type { Baseline } from './baseline.ts';
-import type { CheckResult, ImageRecord, SourceRecord } from './types.ts';
+import type { CheckResult, SourceRecord } from './types.ts';
 
 export const DATABANKA_PAGE = 'https://cestina-pro-cizince.cz/obcanstvi/databanka-uloh/';
 
@@ -41,56 +41,4 @@ export async function checkSource(baseline: Baseline): Promise<CheckResult[]> {
   const current = await readSource();
   if (!current.ok) return [unverified('question bank', current.reason)];
   return compareSource(current.source, baseline.source);
-}
-
-const shortName = (url: string) => url.split('/').pop()?.split('?')[0] ?? url;
-
-/**
- * HEAD first, and download only when the server's validators have moved. That keeps a
- * clean run at roughly forty requests carrying almost nothing.
- */
-export async function checkImage(url: string, record: ImageRecord | undefined): Promise<CheckResult> {
-  const name = shortName(url);
-  if (!record) return unverified(name, 'no baseline recorded');
-
-  // Carried through so the report can name the question rather than only a filename.
-  const tag = (result: CheckResult): CheckResult => ({ ...result, usedBy: record.usedBy });
-
-  const facts = await headFacts(url);
-  if (!facts.ok) {
-    if ('missing' in facts) {
-      return tag(record.knownBad
-        ? { name, state: 'known', detail: record.knownBad.reason }
-        : { name, state: 'missing', detail: 'HTTP 404' });
-    }
-    return tag(unverified(name, facts.unverified));
-  }
-
-  // The ETag and Last-Modified the server just gave us match what we recorded, so the
-  // bytes are the same and there is no reason to download them.
-  if (factsMatch(facts.value, record)) {
-    // For an ordinary image that settles it. A known-bad one still has to appear in
-    // every report, so hand it to compareImage with the hash we already have on file.
-    if (!record.knownBad) return tag({ name, state: 'unchanged' });
-    return tag(compareImage(name, record.sha256, record));
-  }
-
-  const bytes = await getBytes(url, 'jpeg');
-  if (!bytes.ok) {
-    if ('missing' in bytes) return tag({ name, state: 'missing', detail: 'HTTP 404' });
-    return tag(unverified(name, bytes.unverified));
-  }
-
-  return tag(compareImage(name, sha256(bytes.value), record));
-}
-
-export async function checkImages(baseline: Baseline): Promise<CheckResult[]> {
-  const results: CheckResult[] = [];
-
-  // Sequentially, to stay well within what one visitor costs the source site.
-  for (const url of Object.keys(baseline.images)) {
-    results.push(await checkImage(url, baseline.images[url]));
-  }
-
-  return results;
 }

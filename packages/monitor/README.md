@@ -3,8 +3,17 @@
 Checks whether the official question bank has changed since we last looked.
 
 The quiz data is a snapshot of a source that keeps moving. Nothing used to notice when it
-moved, which is why questions showed 404s for months and one still shows four portraits of
+moved, which is why questions showed 404s for months and four answers showed portraits of
 Czech presidents instead of the National Theatre.
+
+**It watches the PDF, not the pictures.** The pictures are now files in this repository,
+fetched from Wikimedia Commons by `@kviz/importer`, so they cannot change without a commit.
+The edition line in the PDF is the thing that moves, and it is what a new import starts
+from. Watching the bank's own image URLs was dropped once nothing loaded them: the images
+were found by scanning the question data for `http`, so the day they became local files
+that search returned nothing and every run would have passed having checked no images at
+all. `verdict([])` now refuses to call an empty run verified, so a repeat of that fails
+loudly rather than going quiet.
 
 ## How a run works
 
@@ -21,19 +30,9 @@ npm run monitor                                    main.ts → cli.ts
 │       ├─ parseEdition(text) .................. parse.ts      edition line, topic count
 │       └─ compareSource(current, baseline) .... compare.ts    → 3 results
 │
-├─ 3. checkImages(baseline) .................... check.ts      loops the 32 images
-│       └─ checkImage(url, record) ............. check.ts
-│            ├─ headFacts(url) ................. fetch.ts      ETag, Last-Modified, size
-│            ├─ factsMatch(current, recorded) .. compare.ts
-│            │     ├─ yes → unchanged, body never downloaded
-│            │     └─ no  ↓
-│            ├─ getBytes(url, 'jpeg') .......... fetch.ts
-│            ├─ sha256(bytes) .................. fetch.ts
-│            └─ compareImage(name, hash, rec) .. compare.ts    → 32 results
-│
-├─ 4. verdict(35 results) ...................... verdict.ts    → exit 0, 1 or 2
-├─ 5. report(results, verdict) ................. report.ts     → the text printed
-└─ 6. exit with the verdict's code
+├─ 3. verdict(3 results) ....................... verdict.ts    → exit 0, 1 or 2
+├─ 4. report(results, verdict) ................. report.ts     → the text printed
+└─ 5. exit with the verdict's code
 ```
 
 Recording a new baseline takes a different path:
@@ -41,10 +40,8 @@ Recording a new baseline takes a different path:
 ```
 npm run monitor:record                             main.ts --record
 │
-├─ hotlinkedImages() ........................... images.ts     which image, which question
-├─ readSource() ................................ check.ts      as steps 2 above
-├─ headFacts() + getBytes() + sha256() ......... fetch.ts      per image
-└─ writeBaseline({ source, images }) ........... baseline.ts   knownBad is preserved
+├─ readSource() ................................ check.ts      as step 2 above
+└─ writeBaseline({ source }) ................... baseline.ts
 ```
 
 | File | Takes | Gives back |
@@ -54,8 +51,7 @@ npm run monitor:record                             main.ts --record
 | `compare.ts` | current facts + the recorded ones | one `CheckResult` per item |
 | `verdict.ts` | all results | an exit code, worst outcome winning |
 | `report.ts` | all results | the text a human reads |
-| `check.ts` | the baseline | runs steps 2 to 5 |
-| `images.ts` | the app's questions | every hotlinked URL, and which question uses it |
+| `check.ts` | the baseline | runs steps 2 to 4 |
 | `baseline.ts` | — | reads and writes `baseline.json` |
 
 Functions rather than classes on purpose: every step takes data and returns data, so each

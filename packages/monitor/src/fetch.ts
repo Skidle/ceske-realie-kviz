@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import type { ImageFacts } from './types.ts';
 
 export const USER_AGENT = 'ceske-realie-kviz-monitor (+https://github.com/Skidle/ceske-realie-kviz)';
 
@@ -17,16 +16,15 @@ const sleep = (ms: number) => new Promise((resolve) => { setTimeout(resolve, ms)
 
 export const sha256 = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 
-/** JPEGs start FF D8 FF, PDFs start %PDF. A 200 carrying HTML is a redirect to a login page. */
+/** PDFs start %PDF. A 200 carrying HTML is a redirect to a login page. */
 const MAGIC = {
-  jpeg: [0xff, 0xd8, 0xff],
   pdf: [0x25, 0x50, 0x44, 0x46],
 };
 
 const looksLike = (kind: keyof typeof MAGIC, bytes: Uint8Array) => MAGIC[kind]
   .every((byte, index) => bytes[index] === byte);
 
-async function request(url: string, method: 'GET' | 'HEAD'): Promise<Fetched<Response>> {
+async function request(url: string, method: 'GET'): Promise<Fetched<Response>> {
   let lastError = 'unknown error';
 
   for (let attempt = 0; attempt <= RETRIES; attempt += 1) {
@@ -52,21 +50,6 @@ async function request(url: string, method: 'GET' | 'HEAD'): Promise<Fetched<Res
   }
 
   return { ok: false, unverified: lastError };
-}
-
-export async function headFacts(url: string): Promise<Fetched<ImageFacts>> {
-  const result = await request(url, 'HEAD');
-  if (!result.ok) return result;
-
-  const { headers } = result.value;
-  return {
-    ok: true,
-    value: {
-      etag: headers.get('etag'),
-      lastModified: headers.get('last-modified'),
-      contentLength: headers.get('content-length'),
-    },
-  };
 }
 
 export async function getBytes(

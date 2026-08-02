@@ -1,11 +1,9 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import type { ImageRecord, SourceRecord } from './types.ts';
+import type { SourceRecord } from './types.ts';
 
 export interface Baseline {
   source: SourceRecord;
-  /** Keyed by image URL. `knownBad` marks an image we already know is wrong. */
-  images: Record<string, ImageRecord>;
   checkedAt?: string;
 }
 
@@ -20,8 +18,8 @@ export async function readBaseline(): Promise<Baseline> {
   const raw = await readFile(FILE, 'utf8');
   const parsed = JSON.parse(raw) as Baseline;
 
-  if (!parsed.source?.pdfUrl || !parsed.images) {
-    throw new Error('baseline.json is missing its source or images section');
+  if (!parsed.source?.pdfUrl) {
+    throw new Error('baseline.json is missing its source section');
   }
 
   return parsed;

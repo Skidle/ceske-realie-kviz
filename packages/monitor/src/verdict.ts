@@ -28,6 +28,14 @@ export function verdict(results: CheckResult[]): Verdict {
   };
   results.forEach((result) => { counts[result.state] += 1; });
 
+  // A run that checked nothing has confirmed nothing. Left alone this reports "verified,
+  // nothing changed" and exits 0, which is the tool's own failure mode turned on itself:
+  // the images are found by scanning the question data for URLs, so the day they become
+  // local files that search returns nothing and every later run passes silently.
+  if (results.length === 0) {
+    return { exitCode: EXIT.unverified, summary: 'nothing was checked', counts };
+  }
+
   if (counts.unverified > 0) {
     return { exitCode: EXIT.unverified, summary: `could not verify ${counts.unverified} item(s)`, counts };
   }

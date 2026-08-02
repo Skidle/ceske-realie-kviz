@@ -1,4 +1,4 @@
-import { collapse } from './normalise.ts';
+import { collapse, stripPageNumbers } from './normalise.ts';
 import type { AnswerLetter } from './types.ts';
 
 /**
@@ -18,7 +18,13 @@ export interface Citation {
 }
 
 const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$/;
-const ENTRY = /^Testová úloha\s+(\d{1,2})(?:,\s*alternativa\s+([A-D]))?\s+(.*)$/;
+
+/**
+ * "Testová úloha 1, alternativa A", which the layout puts on a line of its own with the
+ * credit and the URL on the lines after it. The trailing group is optional because the
+ * whole entry occasionally does fit on one line.
+ */
+const ENTRY_HEAD = /^Testová úloha\s+(\d{1,2})(?:,\s*alternativa\s+([A-D]))?\s*(.*)$/;
 
 /**
  * The layout wraps URLs mid-string, putting spaces inside percent escapes:
@@ -59,29 +65,50 @@ export function parseCitations(text: string): Citation[] {
 
   const citations: Citation[] = [];
   let topicNumber = 0;
+  let open: { questionNumber: number; letter?: AnswerLetter } | null = null;
+  let body: string[] = [];
 
-  for (const line of text.slice(start).split('\n')) {
+  // An entry runs from its "Testová úloha" line to whatever starts the next one, because
+  // the credit and the URL sit on the lines below the heading rather than beside it.
+  const close = () => {
+    if (!open) return;
+    const joined = body.join(' ');
+    const source = extractSource(joined);
+    if (source) {
+      citations.push({
+        ...open,
+        topicNumber,
+        source,
+        credit: collapse(joined.split('[online]')[0]) || 'no author given',
+      });
+    }
+    open = null;
+    body = [];
+  };
+
+  for (const line of stripPageNumbers(text.slice(start)).split('\n')) {
     const heading = line.match(TOPIC_HEADING);
     if (heading) {
+      close();
       topicNumber = Number(heading[1]);
       continue;
     }
 
-    const entry = collapse(line).match(ENTRY);
-    if (!entry || topicNumber === 0) continue;
+    const entry = collapse(line).match(ENTRY_HEAD);
+    if (entry && topicNumber !== 0) {
+      close();
+      open = {
+        questionNumber: Number(entry[1]),
+        ...(entry[2] ? { letter: entry[2] as AnswerLetter } : {}),
+      };
+      body = [entry[3]];
+      continue;
+    }
 
-    const source = extractSource(entry[3]);
-    if (!source) continue;
-
-    citations.push({
-      topicNumber,
-      questionNumber: Number(entry[1]),
-      ...(entry[2] ? { letter: entry[2] as AnswerLetter } : {}),
-      source,
-      credit: collapse(entry[3].split('[online]')[0]) || 'no author given',
-    });
+    if (open) body.push(line);
   }
 
+  close();
   return citations;
 }
 

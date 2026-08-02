@@ -20,9 +20,9 @@ Everything runs client-side; no backend, no user data stored.
 
 ## Tech
 
-React 18 + TypeScript on Vite, with Tailwind for the landing page and plain CSS for the quiz. Tested with Vitest and Testing Library, routed with react-router.
+React 18 + TypeScript on Vite, styled with Tailwind throughout. Tested with Vitest and Testing Library, routed with react-router. An npm workspaces monorepo: the app plus two Node packages that keep its data honest.
 
-The quiz under `app/src/lib/` began as an off-the-shelf React quiz template, vendored rather than installed. It has since been cut down to what this app actually uses — roughly 80% of the template was unreachable — and rewritten around a state hook plus two view components.
+The quiz began as an off-the-shelf React quiz template, vendored rather than installed. It has since been cut down to what this app actually uses — roughly 80% of the template was unreachable — and rewritten around a state hook plus a few view components.
 
 ```
 app/src/
@@ -48,22 +48,29 @@ app/src/
     types.ts               shapes as stored
   locale/cs.ts             Czech UI strings
   shared/markdown.ts
-  styles/                  tailwind.css, quiz.css
+  styles/tailwind.css
   test/                    setup and fixtures
-app/scripts/               the source monitor (Node, never bundled)
-app/data/                  monitor baselines
+packages/
+  monitor/                 checks whether the official source has moved
+  importer/                rebuilds the question data from the official PDF
 ```
+
+Both packages are Node, run with `--experimental-strip-types`, and are never bundled into
+the app. Each has its own README describing how a run works, step by step.
 
 ## Running it
 
+From the repository root — the workspaces take care of themselves:
+
 ```bash
-cd app
 npm install
 npm run dev        # http://localhost:3000
-npm test           # vitest
+npm test           # vitest, every workspace
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint
 npm run build      # production build into app/build
+
+npm run monitor -w @kviz/monitor   # has the official source moved?
 ```
 
 CI runs lint, typecheck, tests and build on every push and pull request.

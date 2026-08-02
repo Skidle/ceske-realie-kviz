@@ -85,13 +85,14 @@ function buildQuestion(
   const correct = parseAnswerKey(topic.body)[parsed.number];
   if (!correct) return refuse('no correct answer in the topic key');
 
-  const mine = citations.filter(
+  // The citations for this one question, out of every citation in the document.
+  const pictures = citations.filter(
     (citation) => citation.topicNumber === topic.number && citation.questionNumber === parsed.number,
   );
-  const built = answersFor(parsed, mine, imagePath);
+  const built = answersFor(parsed, pictures, imagePath);
   if ('reason' in built) return refuse(built.reason);
 
-  const questionPic = mine.find((citation) => !citation.letter);
+  const questionPic = pictures.find((citation) => !citation.letter);
 
   return {
     question: {

@@ -1,9 +1,11 @@
 // Checks whether the official question bank has changed since we last looked.
 //
-//   npm run monitor -w @kviz/monitor              compare against baseline.json
-//   npm run monitor:baseline -w @kviz/monitor     record the current state as the baseline
+//   npm run monitor -w @kviz/monitor           compare against baseline.json
+//   npm run monitor:record -w @kviz/monitor    record the current state as the baseline
 //
 // Exit codes: 0 verified, 1 drift, 2 could not verify. See verdict.ts for why 2 outranks 1.
+// main.ts is the entry point; this file returns the exit code rather than exiting, so the
+// codes themselves can be tested.
 
 import { appendFile } from 'node:fs/promises';
 import { readBaseline, writeBaseline, baselinePath } from './baseline.ts';
@@ -13,8 +15,6 @@ import { report } from './report.ts';
 import { EXIT, verdict } from './verdict.ts';
 import { hotlinkedImages } from './images.ts';
 import type { ImageRecord } from './types.ts';
-
-const recording = process.argv.includes('--record');
 
 async function recordBaseline(): Promise<number> {
   const existing = await readBaseline().catch(() => null);
@@ -85,4 +85,6 @@ async function check(): Promise<number> {
   return outcome.exitCode;
 }
 
-process.exit(await (recording ? recordBaseline() : check()));
+export async function runCli(argv: string[]): Promise<number> {
+  return argv.includes('--record') ? recordBaseline() : check();
+}

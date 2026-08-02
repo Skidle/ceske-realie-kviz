@@ -11,7 +11,7 @@ const respond = (...responses: Array<Response | Error>) => {
   const queue = [...responses];
   const fetchMock = vi.fn(async (...args: Parameters<typeof fetch>) => {
     void args;
-    // The last one stays put, so a queue of one answers every attempt with it.
+    // The last stays put, so a queue of one answers every attempt.
     const next = queue.length > 1 ? queue.shift()! : queue[0];
     if (next instanceof Error) throw next;
     return next.clone();
@@ -23,8 +23,7 @@ const respond = (...responses: Array<Response | Error>) => {
 const pdf = (body: Uint8Array = PDF, init: ResponseInit = {}) => new Response(body, init);
 
 beforeEach(() => {
-  // The real delays are 2s and 4s. Nothing here depends on elapsed time, only on the
-  // number of attempts, so waiting six seconds per test would buy nothing.
+  // Real delays are 2s and 4s; these tests depend on attempt count, not elapsed time.
   vi.stubGlobal('setTimeout', (run: () => void) => { run(); return 0; });
 });
 
@@ -64,8 +63,7 @@ describe('request behaviour', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
-  // The distinction the whole tool rests on: a rate limit must not read as a change, and
-  // must not read as unchanged either.
+  // A rate limit must read as neither changed nor unchanged.
   it('gives up after three attempts and admits it could not check', async () => {
     const fetchMock = respond(new Response(null, { status: 500 }));
     const result = await getBytes('https://example.test/1.jpg', 'pdf');
@@ -89,8 +87,7 @@ describe('getBytes', () => {
     expect(await getBytes('https://example.test/bank.pdf', 'pdf')).toMatchObject({ ok: true });
   });
 
-  // A 200 carrying HTML means a redirect to a sign-in page. Treating that as the question
-  // bank would record the login page as the source and call every later run "unchanged".
+  // A 200 carrying HTML is a redirect to sign-in; recording it would make every run pass.
   it('refuses HTML served with a 200, naming what it got instead', async () => {
     respond(new Response(HTML, { headers: { 'content-type': 'text/html' } }));
 

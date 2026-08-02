@@ -21,8 +21,7 @@ const Marker = ({ mark, floating = false }: { mark: Mark; floating?: boolean }) 
   if (!mark) return null;
 
   const isRight = mark === 'correct';
-  // Over a photo the marker is a badge in the corner, so the picture keeps the full
-  // width of its card. Beside text it sits inline at the end of the row.
+  // A badge in the corner over a photo, inline at the end of a text row.
   const position = floating
     ? 'absolute top-2 right-2 rounded bg-white/90 px-2 py-1 shadow-sm'
     : '';

@@ -59,9 +59,8 @@ describe('parseEdition', () => {
     expect(parseEdition('')).toBeNull();
   });
 
-  // Taken verbatim from real editions, extracted with the same library the monitor uses.
-  // Note that 2021 and 2023 are both "Vydání osmé": the edition word alone is a weak
-  // signal, and it is the Aktualizováno date that distinguishes them. Comparing the whole
+  // Verbatim from real editions. 2021 and 2023 are both "Vydání osmé" — only the
+  // Aktualizováno date distinguishes them. Comparing the whole
   // line covers both.
   describe.each([
     ['2021', 'Vydání osmé (elektronické), Praha, 2021 Aktualizováno 13. 12. 2021 © NPI ČR', '13. 12. 2021'],

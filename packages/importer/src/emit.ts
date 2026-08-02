@@ -1,12 +1,8 @@
 import type { BuiltQuestion } from './build.ts';
 
 /**
- * The questions file, in the shape the app already stores.
- *
- * Deliberately the *current* shape rather than a tidier one — 1-based index held as a
- * string, and all — so that regenerating the data produces a diff about the questions
- * rather than a diff about the format. Changing the shape is worth doing, separately,
- * where it can be reviewed on its own.
+ * The current storage shape, 1-based string index and all, so regenerating diffs on
+ * content rather than format. Changing the shape is a separate, reviewable change.
  */
 export function renderQuestions(questions: BuiltQuestion[], edition: string): string {
   const body = questions
@@ -34,12 +30,7 @@ export interface ImageFile {
   file: string;
 }
 
-/**
- * Resolves a picture to the path the app will request, by what is actually on disk.
- *
- * Built from a directory listing rather than from what the fetch step believed it wrote,
- * so a question can never point at a file that is not there.
- */
+/** Built from a directory listing, not from what the fetch step believed it wrote. */
 export function imagePathFrom(files: ImageFile[], directory = '/images/questions'): (name: string) => string | null {
   const byName = new Map(files.map(({ name, file }) => [name, `${directory}/${file}`]));
 
@@ -50,10 +41,7 @@ export interface Validation {
   problems: string[];
 }
 
-/**
- * Everything that must hold before the file is written. The parser is fragile by nature,
- * so the output is checked rather than trusted.
- */
+/** Checked before writing, because PDF parsing is fragile. */
 export function validate(questions: BuiltQuestion[], onDisk: Set<string>): Validation {
   const problems: string[] = [];
   const say = (message: string) => problems.push(message);

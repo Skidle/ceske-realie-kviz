@@ -1,10 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Mail, Instagram } from 'lucide-react';
 
-/**
- * The nav and footer both routes share. Previously only the landing page had them, so the
- * quiz read as a separate site.
- */
+/** Nav and footer for both routes; the quiz used to read as a separate site. */
 function SiteLayout() {
   return (
     <div className="min-h-screen bg-flag-50 flex flex-col">

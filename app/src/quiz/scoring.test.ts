@@ -2,12 +2,8 @@ import { checkAnswer } from './scoring';
 import type { AnswerButtons } from './types';
 import type { Question } from '../content/types';
 
-// Characterization tests for the answer-checking logic. These assert what the code does
-// TODAY, including behaviour that is arguably wrong (see docs/BEHAVIOR.md § Known quirks).
-// Phase 1 changes this module; these tests are what prove the change is safe.
-//
-// Only the single-selection path is covered: every one of the 300 questions is
-// single-selection, and the multiple-selection branches are unreachable in this app.
+// Characterization tests: they assert what the code does today, including the quirks in
+// docs/BEHAVIOR.md. Single-selection only — all 300 questions are single-selection.
 
 const QUESTION: Question = {
   question: 'A question',

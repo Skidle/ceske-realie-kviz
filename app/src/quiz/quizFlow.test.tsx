@@ -2,17 +2,15 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import QuizSetup from './QuizSetup';
 import { quizFixture, categoriesFixture } from '../test/fixtures/quiz';
 
-// End-to-end smoke test over the whole quiz flow. This is the safety net for the Phase 1
-// refactor: it must keep passing WITHOUT MODIFICATION. If a refactor requires editing
-// this file to stay green, the refactor changed behaviour.
+// Smoke test over the whole quiz flow. A refactor that needs this file edited to stay
+// green changed behaviour. Edited twice on purpose: Czech text (#7), <select> (#16).
 
 const renderQuiz = () => render(
   <QuizSetup quiz={quizFixture} categories={categoriesFixture} />,
 );
 
-// fireEvent from RTL, not user-event: @testing-library/dom is hoisted at v10 while RTL 13
-// carries its own nested v8, so user-event's clicks go through a different instance and
-// escape RTL's act() wrapper, leaving React 18 updates unflushed. Revisit in Phase 2.
+// fireEvent, not user-event: @testing-library/dom is hoisted at v10 while RTL carries a
+// nested v8, so user-event's clicks escape RTL's act() and leave React updates unflushed.
 const clickButton = (name: string) => fireEvent.click(screen.getByRole('button', { name }));
 
 const startQuiz = () => clickButton('Spustit kvíz');
@@ -61,9 +59,8 @@ describe('Quiz', () => {
       expect(screen.getByText(/Máte spravně 1 z 2 otázek/)).toBeInTheDocument();
     });
 
-    // Regression test. The answers used to be keyed with nanoid(), so every render
-    // produced new keys and React destroyed and recreated all four buttons. On image
-    // questions that tore the pictures out of the DOM and threw the page back to the top.
+    // Answers were keyed with nanoid(), so React recreated all four buttons every render.
+    // On image questions that tore the pictures out and threw the page to the top.
     it('updates the answer buttons in place rather than recreating them', () => {
       renderQuiz();
       startQuiz();
@@ -109,7 +106,7 @@ describe('Quiz', () => {
       chooseAnswer('Otazka dva A');
       goToNextQuestion();
 
-      // The filter is a <select>, so every choice is present without opening anything.
+      // A <select>, so every option is present without opening anything.
       expect(screen.getByRole('combobox', { name: 'Zobrazit' })).toBeInTheDocument();
       expect(screen.getByRole('option', { name: 'Správně' })).toBeInTheDocument();
       expect(screen.getByRole('option', { name: 'Nesprávně' })).toBeInTheDocument();

@@ -7,15 +7,12 @@ export type QuestionType = 'text' | 'photo';
 export interface Question {
   question: string;
   /**
-   * Four alternatives. Plain text when `questionType` is 'text', image URLs when it is
-   * 'photo'.
+   * Four alternatives: text, or image paths when `questionType` is 'photo'.
    */
   answers: string[];
   /**
-   * The 1-based index of the correct answer, held as a string — `"3"` means the third
-   * alternative. This mirrors the source data exactly and is deliberately not normalised
-   * to a number here; converting it is a data change, and the importer that regenerates
-   * this dataset should emit the cleaner shape at the source instead.
+   * 1-based index as a string: `"3"` is the third alternative. Kept as-is so the
+   * importer's output diffs on content; normalising it is a separate data change.
    */
   correctAnswer: string;
   /** Index into the categories list. */

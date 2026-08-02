@@ -1,18 +1,12 @@
 import type { BuiltQuestion } from './build.ts';
 
 /**
- * Compared on letters and digits alone.
- *
- * The layout drops full stops and inserts spaces inside numbers, so a strict comparison
- * reports differences that do not exist: an earlier run of this diff claimed three
- * questions had a changed correct answer, and two of them differed only by a stray space
- * and a missing full stop.
+ * Letters and digits alone. The layout drops full stops and puts spaces inside numbers,
+ * so a strict comparison reported three changed answers where only one had changed.
  */
 const key = (text: string) => text
-  // The 2024 data baked the alternative's letter into its text — "A) Den matek." — which
-  // the app then shuffled, so the letters were already appearing out of order on screen.
-  // The regenerated data drops them. Stripping the marker here is what makes the diff
-  // show the content that changed rather than 300 questions changing at once.
+  // The 2024 data stored "A) Den matek."; the regenerated data drops the prefix. Without
+  // this the diff reports all 300 questions as changed.
   .replace(/^[A-D]\)\s*/, '')
   .toLowerCase()
   .normalize('NFD')
@@ -36,10 +30,8 @@ export interface Diff {
 }
 
 /**
- * Questions are matched by their text, so a reworded question reads as one removal and
- * one addition rather than a change. That overstates churn, and there is no reliable way
- * around it: two questions with different wording may or may not be the same question,
- * and only a human can say.
+ * Matched by question text, so rewording reads as one removal plus one addition. That
+ * overstates churn; whether two wordings are the same question needs a person.
  */
 export function diffQuestions(before: BuiltQuestion[], after: BuiltQuestion[]): Diff {
   const beforeByText = new Map(before.map((q) => [key(q.question), q]));

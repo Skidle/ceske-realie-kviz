@@ -3,7 +3,7 @@ export const USER_AGENT = 'ceske-realie-kviz-importer (+https://github.com/Skidl
 const RETRIES = 2;
 const RETRY_DELAY_MS = 2000;
 const TIMEOUT_MS = 30000;
-/** Commons asks that automated readers space their requests out. */
+/** Commons asks automated readers to space requests out. */
 const BETWEEN_REQUESTS_MS = 300;
 
 export type Downloaded = { ok: true; bytes: Uint8Array } | { ok: false; reason: string };
@@ -12,10 +12,7 @@ const sleep = (ms: number) => new Promise((resolve) => { setTimeout(resolve, ms)
 
 /**
  * Bytes, or a reason. Never throws, so one bad picture cannot abandon the other 45.
- *
- * A 404 is reported like any other failure here, unlike in the monitor: this runs once by
- * hand and a person reads the output, so "gone" and "could not fetch" lead to the same
- * place — go and look.
+ * 404 is not distinguished: a person reads this output, and both mean go and look.
  */
 export async function download(url: string): Promise<Downloaded> {
   let last = 'unknown error';

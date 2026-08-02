@@ -2,12 +2,7 @@ import { collapse, stripPageNumbers } from './normalise.ts';
 import { sections } from './sections.ts';
 import type { AnswerLetter } from './types.ts';
 
-/**
- * One picture, and where it belongs.
- *
- * `letter` is absent when the picture illustrates the question rather than being one of
- * the alternatives — the citation then reads "Testová úloha 8" with no "alternativa".
- */
+/** `letter` is absent for a picture illustrating the question rather than an alternative. */
 export interface Citation {
   topicNumber: number;
   questionNumber: number;
@@ -22,18 +17,10 @@ const SECTION_HEADING = 'CITACE OBRAZOVÉHO MATERIÁLU';
 
 const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$/gm;
 
-/**
- * "Testová úloha 1, alternativa A", which the layout puts on a line of its own with the
- * credit and the URL on the lines after it. The trailing group catches the rest of the
- * line, because the whole entry occasionally does fit on one.
- */
+/** Its own line, credit and URL below it. Trailing group catches an entry that fits on one. */
 const ENTRY_HEAD = /^Testová úloha[ \t]+(\d{1,2})(?:,[ \t]*alternativa[ \t]+([A-D]))?[ \t]*(.*)$/gm;
 
-/**
- * The layout wraps URLs mid-string, putting spaces inside percent escapes:
- * "File:Sloup _Nejsv %C4%9Bt%C4%9 Bj%" is one file name. Commons names never contain a
- * space — they use underscores — so every space inside a URL was added by the PDF.
- */
+/** Commons names never contain spaces, so every space inside a URL came from the layout. */
 const repairUrl = (raw: string) => raw.replace(/\s+/g, '');
 
 function extractSource(entry: string): string | undefined {
@@ -48,19 +35,15 @@ function extractSource(entry: string): string | undefined {
   try {
     return decodeURIComponent(commons[1]);
   } catch {
-    // A percent escape the layout broke beyond repair. Keeping the raw name is better
-    // than dropping the citation, since it still says which question the picture is for.
+    // Broken percent escape. Keep the raw name: it still says which question this is for.
     return commons[1];
   }
 }
 
 /**
- * Reads the "CITACE OBRAZOVÉHO MATERIÁLU" section at the end of the document.
- *
- * This is the only thing that says which picture belongs to which question. The bank's own
- * image files are named by position — 17alt3.jpg means "topic 17, alternative 3" — so
- * renumbering the questions silently makes every later file mean something else. That is
- * how four answers came to show portraits of presidents instead of a theatre.
+ * The "CITACE OBRAZOVÉHO MATERIÁLU" section: the only thing saying which picture belongs
+ * to which question. The bank's own filenames encode position, so renumbering repoints
+ * them silently — four answers once showed presidents instead of a theatre.
  */
 export function parseCitations(text: string): Citation[] {
   const start = text.lastIndexOf(SECTION_HEADING);
@@ -68,10 +51,8 @@ export function parseCitations(text: string): Citation[] {
 
   const body = stripPageNumbers(text.slice(start));
 
-  // Topics hold entries, and an entry runs from its "Testová úloha" line to whatever
-  // starts the next one — the credit and the URL sit on the lines below that heading
-  // rather than beside it. Anything printed before the first topic heading has no topic to
-  // belong to and is skipped by falling outside every section.
+  // An entry runs from its "Testová úloha" line to whatever starts the next. Anything
+  // before the first topic heading falls outside every section and is skipped.
   return sections(body, TOPIC_HEADING).flatMap((topic) => sections(topic.body, ENTRY_HEAD)
     .flatMap((entry) => {
       const printed = `${entry.match[3]} ${entry.body}`;

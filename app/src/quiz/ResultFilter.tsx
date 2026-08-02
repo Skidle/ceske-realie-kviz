@@ -9,11 +9,9 @@ interface ResultFilterProps {
 }
 
 /**
- * A plain <select>, matching the category and subcategory controls on the setup screen.
- *
- * It replaces a hand-rolled dropdown: a div of role="menuitem" children with its own
- * outside-click listener and its own Enter handling. The browser does all of that
- * correctly, and the version it replaces could not be reached by keyboard at all.
+ * Matches the category and subcategory controls on the setup screen. Replaces a
+ * hand-rolled dropdown — 118 lines of role="menuitem" divs, an outside-click listener and
+ * its own Enter handling — that the browser does correctly and consistently.
  */
 function ResultFilter({ filteredValue, onChange, appLocale }: ResultFilterProps) {
   const options: Array<[ResultFilterValue, string]> = [

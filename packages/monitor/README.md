@@ -9,7 +9,7 @@ Czech presidents instead of the National Theatre.
 ## How a run works
 
 ```
-npm run monitor                                    cli.ts
+npm run monitor                                    main.ts → cli.ts
 │
 ├─ 1. readBaseline() ........................... baseline.ts   what we recorded last time
 │
@@ -39,7 +39,7 @@ npm run monitor                                    cli.ts
 Recording a new baseline takes a different path:
 
 ```
-npm run monitor:record                             cli.ts --record
+npm run monitor:record                             main.ts --record
 │
 ├─ hotlinkedImages() ........................... images.ts     which image, which question
 ├─ readSource() ................................ check.ts      as steps 2 above

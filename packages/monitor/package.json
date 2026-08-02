@@ -9,8 +9,8 @@
     "test:watch": "vitest",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "monitor": "node --experimental-strip-types src/cli.ts",
-    "monitor:record": "node --experimental-strip-types src/cli.ts --record"
+    "monitor": "node --experimental-strip-types src/main.ts",
+    "monitor:record": "node --experimental-strip-types src/main.ts --record"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

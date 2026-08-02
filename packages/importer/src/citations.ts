@@ -1,4 +1,5 @@
 import { collapse, stripPageNumbers } from './normalise.ts';
+import { sections } from './sections.ts';
 import type { AnswerLetter } from './types.ts';
 
 /**
@@ -17,14 +18,16 @@ export interface Citation {
   credit: string;
 }
 
-const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$/;
+const SECTION_HEADING = 'CITACE OBRAZOVÉHO MATERIÁLU';
+
+const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$/gm;
 
 /**
  * "Testová úloha 1, alternativa A", which the layout puts on a line of its own with the
- * credit and the URL on the lines after it. The trailing group is optional because the
- * whole entry occasionally does fit on one line.
+ * credit and the URL on the lines after it. The trailing group catches the rest of the
+ * line, because the whole entry occasionally does fit on one.
  */
-const ENTRY_HEAD = /^Testová úloha\s+(\d{1,2})(?:,\s*alternativa\s+([A-D]))?\s*(.*)$/;
+const ENTRY_HEAD = /^Testová úloha[ \t]+(\d{1,2})(?:,[ \t]*alternativa[ \t]+([A-D]))?[ \t]*(.*)$/gm;
 
 /**
  * The layout wraps URLs mid-string, putting spaces inside percent escapes:
@@ -60,56 +63,29 @@ function extractSource(entry: string): string | undefined {
  * how four answers came to show portraits of presidents instead of a theatre.
  */
 export function parseCitations(text: string): Citation[] {
-  const start = text.lastIndexOf('CITACE OBRAZOVÉHO MATERIÁLU');
+  const start = text.lastIndexOf(SECTION_HEADING);
   if (start === -1) return [];
 
-  const citations: Citation[] = [];
-  let topicNumber = 0;
-  let open: { questionNumber: number; letter?: AnswerLetter } | null = null;
-  let body: string[] = [];
+  const body = stripPageNumbers(text.slice(start));
 
-  // An entry runs from its "Testová úloha" line to whatever starts the next one, because
-  // the credit and the URL sit on the lines below the heading rather than beside it.
-  const close = () => {
-    if (!open) return;
-    const joined = body.join(' ');
-    const source = extractSource(joined);
-    if (source) {
-      citations.push({
-        ...open,
-        topicNumber,
+  // Topics hold entries, and an entry runs from its "Testová úloha" line to whatever
+  // starts the next one — the credit and the URL sit on the lines below that heading
+  // rather than beside it. Anything printed before the first topic heading has no topic to
+  // belong to and is skipped by falling outside every section.
+  return sections(body, TOPIC_HEADING).flatMap((topic) => sections(topic.body, ENTRY_HEAD)
+    .flatMap((entry) => {
+      const printed = `${entry.match[3]} ${entry.body}`;
+      const source = extractSource(printed);
+      if (!source) return [];
+
+      return [{
+        topicNumber: Number(topic.match[1]),
+        questionNumber: Number(entry.match[1]),
+        ...(entry.match[2] ? { letter: entry.match[2] as AnswerLetter } : {}),
         source,
-        credit: collapse(joined.split('[online]')[0]) || 'no author given',
-      });
-    }
-    open = null;
-    body = [];
-  };
-
-  for (const line of stripPageNumbers(text.slice(start)).split('\n')) {
-    const heading = line.match(TOPIC_HEADING);
-    if (heading) {
-      close();
-      topicNumber = Number(heading[1]);
-      continue;
-    }
-
-    const entry = collapse(line).match(ENTRY_HEAD);
-    if (entry && topicNumber !== 0) {
-      close();
-      open = {
-        questionNumber: Number(entry[1]),
-        ...(entry[2] ? { letter: entry[2] as AnswerLetter } : {}),
-      };
-      body = [entry[3]];
-      continue;
-    }
-
-    if (open) body.push(line);
-  }
-
-  close();
-  return citations;
+        credit: collapse(printed.split('[online]')[0]) || 'no author given',
+      }];
+    }));
 }
 
 /** Turns a Commons file name into a URL that serves the file itself. */

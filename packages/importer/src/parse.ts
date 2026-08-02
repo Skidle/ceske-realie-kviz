@@ -1,9 +1,21 @@
 import { collapse, normaliseDate, stripPageNumbers } from './normalise.ts';
+import { sections } from './sections.ts';
 import { LETTERS } from './types.ts';
 import type { AnswerKey, AnswerLetter, ParsedQuestion, Topic } from './types.ts';
 
 /** "12. RODINNÉ PRÁVO" on its own line. Lower case never appears in a heading. */
 const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$/gm;
+
+/** "1." … "10." starting a line, followed by the question itself. */
+const QUESTION_NUMBER = /(?:^|\n)\s*(\d{1,2})\.\s+(?=[A-ZÁ-Ž(])/g;
+
+/** "A)", wherever it falls. The alternatives are keyed by this letter, never by position. */
+const ANSWER_MARKER = /(?:^|[\s(])([A-D])\)/g;
+
+/** The date line closes a question; whatever follows it belongs to the next one. */
+const DATE_LINE = 'Datum aktualizace';
+
+const before = (text: string, marker: string) => text.split(marker)[0];
 
 /**
  * The 30 themes.
@@ -13,24 +25,13 @@ const TOPIC_HEADING = /^\s*(\d{1,2})\.\s+([A-ZÁ-Ž][A-ZÁ-Ž0-9 ,.()-]{3,})\s*$
  * and a page number instead.
  */
 export function parseTopics(text: string): Topic[] {
-  const body = stripPageNumbers(text);
-  const headings = [...body.matchAll(TOPIC_HEADING)];
-  const topics: Topic[] = [];
-
-  headings.forEach((heading, index) => {
-    const number = Number(heading[1]);
-    const start = heading.index! + heading[0].length;
-    const end = index + 1 < headings.length ? headings[index + 1].index! : body.length;
-    const section = body.slice(start, end);
-
-    // A heading in the table of contents is followed by dots and a page number, not by
-    // questions. Only sections that actually contain an answer key are topics.
-    if (!section.includes('SPRÁVNÉ ŘEŠENÍ')) return;
-
-    topics.push({ number, title: collapse(heading[2]), body: section });
-  });
-
-  return topics;
+  return sections(stripPageNumbers(text), TOPIC_HEADING)
+    .filter(({ body }) => body.includes('SPRÁVNÉ ŘEŠENÍ'))
+    .map(({ match, body }) => ({
+      number: Number(match[1]),
+      title: collapse(match[2]),
+      body,
+    }));
 }
 
 /**
@@ -51,56 +52,46 @@ export function parseAnswerKey(text: string): AnswerKey {
   return key;
 }
 
-/** Splits a topic's body at "1." … "10." starting a line or following a blank line. */
-function splitQuestions(body: string): Array<{ number: number; block: string }> {
-  const starts = [...body.matchAll(/(?:^|\n)\s*(\d{1,2})\.\s+(?=[A-ZÁ-Ž(])/g)]
-    .filter(([, number]) => Number(number) >= 1 && Number(number) <= 10);
-
-  return starts.map((match, index) => {
-    const from = match.index! + match[0].length;
-    const to = index + 1 < starts.length ? starts[index + 1].index! : body.length;
-    return { number: Number(match[1]), block: body.slice(from, to) };
-  });
-}
-
 /**
  * Pulls the four alternatives out by their letter.
  *
  * They cannot be read in order: the PDF's two columns mean the extracted text sometimes
- * runs A, B, D, C. Each letter is located, then its text runs to whichever letter marker
- * comes next in the string, whatever that letter happens to be.
+ * runs A, B, D, C. Each alternative is keyed by its own letter, and where two markers
+ * carry the same letter the first one wins.
  */
 function parseAnswers(block: string): { answers: Record<AnswerLetter, string>; isPhoto: boolean } {
-  const markers = [...block.matchAll(/(?:^|[\s(])([A-D])\)/g)]
-    .map((match) => ({ letter: match[1] as AnswerLetter, at: match.index! + match[0].length }))
-    .filter((marker, index, all) => all.findIndex((m) => m.letter === marker.letter) === index);
+  const answers: Record<AnswerLetter, string> = {
+    A: '', B: '', C: '', D: '',
+  };
+  const taken = new Set<AnswerLetter>();
 
-  const ordered = [...markers].sort((a, b) => a.at - b.at);
-  const answers = { A: '', B: '', C: '', D: '' };
+  for (const { match, body } of sections(block, ANSWER_MARKER)) {
+    const letter = match[1] as AnswerLetter;
+    if (taken.has(letter)) continue;
 
-  ordered.forEach((marker, index) => {
-    const end = index + 1 < ordered.length ? ordered[index + 1].at - 2 : block.length;
-    const text = block.slice(marker.at, end);
-    // The date line belongs to the question, not to the last alternative.
-    answers[marker.letter] = collapse(text.split('Datum aktualizace')[0]);
-  });
+    taken.add(letter);
+    answers[letter] = collapse(before(body, DATE_LINE));
+  }
 
+  // A question whose alternatives are pictures prints the markers with nothing after them.
   return { answers, isPhoto: LETTERS.every((letter) => answers[letter] === '') };
 }
 
 export function parseQuestions(topic: Topic): ParsedQuestion[] {
-  return splitQuestions(topic.body).map(({ number, block }) => {
-    const firstMarker = block.search(/(?:^|[\s(])[A-D]\)/);
-    const text = collapse(block.slice(0, firstMarker === -1 ? block.length : firstMarker));
-    const date = block.match(/Datum aktualizace testové úlohy:\s*([\d\s.]+)/);
-    const { answers, isPhoto } = parseAnswers(block);
+  return sections(topic.body, QUESTION_NUMBER)
+    .filter(({ match }) => Number(match[1]) >= 1 && Number(match[1]) <= 10)
+    .map(({ match, body }) => {
+      const firstMarker = body.search(/(?:^|[\s(])[A-D]\)/);
+      const asked = body.slice(0, firstMarker === -1 ? body.length : firstMarker);
+      const date = body.match(/Datum aktualizace testové úlohy:\s*([\d\s.]+)/);
+      const { answers, isPhoto } = parseAnswers(body);
 
-    return {
-      number,
-      text: text.split('Datum aktualizace')[0].trim(),
-      answers,
-      updatedAt: date ? normaliseDate(date[1]) : undefined,
-      isPhoto,
-    };
-  });
+      return {
+        number: Number(match[1]),
+        text: collapse(before(asked, DATE_LINE)),
+        answers,
+        updatedAt: date ? normaliseDate(date[1]) : undefined,
+        isPhoto,
+      };
+    });
 }

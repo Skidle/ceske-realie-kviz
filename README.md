@@ -75,6 +75,25 @@ npm run monitor -w @kviz/monitor   # has the official source moved?
 
 CI runs lint, typecheck, tests and build on every push and pull request.
 
+## How this was built
+
+The 2024 version was written by hand. The 2026 rebuild — TypeScript, Vite, tests, CI, and
+the two Node packages that keep the data honest — was driven with Claude Code, reviewing
+plans, diffs and docs rather than typing lines.
+
+Rebuilding it surfaced 12 defects in the original, 5 of them visible to users. Two worth
+naming: "real test" mode drew 30 questions at random rather than one from each of the 30
+topics, so it never matched how the exam is actually composed; and the hotlinked question
+images had started serving a *different question's* photograph, because the source names
+its files by position — four answers to "which picture shows the National Theatre" were
+portraits of Czech presidents. Neither surfaces as an error. Both need something to go
+looking.
+
+Both packages exist because of that. [`monitor`](packages/monitor) watches the official
+source and reports "could not verify" as its own outcome, never as "nothing changed".
+[`importer`](packages/importer) rebuilds the data from the official PDF and refuses to
+emit a question it would have to guess at.
+
 ## Keeping the questions current
 
 The official question bank is revised periodically and this copy is a snapshot.

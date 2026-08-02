@@ -45,3 +45,16 @@ describe('verdict', () => {
     expect(result.counts).toMatchObject({ unchanged: 2, changed: 1 });
   });
 });
+
+describe('a run that checked nothing', () => {
+  // The images are found by scanning the question data for URLs. Once they are local
+  // files that search returns nothing, checkImages returns nothing, and without this the
+  // run reports "verified, nothing changed" and exits 0 having looked at no images at all.
+  it('is not verified', () => {
+    expect(verdict([]).exitCode).toBe(EXIT.unverified);
+  });
+
+  it('says so, rather than reporting nothing changed', () => {
+    expect(verdict([]).summary).toBe('nothing was checked');
+  });
+});

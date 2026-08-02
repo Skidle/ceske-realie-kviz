@@ -35,16 +35,6 @@ describe('report', () => {
 
   // The report must not read as "all clear" while known-bad images sit in the set. Their
   // recorded state is already wrong, so unchanged means still wrong.
-  it('always lists known-bad items, even on a clean run', () => {
-    const text = render([
-      { name: 'pdf link', state: 'unchanged' },
-      { name: '17alt1.jpg', state: 'known', detail: 'shows a president, not the theatre' },
-    ]);
-
-    expect(text).toContain('verified, nothing changed');
-    expect(text).toContain('Known bad');
-    expect(text).toContain('shows a president');
-  });
 
   it('counts every state so the totals can be checked at a glance', () => {
     const text = render([

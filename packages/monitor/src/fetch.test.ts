@@ -1,9 +1,8 @@
 import {
   afterEach, beforeEach, describe, expect, it, vi,
 } from 'vitest';
-import { getBytes, getText, headFacts, USER_AGENT } from './fetch.ts';
+import { getBytes, getText, USER_AGENT } from './fetch.ts';
 
-const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0x00]);
 const PDF = new Uint8Array([0x25, 0x50, 0x44, 0x46]);
 const HTML = new TextEncoder().encode('<!doctype html><title>Sign in</title>');
 
@@ -21,7 +20,7 @@ const respond = (...responses: Array<Response | Error>) => {
   return fetchMock;
 };
 
-const jpeg = (body: Uint8Array = JPEG, init: ResponseInit = {}) => new Response(body, init);
+const pdf = (body: Uint8Array = PDF, init: ResponseInit = {}) => new Response(body, init);
 
 beforeEach(() => {
   // The real delays are 2s and 4s. Nothing here depends on elapsed time, only on the
@@ -35,8 +34,8 @@ afterEach(() => {
 
 describe('request behaviour', () => {
   it('identifies itself, so the source site can see who is asking', async () => {
-    const fetchMock = respond(jpeg());
-    await getBytes('https://example.test/1.jpg', 'jpeg');
+    const fetchMock = respond(pdf());
+    await getBytes('https://example.test/1.jpg', 'pdf');
 
     expect(fetchMock.mock.calls[0][1]).toMatchObject({
       method: 'GET',
@@ -58,8 +57,8 @@ describe('request behaviour', () => {
   });
 
   it('retries a server error and accepts a later success', async () => {
-    const fetchMock = respond(new Response(null, { status: 503 }), jpeg());
-    const result = await getBytes('https://example.test/1.jpg', 'jpeg');
+    const fetchMock = respond(new Response(null, { status: 503 }), pdf());
+    const result = await getBytes('https://example.test/1.jpg', 'pdf');
 
     expect(result.ok).toBe(true);
     expect(fetchMock).toHaveBeenCalledTimes(2);
@@ -69,7 +68,7 @@ describe('request behaviour', () => {
   // must not read as unchanged either.
   it('gives up after three attempts and admits it could not check', async () => {
     const fetchMock = respond(new Response(null, { status: 500 }));
-    const result = await getBytes('https://example.test/1.jpg', 'jpeg');
+    const result = await getBytes('https://example.test/1.jpg', 'pdf');
 
     expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(result).toEqual({ ok: false, unverified: 'HTTP 500' });
@@ -86,61 +85,31 @@ describe('request behaviour', () => {
 describe('getBytes', () => {
   it('accepts a body whose magic bytes match what was asked for', async () => {
     respond(new Response(PDF));
-    const result = await getBytes('https://example.test/bank.pdf', 'pdf');
 
-    expect(result).toMatchObject({ ok: true });
+    expect(await getBytes('https://example.test/bank.pdf', 'pdf')).toMatchObject({ ok: true });
   });
 
-  // A 200 carrying HTML means a redirect to a sign-in page. Hashing that would record the
-  // login page as the image and call every later run "unchanged".
+  // A 200 carrying HTML means a redirect to a sign-in page. Treating that as the question
+  // bank would record the login page as the source and call every later run "unchanged".
   it('refuses HTML served with a 200, naming what it got instead', async () => {
     respond(new Response(HTML, { headers: { 'content-type': 'text/html' } }));
-    const result = await getBytes('https://example.test/1.jpg', 'jpeg');
 
-    expect(result).toEqual({ ok: false, unverified: 'expected jpeg, got text/html' });
+    expect(await getBytes('https://example.test/bank.pdf', 'pdf'))
+      .toEqual({ ok: false, unverified: 'expected pdf, got text/html' });
   });
 
-  it('refuses a PDF served where a JPEG was expected', async () => {
-    respond(new Response(PDF, { headers: { 'content-type': 'application/pdf' } }));
+  it('refuses a JPEG served where a PDF was expected', async () => {
+    respond(new Response(new Uint8Array([0xff, 0xd8, 0xff]), { headers: { 'content-type': 'image/jpeg' } }));
 
-    expect(await getBytes('https://example.test/1.jpg', 'jpeg'))
-      .toMatchObject({ ok: false, unverified: 'expected jpeg, got application/pdf' });
+    expect(await getBytes('https://example.test/bank.pdf', 'pdf'))
+      .toMatchObject({ ok: false, unverified: 'expected pdf, got image/jpeg' });
   });
 
   it('says so plainly when the server sent no content type', async () => {
     respond(new Response(new Uint8Array([1, 2, 3])));
 
-    expect(await getBytes('https://example.test/1.jpg', 'jpeg'))
-      .toMatchObject({ unverified: 'expected jpeg, got unknown type' });
-  });
-});
-
-describe('headFacts', () => {
-  it('takes the three validators the comparison uses', async () => {
-    const fetchMock = respond(new Response(null, {
-      headers: {
-        etag: '"23b83-645fc38209b00"',
-        'last-modified': 'Mon, 15 Dec 2025 11:50:36 GMT',
-        'content-length': '146307',
-      },
-    }));
-
-    expect(await headFacts('https://example.test/1.jpg')).toEqual({
-      ok: true,
-      value: {
-        etag: '"23b83-645fc38209b00"',
-        lastModified: 'Mon, 15 Dec 2025 11:50:36 GMT',
-        contentLength: '146307',
-      },
-    });
-    expect(fetchMock.mock.calls[0][1]).toMatchObject({ method: 'HEAD' });
-  });
-
-  it('returns nulls, not absent keys, when the server sends no validators', async () => {
-    respond(new Response(null));
-
-    expect(await headFacts('https://example.test/1.jpg'))
-      .toEqual({ ok: true, value: { etag: null, lastModified: null, contentLength: null } });
+    expect(await getBytes('https://example.test/bank.pdf', 'pdf'))
+      .toMatchObject({ unverified: 'expected pdf, got unknown type' });
   });
 });
 

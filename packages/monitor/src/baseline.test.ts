@@ -14,7 +14,6 @@ const baseline: Baseline = {
   source: {
     pdfUrl: 'https://example.test/bank.pdf', edition: '5. 1. 2026', updatedAt: '2026-01-05', topicCount: 30,
   },
-  images: {},
 };
 
 const onDisk = (value: unknown) => read.mockResolvedValue(JSON.stringify(value) as never);
@@ -54,29 +53,15 @@ describe('readBaseline', () => {
   });
 
   it('throws when the source section is missing', async () => {
-    onDisk({ images: {} });
+    onDisk({ checkedAt: '2026-08-02T00:00:00.000Z' });
 
-    await expect(readBaseline()).rejects.toThrow('missing its source or images section');
+    await expect(readBaseline()).rejects.toThrow('missing its source section');
   });
 
   it('throws when the source has no PDF URL', async () => {
-    onDisk({ source: { edition: '5. 1. 2026' }, images: {} });
+    onDisk({ source: { edition: '5. 1. 2026' } });
 
-    await expect(readBaseline()).rejects.toThrow('missing its source or images section');
-  });
-
-  it('throws when the images section is missing', async () => {
-    onDisk({ source: baseline.source });
-
-    await expect(readBaseline()).rejects.toThrow('missing its source or images section');
-  });
-
-  // An empty images map is a legitimate state, and `{}` is falsy-adjacent enough to be
-  // worth pinning: it must not be mistaken for a missing section.
-  it('accepts a baseline with no images recorded yet', async () => {
-    onDisk({ source: baseline.source, images: {} });
-
-    expect((await readBaseline()).images).toEqual({});
+    await expect(readBaseline()).rejects.toThrow('missing its source section');
   });
 });
 

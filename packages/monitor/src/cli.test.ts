@@ -4,9 +4,7 @@ import {
 import { appendFile } from 'node:fs/promises';
 import { runCli } from './cli.ts';
 import { readBaseline, writeBaseline } from './baseline.ts';
-import { checkImages, checkSource, readSource } from './check.ts';
-import { getBytes, headFacts } from './fetch.ts';
-import { hotlinkedImages } from './images.ts';
+import { checkSource, readSource } from './check.ts';
 import { EXIT } from './verdict.ts';
 import type { Baseline } from './baseline.ts';
 import type { CheckResult } from './types.ts';
@@ -15,23 +13,15 @@ vi.mock('node:fs/promises', () => ({ appendFile: vi.fn() }));
 vi.mock('./baseline.ts', () => ({
   readBaseline: vi.fn(), writeBaseline: vi.fn(), baselinePath: '/repo/baseline.json',
 }));
-vi.mock('./check.ts', () => ({ checkSource: vi.fn(), checkImages: vi.fn(), readSource: vi.fn() }));
-vi.mock('./fetch.ts', () => ({ headFacts: vi.fn(), getBytes: vi.fn(), sha256: () => 'a'.repeat(64) }));
-vi.mock('./images.ts', () => ({ hotlinkedImages: vi.fn() }));
+vi.mock('./check.ts', () => ({ checkSource: vi.fn(), readSource: vi.fn() }));
 
 const read = vi.mocked(readBaseline);
 const write = vi.mocked(writeBaseline);
 const source = vi.mocked(checkSource);
-const images = vi.mocked(checkImages);
 const sourceState = vi.mocked(readSource);
-const head = vi.mocked(headFacts);
-const bytes = vi.mocked(getBytes);
-const hotlinked = vi.mocked(hotlinkedImages);
 
+const baseline = { source: { pdfUrl: 'https://example.test/bank.pdf' } } as unknown as Baseline;
 const ok = (name: string): CheckResult => ({ name, state: 'unchanged' });
-const baseline = { source: {}, images: {} } as unknown as Baseline;
-const IMAGE = 'https://example.test/1alt1.jpg';
-const use = { question: 'Na kterém obrázku?', role: 'answer 1' };
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -40,8 +30,7 @@ beforeEach(() => {
   delete process.env.GITHUB_STEP_SUMMARY;
 
   read.mockResolvedValue(baseline);
-  source.mockResolvedValue([ok('question bank')]);
-  images.mockResolvedValue([ok('1alt1.jpg')]);
+  source.mockResolvedValue([ok('pdf link'), ok('edition'), ok('topics')]);
 });
 
 afterEach(() => {
@@ -54,13 +43,13 @@ describe('checking', () => {
   });
 
   it('exits 1 when the source changed', async () => {
-    source.mockResolvedValue([{ name: 'question bank', state: 'changed', detail: 'new edition' }]);
+    source.mockResolvedValue([{ name: 'edition', state: 'changed', detail: 'new edition' }]);
 
     expect(await runCli([])).toBe(EXIT.drift);
   });
 
-  it('exits 2 when an item could not be checked', async () => {
-    images.mockResolvedValue([{ name: '1alt1.jpg', state: 'unverified', detail: 'HTTP 429' }]);
+  it('exits 2 when the source could not be read', async () => {
+    source.mockResolvedValue([{ name: 'question bank', state: 'unverified', detail: 'HTTP 502' }]);
 
     expect(await runCli([])).toBe(EXIT.unverified);
   });
@@ -71,7 +60,7 @@ describe('checking', () => {
     read.mockRejectedValue(new Error('ENOENT: no such file'));
 
     expect(await runCli([])).toBe(EXIT.unverified);
-    expect(images).not.toHaveBeenCalled();
+    expect(source).not.toHaveBeenCalled();
   });
 
   it('says why the baseline could not be read', async () => {
@@ -84,14 +73,14 @@ describe('checking', () => {
   it('prints the tally on a clean run', async () => {
     await runCli([]);
 
-    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Checked 2: 2 unchanged'));
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Checked 3: 3 unchanged'));
   });
 
   it('names the item when there is a problem', async () => {
-    images.mockResolvedValue([{ name: '1alt1.jpg', state: 'missing', detail: 'HTTP 404' }]);
+    source.mockResolvedValue([{ name: 'edition', state: 'changed', detail: '2026 -> 2027' }]);
     await runCli([]);
 
-    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('MISSING     1alt1.jpg  HTTP 404'));
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('CHANGED     edition  2026 -> 2027'));
   });
 
   it('writes the report to the job summary when running in Actions', async () => {
@@ -111,37 +100,23 @@ describe('checking', () => {
 
 describe('recording', () => {
   beforeEach(() => {
-    read.mockResolvedValue({ source: {}, images: {} } as unknown as Baseline);
     sourceState.mockResolvedValue({ ok: true, source: { pdfUrl: 'https://example.test/bank.pdf' } as never });
-    hotlinked.mockReturnValue(new Map([[IMAGE, use]]));
-    head.mockResolvedValue({ ok: true, value: { etag: '"abc"', lastModified: null, contentLength: '10' } });
-    bytes.mockResolvedValue({ ok: true, value: new Uint8Array([1, 2, 3]) });
   });
 
   it('is chosen by --record', async () => {
     await runCli(['node', 'main.ts', '--record']);
 
     expect(write).toHaveBeenCalled();
-    expect(images).not.toHaveBeenCalled();
+    expect(source).not.toHaveBeenCalled();
   });
 
-  it('records what it read, keyed by URL', async () => {
+  it('records what it read, with the time it read it', async () => {
     await runCli(['--record']);
 
-    expect(write.mock.calls[0][0].images[IMAGE]).toMatchObject({
-      etag: '"abc"', bytes: 3, sha256: 'a'.repeat(64), usedBy: use,
+    expect(write.mock.calls[0][0]).toMatchObject({
+      source: { pdfUrl: 'https://example.test/bank.pdf' },
+      checkedAt: expect.any(String),
     });
-  });
-
-  // Acknowledging a bad image is a human decision. A re-record wiping it would quietly
-  // turn a tracked problem back into an untracked one.
-  it('preserves an existing knownBad note', async () => {
-    const knownBad = { reason: 'shows the Municipal House', since: '2025-12-15' };
-    read.mockResolvedValue({ source: {}, images: { [IMAGE]: { knownBad } } } as unknown as Baseline);
-
-    await runCli(['--record']);
-
-    expect(write.mock.calls[0][0].images[IMAGE].knownBad).toEqual(knownBad);
   });
 
   it('refuses to write the first baseline itself', async () => {
@@ -158,18 +133,7 @@ describe('recording', () => {
     expect(write).not.toHaveBeenCalled();
   });
 
-  // An unreadable image must not drop out of the baseline: doing so would make the next
-  // run report "no baseline recorded" instead of noticing it had gone.
-  it('keeps a previous record when an image cannot be read, and exits 2', async () => {
-    head.mockResolvedValue({ ok: false, unverified: 'HTTP 500' });
-    const previous = { sha256: 'old', bytes: 99 };
-    read.mockResolvedValue({ source: {}, images: { [IMAGE]: previous } } as unknown as Baseline);
-
-    expect(await runCli(['--record'])).toBe(EXIT.unverified);
-    expect(write.mock.calls[0][0].images[IMAGE]).toEqual({ ...previous, usedBy: use });
-  });
-
-  it('exits 0 when every image was read', async () => {
+  it('exits 0 when the source was recorded', async () => {
     expect(await runCli(['--record'])).toBe(EXIT.verified);
   });
 });

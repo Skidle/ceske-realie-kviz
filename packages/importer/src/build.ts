@@ -1,7 +1,7 @@
 import { parseAnswerKey, parseQuestions } from './parse.ts';
 import { LETTERS } from './types.ts';
 import type { Citation } from './citations.ts';
-import type { Topic } from './types.ts';
+import type { ParsedQuestion, Topic } from './types.ts';
 
 /**
  * A question in the shape the app stores, so a regenerated file can be diffed against the
@@ -20,23 +20,31 @@ export interface BuiltQuestion {
   questionPic: string | null;
 }
 
+export interface BuildProblem {
+  topicNumber: number;
+  questionNumber: number;
+  reason: string;
+}
+
+/** One question, either built or refused. Never silently absent. */
+type Outcome = { question: BuiltQuestion } | { problem: BuildProblem };
+
+type ImagePath = (name: string) => string;
+
 /**
  * The 30 topics are the app's 30 subcategories, in order: 16 in the first category, then
  * 7, then 7. That is also why the exam's 30 questions come out split 16/7/7.
  */
 const SUBCATEGORY_COUNTS = [16, 7, 7];
 
+const PLACES = SUBCATEGORY_COUNTS.flatMap((count, category) => Array.from(
+  { length: count },
+  (_, subCategory) => ({ category, subCategory }),
+));
+
+/** Topic 1 to 30 onto the app's category and subcategory; null for anything else. */
 export function placeTopic(topicNumber: number): { category: number; subCategory: number } | null {
-  if (topicNumber < 1) return null;
-
-  let remaining = topicNumber - 1;
-
-  for (let category = 0; category < SUBCATEGORY_COUNTS.length; category += 1) {
-    if (remaining < SUBCATEGORY_COUNTS[category]) return { category, subCategory: remaining };
-    remaining -= SUBCATEGORY_COUNTS[category];
-  }
-
-  return null;
+  return PLACES[topicNumber - 1] ?? null;
 }
 
 /** Where a picture lives once it has been fetched. Named by what it is, not where it sat. */
@@ -45,10 +53,73 @@ export function imageFileName(citation: Citation): string {
   return `t${citation.topicNumber}-q${citation.questionNumber}${suffix}`;
 }
 
-export interface BuildProblem {
-  topicNumber: number;
-  questionNumber: number;
-  reason: string;
+/** The four alternatives, or the reason they could not be assembled. */
+function answersFor(
+  parsed: ParsedQuestion,
+  pictures: Citation[],
+  imagePath: ImagePath,
+): { answers: string[] } | { reason: string } {
+  if (!parsed.isPhoto) {
+    const answers = LETTERS.map((letter) => parsed.answers[letter]);
+    return answers.every(Boolean) ? { answers } : { reason: 'an alternative is empty' };
+  }
+
+  const cited = LETTERS.map((letter) => pictures.find((picture) => picture.letter === letter));
+
+  return cited.every((picture) => picture !== undefined)
+    ? { answers: cited.map((picture) => imagePath(imageFileName(picture!))) }
+    : { reason: 'alternatives are pictures but the citations do not cover all four' };
+}
+
+function buildQuestion(
+  topic: Topic,
+  parsed: ParsedQuestion,
+  place: { category: number; subCategory: number },
+  citations: Citation[],
+  imagePath: ImagePath,
+): Outcome {
+  const refuse = (reason: string): Outcome => ({
+    problem: { topicNumber: topic.number, questionNumber: parsed.number, reason },
+  });
+
+  const correct = parseAnswerKey(topic.body)[parsed.number];
+  if (!correct) return refuse('no correct answer in the topic key');
+
+  const mine = citations.filter(
+    (citation) => citation.topicNumber === topic.number && citation.questionNumber === parsed.number,
+  );
+  const built = answersFor(parsed, mine, imagePath);
+  if ('reason' in built) return refuse(built.reason);
+
+  const questionPic = mine.find((citation) => !citation.letter);
+
+  return {
+    question: {
+      question: parsed.text,
+      answers: built.answers,
+      correctAnswer: String(LETTERS.indexOf(correct) + 1),
+      category: place.category,
+      subCategory: place.subCategory,
+      questionType: parsed.isPhoto ? 'photo' : 'text',
+      answerSelectionType: 'single',
+      point: '1',
+      questionPic: questionPic ? imagePath(imageFileName(questionPic)) : null,
+    },
+  };
+}
+
+function buildTopic(topic: Topic, citations: Citation[], imagePath: ImagePath): Outcome[] {
+  const place = placeTopic(topic.number);
+
+  if (!place) {
+    return [{
+      problem: { topicNumber: topic.number, questionNumber: 0, reason: 'topic number is outside 1..30' },
+    }];
+  }
+
+  return parseQuestions(topic).map(
+    (parsed) => buildQuestion(topic, parsed, place, citations, imagePath),
+  );
 }
 
 /**
@@ -59,71 +130,12 @@ export interface BuildProblem {
 export function buildQuestions(
   topics: Topic[],
   citations: Citation[],
-  imagePath: (name: string) => string,
+  imagePath: ImagePath,
 ): { questions: BuiltQuestion[]; problems: BuildProblem[] } {
-  const questions: BuiltQuestion[] = [];
-  const problems: BuildProblem[] = [];
+  const outcomes = topics.flatMap((topic) => buildTopic(topic, citations, imagePath));
 
-  for (const topic of topics) {
-    const key = parseAnswerKey(topic.body);
-    const place = placeTopic(topic.number);
-
-    if (!place) {
-      problems.push({ topicNumber: topic.number, questionNumber: 0, reason: 'topic number is outside 1..30' });
-      continue;
-    }
-
-    for (const parsed of parseQuestions(topic)) {
-      const correct = key[parsed.number];
-      const report = (reason: string) => problems.push({
-        topicNumber: topic.number,
-        questionNumber: parsed.number,
-        reason,
-      });
-
-      if (!correct) {
-        report('no correct answer in the topic key');
-        continue;
-      }
-
-      const forQuestion = citations.filter(
-        (c) => c.topicNumber === topic.number && c.questionNumber === parsed.number,
-      );
-      const questionPic = forQuestion.find((c) => !c.letter);
-
-      let answers: string[];
-
-      if (parsed.isPhoto) {
-        const pictures = LETTERS.map((letter) => forQuestion.find((c) => c.letter === letter));
-
-        if (pictures.some((picture) => !picture)) {
-          report('alternatives are pictures but the citations do not cover all four');
-          continue;
-        }
-
-        answers = pictures.map((picture) => imagePath(imageFileName(picture!)));
-      } else {
-        answers = LETTERS.map((letter) => parsed.answers[letter]);
-
-        if (answers.some((answer) => !answer)) {
-          report('an alternative is empty');
-          continue;
-        }
-      }
-
-      questions.push({
-        question: parsed.text,
-        answers,
-        correctAnswer: String(LETTERS.indexOf(correct) + 1),
-        category: place.category,
-        subCategory: place.subCategory,
-        questionType: parsed.isPhoto ? 'photo' : 'text',
-        answerSelectionType: 'single',
-        point: '1',
-        questionPic: questionPic ? imagePath(imageFileName(questionPic)) : null,
-      });
-    }
-  }
-
-  return { questions, problems };
+  return {
+    questions: outcomes.flatMap((outcome) => ('question' in outcome ? [outcome.question] : [])),
+    problems: outcomes.flatMap((outcome) => ('problem' in outcome ? [outcome.problem] : [])),
+  };
 }

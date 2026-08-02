@@ -37,9 +37,7 @@ describe('readBaseline', () => {
     expect(await readBaseline()).toEqual(baseline);
   });
 
-  // Every one of these throws on purpose. A baseline that cannot be read means nothing can
-  // be compared, and the caller turns that into exit code 2 — the one thing this tool must
-  // never do is let "I could not check" pass as "nothing changed".
+  // All of these throw on purpose; the caller turns that into exit 2.
   it('throws when the file is not there', async () => {
     read.mockRejectedValue(new Error('ENOENT: no such file or directory') as never);
 

@@ -9,11 +9,7 @@ export interface Baseline {
 
 const FILE = fileURLToPath(new URL('../baseline.json', import.meta.url));
 
-/**
- * Throws rather than returning a default. A missing baseline means nothing can be
- * compared, and the one thing this tool must never do is treat "I could not check" as
- * "nothing changed".
- */
+/** Throws rather than defaulting: nothing to compare must not read as nothing changed. */
 export async function readBaseline(): Promise<Baseline> {
   const raw = await readFile(FILE, 'utf8');
   const parsed = JSON.parse(raw) as Baseline;

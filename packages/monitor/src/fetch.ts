@@ -37,9 +37,8 @@ async function request(url: string, method: 'GET'): Promise<Fetched<Response>> {
         signal: AbortSignal.timeout(TIMEOUT_MS),
       });
 
-      // 404 is an answer: it is gone. Anything else non-ok might be a hiccup or rate
-      // limiting, so retry, and if it persists say we could not check rather than
-      // claiming the resource changed.
+      // 404 is an answer. Anything else may be a hiccup: retry, then admit we could not
+      // check rather than claim a change.
       if (response.status === 404) return { ok: false, missing: true };
       if (response.ok) return { ok: true, value: response };
 

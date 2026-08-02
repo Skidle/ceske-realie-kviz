@@ -3,10 +3,7 @@ import { LETTERS } from './types.ts';
 import type { Citation } from './citations.ts';
 import type { ParsedQuestion, Topic } from './types.ts';
 
-/**
- * A question in the shape the app stores, so a regenerated file can be diffed against the
- * current one without the format getting in the way.
- */
+/** The shape the app stores, so a regenerated file diffs on content alone. */
 export interface BuiltQuestion {
   question: string;
   answers: string[];
@@ -32,10 +29,7 @@ type Outcome = { question: BuiltQuestion } | { problem: BuildProblem };
 /** Where a fetched picture lives, or null when it was never fetched. */
 type ImagePath = (name: string) => string | null;
 
-/**
- * The 30 topics are the app's 30 subcategories, in order: 16 in the first category, then
- * 7, then 7. That is also why the exam's 30 questions come out split 16/7/7.
- */
+/** The 30 topics are the app's subcategories, in order. Also why the exam splits 16/7/7. */
 const SUBCATEGORY_COUNTS = [16, 7, 7];
 
 const PLACES = SUBCATEGORY_COUNTS.flatMap((count, category) => Array.from(
@@ -73,8 +67,7 @@ function answersFor(
 
   const paths = cited.map((picture) => imagePath(imageFileName(picture!)));
 
-  // An alternative that is a picture cannot fall back to anything, unlike a question's
-  // illustration, so a missing file has to stop the question being built.
+  // Unlike a question's illustration, a picture alternative has no fallback.
   return paths.every((path) => path !== null)
     ? { answers: paths as string[] }
     : { reason: 'a picture for one of the alternatives is not on disk' };
@@ -133,9 +126,8 @@ function buildTopic(topic: Topic, citations: Citation[], imagePath: ImagePath): 
 }
 
 /**
- * Turns parsed topics into stored questions, refusing rather than guessing when something
- * does not line up. A question that cannot be built is reported, not silently dropped:
- * quietly losing one is how a bank of 300 becomes a bank of 299 without anyone noticing.
+ * Refuses rather than guesses. A question that cannot be built is reported, not dropped:
+ * losing one silently is how a bank of 300 becomes 299 unnoticed.
  */
 export function buildQuestions(
   topics: Topic[],

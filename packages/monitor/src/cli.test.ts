@@ -54,8 +54,7 @@ describe('checking', () => {
     expect(await runCli([])).toBe(EXIT.unverified);
   });
 
-  // The failure mode the exit codes exist to prevent. A run that could not read its own
-  // baseline knows nothing, and must not report the same code as a clean run.
+  // A run that could not read its baseline knows nothing, and must not exit like a clean one.
   it('exits 2, not 0, when the baseline cannot be read', async () => {
     read.mockRejectedValue(new Error('ENOENT: no such file'));
 

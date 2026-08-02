@@ -7,11 +7,8 @@ import type { Citation } from './citations.ts';
 import type { Topic } from './types.ts';
 
 /**
- * The edition this import reads.
- *
- * Pinned rather than discovered from the databanka page, so an import is repeatable and a
- * new edition is a deliberate change to this line rather than something that happens on
- * its own. `packages/monitor` is what notices a new one.
+ * Pinned, not discovered, so an import is repeatable and a new edition is a deliberate
+ * change to this line. `packages/monitor` is what notices a new one.
  */
 export const PDF_URL = 'https://cestina-pro-cizince.cz/obcanstvi/wp-content/uploads/2026/01/OBC_databanka_testovychuloh_260105.pdf';
 
